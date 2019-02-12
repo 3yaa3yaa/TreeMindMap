@@ -1,0 +1,12 @@
+.Ticket {
+  text-align: left;
+}
+
+.Ticket-Input {
+  text-align: left;
+  padding: 10px;
+  background-color: #61dafb;
+  border: none;
+  margin: 5px;
+  border-radius:10px;
+}

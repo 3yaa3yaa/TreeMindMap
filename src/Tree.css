@@ -1,0 +1,19 @@
+.Tree {
+  text-align: left;
+}
+
+ul {
+  padding-left: 5px;
+}
+
+.Tree-Trunk {
+  list-style: none;
+  display: table-cell;
+  vertical-align: top;
+}
+
+.Tree-Branch {
+  list-style: none;
+  display: table-cell;
+
+}
