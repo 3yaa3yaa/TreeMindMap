@@ -6,7 +6,6 @@ class Leaf extends Component {
 
     constructor(props) {
         super(props);
-
         this.leafRef=React.createRef()
     }
 
@@ -29,13 +28,23 @@ class Leaf extends Component {
                 this.props.addSibling(this.props.leafdata.id)
                 break;
             case 9: //Tab
-                e.preventDefault()
-                this.props.addChild(this.props.leafdata.id)
-                break;
+                if (e.shiftKey!=true)
+                {
+                    e.preventDefault()
+                    this.props.addChild(this.props.leafdata.id)
+                    break;
+                }
         }
     }
 
-    getDOM()
+    onChangeHandler(e)
+    {
+        let newleaf = this.props.leafdata
+        newleaf.title=e.target.value
+        this.props.edit(newleaf)
+    }
+
+    _getDOM()
     {
     return (
             <input type="text"
@@ -43,14 +52,14 @@ class Leaf extends Component {
                    draggable="true"
                    //value={this.props.leafdata.id}
                    onKeyDown={(e)=>this.keyDownHandler(e)}
-                   onChange={this.onChange}
+                   onChange={(e)=>this.onChangeHandler(e)}
                    ref={(e)=>{ this.leafRef=e}}/>
     );
     }
 
     render() {
     return (
-        <div className="Leaf">{this.getDOM()}</div>
+        <div className="Leaf">{this._getDOM()}</div>
     );
     }
 }
