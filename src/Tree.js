@@ -11,13 +11,13 @@ class Tree extends Component {
         props.addRoot()
     }
 
-    getRootId()
+    _getRootId()
     {
         return "root";
     }
 
 
-    filterLeafs(leafarray, parentid)
+    _filterLeafs(leafarray, parentid)
     {
         let out=[]
         if(leafarray.length>0)
@@ -35,31 +35,39 @@ class Tree extends Component {
     }
 
 
-    formatLeaf(dataarr) {
+    _getLeaf(leaf)
+    {
+        return <Leaf leafdata={leaf}
+                     edit={this.props.edit}
+                     addChild={this.props.addChild}
+                     addSibling={this.props.addSibling}/>
+    }
+
+
+    _formatLeaf(dataarr) {
         let out = []
         dataarr.forEach((leaf)=>{
                 out.push((
                     <ul class="Tree-Element">
                         <li class="Tree-Trunk">
-                            <Leaf leafdata={leaf}
-                                  addChild={this.props.addChild}
-                                  addSibling={this.props.addSibling}/>
+                            {this._getLeaf(leaf)}
                         </li>
                          <li class="Tree-Branch" >
-                            {this.formatLeaf(this.filterLeafs(this.props.leafs, leaf.id ))}
+                             {this._formatLeaf(this._filterLeafs(this.props.leafs, leaf.id ))}
+
                         </li>
                     </ul>
                         ))
-                //out.push(this.formatLeaf(this.filterLeafs(this.props.leafs, leaf.id )))
+                //out.push(this._formatLeaf(this._filterLeafs(this.props.leafs, leaf.id )))
         })
         return <ul>{out}</ul>
     }
 
 
 
-    getTree()
+    _getTree()
     {
-        return this.formatLeaf(this.filterLeafs(this.props.leafs, this.getRootId() ))
+        return this._formatLeaf(this._filterLeafs(this.props.leafs, this._getRootId() ))
     }
 
     render() {
@@ -67,7 +75,7 @@ class Tree extends Component {
         return (
             <div>
                 <div>
-                    {this.getTree()}
+                    {this._getTree()}
                 </div>
             </div>
         );

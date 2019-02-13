@@ -9,7 +9,7 @@ import {createStore} from "redux";
 
 
 // Store
-const store = createStore(StateProvider.ticketReducer)
+const store = createStore(StateProvider.leafReducer)
 
 // Connected Component
 const App = connect(

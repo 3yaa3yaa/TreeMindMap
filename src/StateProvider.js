@@ -20,9 +20,9 @@ class StateProvider
     {
         return { type: 'addChild', id }
     }
-    static setPointerAction(id)
+    static editAction(leaf)
     {
-        return { type: 'setId', id }
+        return { type: 'edit', leaf }
     }
 
 
@@ -30,26 +30,37 @@ class StateProvider
     static addRoot(leafs,id)
     {
         let leaf=new LeafData('root')
-        return { leafs: leafs.concat(leaf), id:leaf.id }
+        return { leafs: leafs.concat(leaf) }
     }
 
     static addChild(leafs, id)
     {
         let leaf=new LeafData(StateProvider.getCurrent(leafs, id).id)
-        return { leafs: leafs.concat(leaf), id:leaf.id }
+        return { leafs: leafs.concat(leaf) }
     }
 
     static addSibling(leafs, id)
     {
         let leaf=new LeafData(StateProvider.getCurrent(leafs, id).parentid)
-        return { leafs: leafs.concat(leaf), id:leaf.id }
+        return { leafs: leafs.concat(leaf) }
 
     }
 
-
-    static setPointer(leafs, id)
+    static edit(leafs, newleaf)
     {
-        return { leafs: leafs, id:id }
+        let newleafs = leafs.map((oldleaf)=>
+            {
+                if(oldleaf.id==newleaf.id)
+                {
+                    return newleaf
+                }
+                else
+                {
+                    return oldleaf
+                }
+            }
+            )
+        return { leafs: newleafs }
     }
 
 
@@ -72,6 +83,9 @@ class StateProvider
                 return StateProvider.addChild(state.leafs,action.id)
             case 'setPointer':
                 return StateProvider.setPointer(state.leafs,action.id)
+            case 'edit':
+                return StateProvider.edit(state.leafs,action.leaf)
+
             default:
                 return state
         }
@@ -80,8 +94,7 @@ class StateProvider
     // Map Redux state to component props
     static mapStateToProps(state) {
         return {
-            leafs: state.leafs,
-            id: state.id
+            leafs: state.leafs
         }
     }
 
@@ -91,7 +104,7 @@ class StateProvider
             addRoot: () => dispatch(StateProvider.addRootAction()),
             addSibling: (id) => dispatch(StateProvider.addSiblingAction(id)),
             addChild: (id) => dispatch(StateProvider.addChildAction(id)),
-            setPointer: (id) => dispatch(StateProvider.setPointerAction(id))
+            edit: (leaf) => dispatch(StateProvider.editAction(leaf))
         }
     }
 
