@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import './Ticket.css';
-import TicketData from './TicketData';
+import './Leaf.css';
+import LeafData from './LeafData';
 
-class Ticket extends Component {
+class Leaf extends Component {
 
     constructor(props) {
         super(props);
 
-        this.ticketRef=React.createRef()
+        this.leafRef=React.createRef()
     }
 
     componentDidMount()
     {
-        this.ticketRef.focus()
+        this.leafRef.focus()
     }
 
     onChange(e)
@@ -26,11 +26,11 @@ class Ticket extends Component {
         switch (e.keyCode) {
             case 13: //Enter
                 e.preventDefault()
-                this.props.addSibling(this.props.ticketdata.id)
+                this.props.addSibling(this.props.leafdata.id)
                 break;
             case 9: //Tab
                 e.preventDefault()
-                this.props.addChild(this.props.ticketdata.id)
+                this.props.addChild(this.props.leafdata.id)
                 break;
         }
     }
@@ -39,20 +39,20 @@ class Ticket extends Component {
     {
     return (
             <input type="text"
-                   className="Ticket-Input"
+                   className="Leaf-Input"
                    draggable="true"
-                   //value={this.props.ticketdata.id}
+                   //value={this.props.leafdata.id}
                    onKeyDown={(e)=>this.keyDownHandler(e)}
                    onChange={this.onChange}
-                   ref={(e)=>{ this.ticketRef=e}}/>
+                   ref={(e)=>{ this.leafRef=e}}/>
     );
     }
 
     render() {
     return (
-        <div className="Ticket">{this.getDOM()}</div>
+        <div className="Leaf">{this.getDOM()}</div>
     );
     }
 }
 
-export default Ticket;
+export default Leaf;

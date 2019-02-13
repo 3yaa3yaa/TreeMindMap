@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class TicketData  {
+class LeafData  {
     constructor (parentid) {
         this._id = this.generateKey();
         this._parentid = parentid;
@@ -35,12 +35,12 @@ class TicketData  {
         this._parentid = value;
     }
 
-    get name() {
-        return this._name;
+    get title() {
+        return this._title;
     }
 
-    set name(value) {
-        this._name = value;
+    set title(value) {
+        this._title = value;
     }
 
     get description() {
@@ -62,4 +62,4 @@ class TicketData  {
 }
 
 
-export default TicketData;
+export default LeafData;
