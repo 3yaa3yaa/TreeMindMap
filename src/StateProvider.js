@@ -1,8 +1,8 @@
 
 
 import { createStore } from 'redux'
-import Ticket from "./Ticket";
-import TicketData from "./TicketData";
+import Leaf from "./Leaf";
+import LeafData from "./LeafData";
 
 
 class StateProvider
@@ -27,51 +27,51 @@ class StateProvider
 
 
     //Reducer implementation
-    static addRoot(tickets,id)
+    static addRoot(leafs,id)
     {
-        let ticket=new TicketData('root')
-        return { tickets: tickets.concat(ticket), id:ticket.id }
+        let leaf=new LeafData('root')
+        return { leafs: leafs.concat(leaf), id:leaf.id }
     }
 
-    static addChild(tickets, id)
+    static addChild(leafs, id)
     {
-        let ticket=new TicketData(StateProvider.getCurrent(tickets, id).id)
-        return { tickets: tickets.concat(ticket), id:ticket.id }
+        let leaf=new LeafData(StateProvider.getCurrent(leafs, id).id)
+        return { leafs: leafs.concat(leaf), id:leaf.id }
     }
 
-    static addSibling(tickets, id)
+    static addSibling(leafs, id)
     {
-        let ticket=new TicketData(StateProvider.getCurrent(tickets, id).parentid)
-        return { tickets: tickets.concat(ticket), id:ticket.id }
+        let leaf=new LeafData(StateProvider.getCurrent(leafs, id).parentid)
+        return { leafs: leafs.concat(leaf), id:leaf.id }
 
-    }
-
-
-    static setPointer(tickets, id)
-    {
-        return { tickets: tickets, id:id }
     }
 
 
-    static getCurrent(tickets, id)
+    static setPointer(leafs, id)
     {
-        let result = tickets.filter((ticket)=>{return ticket.id==id})
+        return { leafs: leafs, id:id }
+    }
+
+
+    static getCurrent(leafs, id)
+    {
+        let result = leafs.filter((leaf)=>{return leaf.id==id})
         return result[0]
     }
 
 
     // Reducer
-    static ticketReducer(state = { tickets: [], id:"" }, action) {
+    static leafReducer(state = { leafs: [], id:"" }, action) {
 
         switch (action.type) {
             case 'addRoot':
-                return StateProvider.addRoot(state.tickets,state.id)
+                return StateProvider.addRoot(state.leafs,state.id)
             case 'addSibling':
-                return StateProvider.addSibling(state.tickets,action.id)
+                return StateProvider.addSibling(state.leafs,action.id)
             case 'addChild':
-                return StateProvider.addChild(state.tickets,action.id)
+                return StateProvider.addChild(state.leafs,action.id)
             case 'setPointer':
-                return StateProvider.setPointer(state.tickets,action.id)
+                return StateProvider.setPointer(state.leafs,action.id)
             default:
                 return state
         }
@@ -80,7 +80,7 @@ class StateProvider
     // Map Redux state to component props
     static mapStateToProps(state) {
         return {
-            tickets: state.tickets,
+            leafs: state.leafs,
             id: state.id
         }
     }
