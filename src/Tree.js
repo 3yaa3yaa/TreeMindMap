@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Tree.css';
 import LeafData from "./LeafData";
 import Leaf from "./Leaf"
-
+import Connector from "./Connector"
 
 class Tree extends Component {
 
@@ -53,6 +53,7 @@ class Tree extends Component {
                             {this._getLeaf(leaf)}
                         </li>
                          <li class="Tree-Branch" >
+                             <Connector/>
                              {this._formatLeaf(this._filterLeafs(this.props.leafs, leaf.id ))}
 
                         </li>
