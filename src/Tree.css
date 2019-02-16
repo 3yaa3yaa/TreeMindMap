@@ -1,21 +1,31 @@
-.Tree {
-  text-align: left;
-}
 
 ul {
-  padding-left: 5px;
+  padding-left: 0px;
+}
+
+.Tree-Element {
+  display: table ;
+  list-style: none;
 }
 
 .Tree-Trunk {
   list-style: none;
   display: table-cell;
   vertical-align: top;
+  height:5px;
 }
+
+.Tree-Trunk-Sub {
+  list-style: none;
+  display: table-cell;
+  vertical-align: top;
+  height:10px;
+}
+
 
 .Tree-Branch {
   list-style: none;
   display: table-cell;
-
 }
 /*
 .Tree-Connector {

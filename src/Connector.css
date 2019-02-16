@@ -1,32 +1,145 @@
-.Tree {
-  text-align: left;
+.Connector-Table {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left:0px;
+  margin-right:0px;
+  display: table;
+  width: 30px;
+  height:100%;
+  table-layout: fixed;
 }
 
-ul {
-  padding-left: 5px;
+.Connector-Row {
+  display: table-row;
 }
 
-.Tree-Trunk {
+.Connector-Single-TopLeft {
+  display: table-cell;
+  border-bottom:solid;
+  border-bottom-width: 1px;
+  height:5px;
+}
+
+.Connector-Single-TopRight {
+  display: table-cell;
+  border-bottom:solid;
+  border-bottom-width: 1px;
+  height:5px;
+}
+
+.Connector-Single-BottomLeft {
+  display: table-cell;
+}
+
+.Connector-Single-BottomRight {
   list-style: none;
   display: table-cell;
-  vertical-align: top;
 }
 
-.Tree-Branch {
+
+.Connector-Vertical-TopLeft {
+  display: table-cell;
+  height:5px;
+}
+
+.Connector-Vertical-TopRight {
+  display: table-cell;
+  border-left: solid;
+  border-left-width: 1px;
+  height:5px;
+}
+
+.Connector-Vertical-BottomLeft {
+  display: table-cell;
+}
+
+.Connector-Vertical-BottomRight {
   list-style: none;
   display: table-cell;
+  border-left: solid;
+  border-left-width: 1px;
+}
+
+
+.Connector-Top-TopLeft {
+  display: table-cell;
+  border-bottom:solid;
+  border-bottom-width: 1px;
+  height:5px;
+}
+
+.Connector-Top-TopRight {
+  display: table-cell;
+  border-bottom:solid;
+  border-bottom-width: 1px;
+  height:5px;
+}
+
+.Connector-Top-BottomLeft {
+  display: table-cell;
+  height:100%;
+}
+
+.Connector-Top-BottomRight {
+  list-style: none;
+  display: table-cell;
+  border-left: solid;
+  border-left-width: 1px;
+  height:100%;
+}
+
+
+.Connector-Middle-TopLeft {
+  display: table-cell;
+  height:5px;
+}
+
+.Connector-Middle-TopRight {
+  display: table-cell;
+  border-left:solid;
+  border-left-width: 1px;
+  border-bottom:solid;
+  border-bottom-width: 1px;
+  height:5px;
+  /*border-bottom-left-radius: 10px;*/
 
 }
-/*
-.Tree-Connector {
-position: center;
-width: 30px;
-height: 30px;
-margin-top: 15px;
-margin-left: 0px;
-border-left: 0px solid #5bc0de;
-border-top: 3px solid #5bc0de;
-vertical-align: middle;
-border-right: 8px solid #5bc0de;
-box-sizing: border-box;
-}*/
+
+.Connector-Middle-BottomLeft {
+  display: table-cell;
+  height:100%;
+}
+
+.Connector-Middle-BottomRight {
+  list-style: none;
+  display: table-cell;
+  border-left:solid;
+  border-left-width: 1px;
+  height:100%;
+}
+
+
+
+.Connector-Bottom-TopLeft {
+  display: table-cell;
+  height:5px;
+}
+
+.Connector-Bottom-TopRight {
+  display: table-cell;
+  border-left:solid;
+  border-left-width: 1px;
+  border-bottom:solid;
+  border-bottom-width: 1px;
+  height:5px;
+}
+
+.Connector-Bottom-BottomLeft {
+  display: table-cell;
+  height:100%;
+}
+
+.Connector-Bottom-BottomRight {
+  display: table-cell;
+  height:100%;
+}
