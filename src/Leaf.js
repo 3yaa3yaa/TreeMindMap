@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Leaf.css';
+import Thumbnail from './Thumbnail'
 import LeafData from './LeafData';
 
 class Leaf extends Component {
@@ -55,29 +56,39 @@ class Leaf extends Component {
 
     _getThumbnail()
     {
+        let out=""
         let leaf = this.props.leafdata;
-        return leaf.title
+        //out=leaf.title.match(/http[^ ]+/);
+
+        let re = new RegExp('http[^ ]+');
+        if (re.test(leaf.title))
+        {
+            re.exec(leaf.title)
+            out = re.$1
+        }
+        return out
     }
 
     _getDOM()
     {
     return (
-        <div>
-            <img src={this._getThumbnail()}></img>
-            <textarea type="text"
-                      className="Leaf-Input"
+        <div className="Leaf">
+            <textarea className="Leaf-TextArea" type="text"
                       draggable="true"
                 //value={this.props.leafdata.id}
                       onKeyDown={(e)=>this.keyDownHandler(e)}
                       onChange={(e)=>this.onChangeHandler(e)}
                       ref={(e)=>{ this.leafRef=e}} />
+            <br/>
+            <Thumbnail text={this.props.leafdata.title} />
+
         </div>
     )
     }
 
     render() {
     return (
-        <div className="Leaf">{this._getDOM()}</div>
+        this._getDOM()
     );
     }
 }

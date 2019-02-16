@@ -1,16 +1,21 @@
 .Leaf {
   text-align: left;
-}
-
-.Leaf-Input {
-  text-align: left;
   padding: 10px;
   background-color: #CCFF99;
-  border: none;
-  height:50px;
   margin-top: 3px;
   margin-bottom: 3px;
   margin-left:0px;
   margin-right:0px;
   border-radius:10px;
+
+}
+
+.Leaf-TextArea {
+  text-align: left;
+  background-color: #CCFF99;
+  border: none;
+  height:50px;
+  margin: 1px;
+  padding: 0px;
+  width:100%;
 }

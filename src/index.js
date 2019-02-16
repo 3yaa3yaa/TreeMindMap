@@ -5,7 +5,9 @@ import Tree from './Tree';
 import StateProvider from './StateProvider';
 import { Provider, connect } from 'react-redux'
 import * as serviceWorker from './serviceWorker';
-import {createStore} from "redux";
+import {compose,createStore} from "redux";
+import persistState from "redux-localstorage";
+
 
 
 // Store
