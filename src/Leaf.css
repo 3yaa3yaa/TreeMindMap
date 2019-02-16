@@ -5,8 +5,12 @@
 .Leaf-Input {
   text-align: left;
   padding: 10px;
-  background-color: #61dafb;
+  background-color: #CCFF99;
   border: none;
-  margin: 5px;
+  height:50px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-left:0px;
+  margin-right:0px;
   border-radius:10px;
 }

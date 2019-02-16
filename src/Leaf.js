@@ -24,8 +24,16 @@ class Leaf extends Component {
     keyDownHandler(e) {
         switch (e.keyCode) {
             case 13: //Enter
-                e.preventDefault()
-                this.props.addSibling(this.props.leafdata.id)
+                if (e.shiftKey != true) {
+                    e.preventDefault()
+                    this.props.addSibling(this.props.leafdata.id)
+                }
+                // if (e.altKey==true)
+                // {
+                //     e.preventDefault()
+                //     this.props.addChild(this.props.leafdata.id)
+                //     break;
+                // }
                 break;
             case 9: //Tab
                 if (e.shiftKey!=true)
@@ -34,6 +42,7 @@ class Leaf extends Component {
                     this.props.addChild(this.props.leafdata.id)
                     break;
                 }
+
         }
     }
 
@@ -44,17 +53,26 @@ class Leaf extends Component {
         this.props.edit(newleaf)
     }
 
+    _getThumbnail()
+    {
+        let leaf = this.props.leafdata;
+        return leaf.title
+    }
+
     _getDOM()
     {
     return (
-            <input type="text"
-                   className="Leaf-Input"
-                   draggable="true"
-                   //value={this.props.leafdata.id}
-                   onKeyDown={(e)=>this.keyDownHandler(e)}
-                   onChange={(e)=>this.onChangeHandler(e)}
-                   ref={(e)=>{ this.leafRef=e}}/>
-    );
+        <div>
+            <img src={this._getThumbnail()}></img>
+            <textarea type="text"
+                      className="Leaf-Input"
+                      draggable="true"
+                //value={this.props.leafdata.id}
+                      onKeyDown={(e)=>this.keyDownHandler(e)}
+                      onChange={(e)=>this.onChangeHandler(e)}
+                      ref={(e)=>{ this.leafRef=e}} />
+        </div>
+    )
     }
 
     render() {

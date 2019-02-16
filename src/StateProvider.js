@@ -29,7 +29,7 @@ class StateProvider
     //Reducer implementation
     static addRoot(leafs,id)
     {
-        let leaf=new LeafData('root')
+        let leaf=new LeafData("ROOT")
         return { leafs: leafs.concat(leaf) }
     }
 
