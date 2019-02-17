@@ -8,6 +8,11 @@ import LeafData from "./LeafData";
 class StateProvider
 {
     // Action
+    static deleteAction(id)
+    {
+        return { type: 'delete',id }
+    }
+    // Action
     static addRootAction()
     {
         return { type: 'addRoot' }
@@ -27,21 +32,45 @@ class StateProvider
 
 
     //Reducer implementation
+    static delete(leafs,id)
+    {
+        //let leaf=new LeafData("ROOT")
+        //return { leafs: leafs.concat(leaf) }
+        let newleafs= leafs.filter((leaf)=>{return leaf.id != id})
+        return {leafs:newleafs}
+    }
+
     static addRoot(leafs,id)
     {
-        let leaf=new LeafData("ROOT")
+        //let leaf=new LeafData("ROOT")
+        //return { leafs: leafs.concat(leaf) }
+
+        if (StateProvider.filterLeafs(leafs,'ROOT').length>0)
+        {
+            return {leafs:leafs}
+        }
+        else
+        {
+        let leaf={id:StateProvider.getNewId(leafs),
+            parentid: "ROOT"}
         return { leafs: leafs.concat(leaf) }
+        }
+
     }
 
     static addChild(leafs, id)
     {
-        let leaf=new LeafData(StateProvider.getCurrent(leafs, id).id)
+        //let leaf=new LeafData(StateProvider.getCurrent(leafs, id).id)
+        let leaf={id:StateProvider.getNewId(leafs),
+                  parentid: StateProvider.getCurrent(leafs, id).id}
         return { leafs: leafs.concat(leaf) }
     }
 
     static addSibling(leafs, id)
     {
-        let leaf=new LeafData(StateProvider.getCurrent(leafs, id).parentid)
+        //let leaf=new LeafData(StateProvider.getCurrent(leafs, id).parentid)
+        let leaf={id:StateProvider.getNewId(leafs),
+            parentid: StateProvider.getCurrent(leafs, id).parentid}
         return { leafs: leafs.concat(leaf) }
 
     }
@@ -75,6 +104,8 @@ class StateProvider
     static leafReducer(state = { leafs: [], id:"" }, action) {
 
         switch (action.type) {
+            case 'delete':
+                return StateProvider.delete(state.leafs,action.id)
             case 'addRoot':
                 return StateProvider.addRoot(state.leafs,state.id)
             case 'addSibling':
@@ -91,6 +122,63 @@ class StateProvider
         }
     }
 
+    static getNewId(leafs)
+    {
+        return StateProvider.getLatestId(leafs)+1;
+    }
+    static getLatestId(leafs)
+    {
+        let copiedLeafs =[]
+        Object.assign(copiedLeafs,leafs)
+        if(copiedLeafs.length>0)
+        {
+
+        return copiedLeafs.sort(function(a,b){
+            if(a.id>b.id) return -1;
+            if(a.id < b.id) return 1;
+            return 0;
+        })[0].id;
+        }
+        else{return 0}
+
+    }
+
+    static findLeaf(leafarray, id)
+    {
+        let out=[]
+        //alert('Filtering with '+ parentid)
+        if(leafarray.length>0)
+        {
+            leafarray.forEach((leaf)=>
+                {
+                    if(leaf.id==id)
+                    {
+                        out.push(leaf)
+                    }
+                }
+            )
+        }
+        return out
+    }
+
+    static filterLeafs(leafarray, parentid)
+    {
+        let out=[]
+        //alert('Filtering with '+ parentid)
+        if(leafarray.length>0)
+        {
+            leafarray.forEach((leaf)=>
+                {
+                    if(leaf.parentid==parentid)
+                    {
+                        out.push(leaf)
+                    }
+                }
+            )
+        }
+        return out
+    }
+
     // Map Redux state to component props
     static mapStateToProps(state) {
         return {
@@ -101,6 +189,7 @@ class StateProvider
     // Map Redux actions to component props
     static mapDispatchToProps(dispatch) {
         return {
+            delete: (id) => dispatch(StateProvider.deleteAction(id)),
             addRoot: () => dispatch(StateProvider.addRootAction()),
             addSibling: (id) => dispatch(StateProvider.addSiblingAction(id)),
             addChild: (id) => dispatch(StateProvider.addChildAction(id)),

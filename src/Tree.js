@@ -3,6 +3,7 @@ import './Tree.css';
 import LeafData from "./LeafData";
 import Leaf from "./Leaf"
 import Connector from "./Connector"
+import StateProvider from "./StateProvider"
 
 class Tree extends Component {
 
@@ -16,30 +17,12 @@ class Tree extends Component {
         return "ROOT";
     }
 
-
-    _filterLeafs(leafarray, parentid)
-    {
-        let out=[]
-        if(leafarray.length>0)
-        {
-            leafarray.forEach((leaf)=>
-                {
-                    if(leaf.parentid==parentid)
-                    {
-                        out.push(leaf)
-                    }
-                }
-            )
-        }
-        return out
-    }
-
-
     _getLeaf(leaf)
     {
         return <Leaf leafdata={leaf}
                      edit={this.props.edit}
                      addChild={this.props.addChild}
+                     delete={this.props.delete}
                      addSibling={this.props.addSibling}/>
     }
 
@@ -55,7 +38,7 @@ class Tree extends Component {
 
     _getConnectorSub(originalleaf,rootleaf,result)
     {
-        this._filterLeafs(this.props.leafs,rootleaf.id).slice(1).forEach(
+        StateProvider.filterLeafs(this.props.leafs,rootleaf.id).slice(1).forEach(
             (leaf)=>{
                 result.push(<Connector mode={this._getVertical(originalleaf)}/>)
                 this._getConnectorSub(originalleaf,leaf,result)
@@ -88,7 +71,7 @@ class Tree extends Component {
                                 </li>
                             </li>
                              <li class="Tree-Branch" >
-                                 {this._formatLeaf(this._filterLeafs(this.props.leafs, leaf.id ))}
+                                 {this._formatLeaf(StateProvider.filterLeafs(this.props.leafs, leaf.id ))}
                             </li>
                         </ul>
                         ))
@@ -99,7 +82,7 @@ class Tree extends Component {
 
     _isLastRecord(leaf,leafs)
     {
-        let filtered = this._filterLeafs(leafs,leaf.parentid)
+        let filtered = StateProvider.filterLeafs(leafs,leaf.parentid)
         if(leaf.id==filtered[filtered.length-1].id || filtered.length==0)
         {return true}
         else
@@ -109,7 +92,7 @@ class Tree extends Component {
     _getMode(leaf,leafs)
     {
         let out=""
-        let filtered = this._filterLeafs(leafs,leaf.parentid)
+        let filtered = StateProvider.filterLeafs(leafs,leaf.parentid)
         if(leaf.parentid=="ROOT")
         {out=""}
         else
@@ -134,7 +117,7 @@ class Tree extends Component {
 
     _getTree()
     {
-        return this._formatLeaf(this._filterLeafs(this.props.leafs, this._getRootId() ))
+        return this._formatLeaf(StateProvider.filterLeafs(this.props.leafs, this._getRootId() ))
     }
 
     render() {
