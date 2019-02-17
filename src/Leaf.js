@@ -41,9 +41,12 @@ class Leaf extends Component {
                 {
                     e.preventDefault()
                     this.props.addChild(this.props.leafdata.id)
-                    break;
                 }
-
+                break;
+            case 46: //Delete
+                    e.preventDefault()
+                    this.props.delete(this.props.leafdata.id)
+                    break;
         }
     }
 

@@ -6,12 +6,11 @@ import StateProvider from './StateProvider';
 import { Provider, connect } from 'react-redux'
 import * as serviceWorker from './serviceWorker';
 import {compose,createStore} from "redux";
-import persistState from "redux-localstorage";
+import { PersistGate } from 'redux-persist/integration/react'
 
-
-
+import store, {persistor} from './ConfigureStore'
 // Store
-const store = createStore(StateProvider.leafReducer)
+//const store = createStore(StateProvider.leafReducer)
 
 // Connected Component
 const App = connect(
@@ -23,7 +22,9 @@ const App = connect(
 //ReactDOM.render(<Tree />, document.getElementById('root'));
 ReactDOM.render(
     <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
         <App />
+        </PersistGate>
     </Provider>,
     document.getElementById('root')
 )
