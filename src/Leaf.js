@@ -63,7 +63,6 @@ class Leaf extends Component {
     {
     return (
         <div className="Leaf">
-            <Thumbnail text={this.props.leafdata.title} />
             <textarea className="Leaf-TextArea" type="text"
                       draggable="true"
                       value={this.props.leafdata.title}
