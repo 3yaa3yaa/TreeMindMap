@@ -196,7 +196,6 @@ class StateProvider
             edit: (leaf) => dispatch(StateProvider.editAction(leaf))
         }
     }
-
 }
 
 export default StateProvider;

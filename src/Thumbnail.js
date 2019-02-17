@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Thumbnail.css';
+import axios from 'axios'
 
 class Thumbnail extends Component {
 
@@ -8,18 +9,29 @@ class Thumbnail extends Component {
     }
 
 
-    _getThumbnail()
+    _getThumbnail(callback)
+    {
+        if(this._findURL()!="")
+        {
+            axios.get(this._findURL())
+                .then(res => console.log(res.data))
+        }
+        else
+        {
+            return ""
+        }
+    }
+
+    _findURL()
     {
         let out=""
         let fulltext = this.props.text;
         //out=leaf.title.match(/http[^ ]+/);
 
-        let re = new RegExp('http[^ ]+');
+        let re = new RegExp('https://[^ ]+');
         if (re.test(fulltext))
         {
             out = fulltext.match(re)
-            // re.exec(fulltext)
-            // out = re.$1
         }
         return out
     }

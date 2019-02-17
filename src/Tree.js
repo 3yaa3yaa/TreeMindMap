@@ -120,11 +120,18 @@ class Tree extends Component {
         return this._formatLeaf(StateProvider.filterLeafs(this.props.leafs, this._getRootId() ))
     }
 
+    _eraseAll()
+    {
+        this.props.leafs.forEach((leaf)=>{
+            if(leaf.parentid!='ROOT'){this.props.delete(leaf.id)}})
+    }
+
     render() {
 
         return (
             <div>
                 <div>
+                    <button onClick={(e)=>{this._eraseAll() }}>Erase All</button>
                     {this._getTree()}
                 </div>
             </div>
