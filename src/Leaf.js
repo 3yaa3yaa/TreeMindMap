@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Leaf.css';
-import Thumbnail from './Thumbnail'
+import ImgViewer from './ImgViewer'
 import LeafData from './LeafData';
 
 class Leaf extends Component {
@@ -58,17 +58,36 @@ class Leaf extends Component {
         this.props.edit(newleaf)
     }
 
+    fileChangeHander(e)
+    {
+        e.preventDefault()
+        let reader = new FileReader()
+        let file = e.target.files[0]
+        reader.onloadend = () => {
+            let newleaf=this.props.leafdata
+            newleaf.img=reader.result
+            this.props.edit(newleaf)
+        }
+        reader.readAsDataURL(file)
+    }
+
 
     _getDOM()
     {
     return (
         <div className="Leaf">
+            <ImgViewer leafdata={this.props.leafdata}/>
+            <label  className="Leaf-AddFile-Label"> +
+                <input type='file' className="Leaf-AddFile" onChange={(e) => this.fileChangeHander(e)}></input>
+            </label>
+            <br />
             <textarea className="Leaf-TextArea" type="text"
                       draggable="true"
                       value={this.props.leafdata.title}
                       onKeyDown={(e)=>this.keyDownHandler(e)}
                       onChange={(e)=>this.onChangeHandler(e)}
                       ref={(e)=>{ this.leafRef=e}} />
+                      <br/>
 
         </div>
     )

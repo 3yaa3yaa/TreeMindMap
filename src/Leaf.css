@@ -1,21 +1,36 @@
 .Leaf {
   text-align: left;
   padding: 10px;
-  background-color: #CCFF99;
+  background-color: palegreen;
   margin-top: 3px;
   margin-bottom: 3px;
   margin-left:0px;
   margin-right:0px;
   border-radius:10px;
-
 }
 
 .Leaf-TextArea {
   text-align: left;
-  background-color: #CCFF99;
+  background-color: palegreen;
   border: none;
   height: 90px;
   margin: 1px;
   padding: 0px;
   width: 180px;
+}
+
+
+.Leaf-AddFile {
+  display:none;
+}
+.Leaf-AddFile-Label{
+  width:10px;
+  height:10px;
+  margin:0px;
+  padding:0px;
+  font-size: x-large;
+  color: darkgreen;
+  border:none;
+  border-color: aliceblue;
+  border-width:1px;
 }
