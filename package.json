@@ -2,8 +2,9 @@
   "name": "samplereact",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://3yaa3yaa.github.io/TreeMindMap",
   "dependencies": {
-    "axios": "^0.18.0",
+    "gh-pages": "^2.0.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
