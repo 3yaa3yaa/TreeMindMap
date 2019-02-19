@@ -14,20 +14,23 @@
   text-align: left;
   background-color: palegreen;
   border: none;
-  height: 90px;
+  height: 30px;
   margin: 1px;
   padding: 0px;
   width: 180px;
-  background-color:
+  vertical-align: middle;
+  color: darkgreen;
 }
 
+.Leaf-Colomuns{
+  display: table-cell;
+  vertical-align: middle;
+}
 
 .Leaf-AddFile {
   display:none;
 }
 .Leaf-AddFile-Label{
-  width:10px;
-  height:10px;
   margin:0px;
   padding:0px;
   font-size: x-large;
