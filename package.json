@@ -2,7 +2,7 @@
   "name": "samplereact",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://3yaa3yaa.github.io/TreeMindMap/",
+  "homepage": "https://3yaa3yaa.github.io/TreeMindMap",
   "dependencies": {
     "gh-pages": "^2.0.1",
     "react": "^16.7.0",
