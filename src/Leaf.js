@@ -65,7 +65,10 @@ class Leaf extends Component {
         let file = e.target.files[0]
         reader.onloadend = () => {
             let newleaf=this.props.leafdata
-            newleaf.img=reader.result
+            if (newleaf.imgs==null)
+            {newleaf.imgs = [reader.result]}
+            else
+            {newleaf.imgs.push([reader.result])}
             this.props.edit(newleaf)
         }
         reader.readAsDataURL(file)

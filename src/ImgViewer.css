@@ -5,6 +5,13 @@
 }
 
 
+.ImgViewer-div {
+  width: auto;
+  margin-top:1px;
+  margin-bottom:1px;
+
+}
+
 .ImgViewer-img {
   width: 180px;
 }

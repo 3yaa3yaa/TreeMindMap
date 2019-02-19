@@ -123,18 +123,32 @@ class Tree extends Component {
     _eraseAll()
     {
         this.props.leafs.forEach((leaf)=>{
-            if(leaf.parentid!='ROOT'){this.props.delete(leaf.id)}})
+            if(leaf.id>1){this.props.delete(leaf.id)}})
+    }
+
+    _getHeader()
+    {
+        return (
+            <div className='header'>
+                <div className='header-items'>
+                    <img className='header-logo' src='logo.jpeg'></img>
+                </div>
+                <div className='header-items'>
+                    <label className='header-erase-label'>Clear
+                        <button  className='header-erase-button' onClick={(e)=>{this._eraseAll() }}></button>
+                    </label>
+                </div>
+            </div>
+        )
     }
 
     render() {
-
         return (
             <div>
-                <div>
-                    <button onClick={(e)=>{this._eraseAll() }}>Erase All</button>
-                    {this._getTree()}
+                {this._getHeader()}
+                {this._getTree()}
                 </div>
-            </div>
+
         );
     }
 }
