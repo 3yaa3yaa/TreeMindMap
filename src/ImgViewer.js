@@ -7,14 +7,19 @@ class ImgViewer extends Component {
         super(props);
     }
 
+    _generateImgs(imgs)
+    {
+        return imgs.map((img)=><div><img className="ImgViewer-img" src={img} /></div>  )
+    }
+
 
     _getDOM()
     {
-        if (this.props.leafdata.img!=null)
+        if (this.props.leafdata.imgs!=null)
         {
         return (
         <div className="ImgViewer">
-            <img className="ImgViewer-img" src={this.props.leafdata.img} />
+            {this._generateImgs(this.props.leafdata.imgs)}
         </div>)
         }
         else
