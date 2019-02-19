@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Tree.css';
-import LeafData from "./LeafData";
 import Leaf from "./Leaf"
 import Connector from "./Connector"
 import StateProvider from "./StateProvider"

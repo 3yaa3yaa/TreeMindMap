@@ -2,7 +2,6 @@
 
 import { createStore } from 'redux'
 import Leaf from "./Leaf";
-import LeafData from "./LeafData";
 
 
 class StateProvider
@@ -53,7 +52,7 @@ class StateProvider
         {
         let leaf={id:StateProvider.getNewId(leafs),
             parentid: "ROOT"}
-            leaf.title="How to use Tree Mind Map\n\nTo add child:ENTER\nTo add sibling :TAB\nTo delete item:DELETE\n"
+            //leaf.title="How to use Tree Mind Map\n\nTo add child:ENTER\nTo add sibling :TAB\nTo delete item:DELETE\n"
         return { leafs: leafs.concat(leaf) }
         }
 
