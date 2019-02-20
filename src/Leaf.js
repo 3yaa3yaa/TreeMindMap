@@ -79,21 +79,31 @@ class Leaf extends Component {
     return (
         <div className="Leaf">
             <ImgViewer leafdata={this.props.leafdata}/>
-            <div className="Leaf-Colomuns">
-            <label  className="Leaf-AddFile-Label"> +
-                <input type='file' className="Leaf-AddFile" onChange={(e) => this.fileChangeHander(e)}></input>
-            </label>
+            <div className="Leaf-Row">
+                <div className="Leaf-Colomuns">
+                <label  className="Leaf-Command-Label"> +
+                    <input type='file' className="Leaf-Command" onChange={(e) => this.fileChangeHander(e)}></input>
+                </label>
+                </div>
+                <div className="Leaf-Colomuns">
+                <textarea className="Leaf-TextArea" type="text"
+                          draggable="true"
+                          value={this.props.leafdata.title}
+                          onKeyDown={(e)=>this.keyDownHandler(e)}
+                          onChange={(e)=>this.onChangeHandler(e)}
+                          ref={(e)=>{ this.leafRef=e}} />
+                          <br/>
+                </div>
+                <div className="Leaf-Colomuns">
+                    <label  className="Leaf-Command-Label"> →
+                        <input type='button' className="Leaf-Command" onClick={(e) => this.props.addChild(this.props.leafdata.id)}></input>
+                    </label>
+                    <br />
+                    <label  className="Leaf-Command-Label"> ↓
+                        <input type='button' className="Leaf-Command" onClick={(e) => this.props.addSibling(this.props.leafdata.id)}></input>
+                    </label>
+                </div>
             </div>
-            <div className="Leaf-Colomuns">
-            <textarea className="Leaf-TextArea" type="text"
-                      draggable="true"
-                      value={this.props.leafdata.title}
-                      onKeyDown={(e)=>this.keyDownHandler(e)}
-                      onChange={(e)=>this.onChangeHandler(e)}
-                      ref={(e)=>{ this.leafRef=e}} />
-                      <br/>
-            </div>
-
         </div>
     )
     }

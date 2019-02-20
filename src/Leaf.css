@@ -14,7 +14,7 @@
   text-align: left;
   background-color: palegreen;
   border: none;
-  height: 30px;
+  height: available;
   margin: 1px;
   padding: 0px;
   width: 180px;
@@ -22,19 +22,26 @@
   color: darkgreen;
 }
 
+
+.Leaf-Row{
+  display: table-row;
+  position: center;
+  vertical-align: middle;
+}
+
 .Leaf-Colomuns{
   display: table-cell;
   vertical-align: middle;
 }
 
-.Leaf-AddFile {
+.Leaf-Command {
   display:none;
 }
-.Leaf-AddFile-Label{
+.Leaf-Command-Label{
   margin:0px;
   padding:0px;
-  font-size: x-large;
-  color: darkgreen;
+  font-size: small;
+  color: green;
   border:none;
   border-color: aliceblue;
   border-width:1px;
