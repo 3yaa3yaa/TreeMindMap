@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Leaf.css';
 import ImgViewer from './ImgViewer'
-
+import Menu from './Menu'
 class Leaf extends Component {
 
     constructor(props) {
@@ -57,22 +57,6 @@ class Leaf extends Component {
         this.props.edit(newleaf)
     }
 
-    fileChangeHander(e)
-    {
-        e.preventDefault()
-        let reader = new FileReader()
-        let file = e.target.files[0]
-        reader.onloadend = () => {
-            let newleaf=this.props.leafdata
-            if (newleaf.imgs==null)
-            {newleaf.imgs = [reader.result]}
-            else
-            {newleaf.imgs.push([reader.result])}
-            this.props.edit(newleaf)
-        }
-        reader.readAsDataURL(file)
-    }
-
 
     _getDOM()
     {
@@ -81,9 +65,6 @@ class Leaf extends Component {
             <ImgViewer leafdata={this.props.leafdata}/>
             <div className="Leaf-Row">
                 <div className="Leaf-Colomuns">
-                <label  className="Leaf-Command-Label"> +
-                    <input type='file' className="Leaf-Command" onChange={(e) => this.fileChangeHander(e)}></input>
-                </label>
                 </div>
                 <div className="Leaf-Colomuns">
                 <textarea className="Leaf-TextArea" type="text"
@@ -93,16 +74,14 @@ class Leaf extends Component {
                           ref={(e)=>{ this.leafRef=e}} />
                 </div>
                 <div className="Leaf-Colomuns">
-                    <label  className="Leaf-Command-Label"> →
-                        <input type='button' className="Leaf-Command" onClick={(e) => this.props.addChild(this.props.leafdata.id)}></input>
-                    </label>
-                    <br />
-                    <label  className="Leaf-Command-Label"> ↓
-                        <input type='button' className="Leaf-Command" onClick={(e) => this.props.addSibling(this.props.leafdata.id)}></input>
-                    </label>
+                    <Menu leafdata={this.props.leafdata}
+                          edit={this.props.edit}
+                          addChild={this.props.addChild}
+                          addSibling={this.props.addSibling}/>
                 </div>
             </div>
         </div>
+
     )
     }
 
