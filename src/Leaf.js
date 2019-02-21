@@ -87,12 +87,10 @@ class Leaf extends Component {
                 </div>
                 <div className="Leaf-Colomuns">
                 <textarea className="Leaf-TextArea" type="text"
-                          draggable="true"
                           value={this.props.leafdata.title}
                           onKeyDown={(e)=>this.keyDownHandler(e)}
                           onChange={(e)=>this.onChangeHandler(e)}
                           ref={(e)=>{ this.leafRef=e}} />
-                          <br/>
                 </div>
                 <div className="Leaf-Colomuns">
                     <label  className="Leaf-Command-Label"> →
