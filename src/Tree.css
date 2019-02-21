@@ -3,9 +3,9 @@ ul {
   padding-left: 0px;
 }
 
-
 .header{
   height:20px;
+  width: 100%;
   background-color: darkgreen;
 }
 

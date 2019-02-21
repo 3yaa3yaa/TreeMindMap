@@ -20,6 +20,8 @@
   width: 180px;
   vertical-align: middle;
   color: darkgreen;
+  -webkit-user-select : auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 
