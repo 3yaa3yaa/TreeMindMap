@@ -3,6 +3,7 @@ import './Tree.css';
 import Leaf from "./Leaf"
 import Connector from "./Connector"
 import StateProvider from "./StateProvider"
+import GlobalMenu from "./GlobalMenu";
 
 class Tree extends Component {
 
@@ -119,11 +120,6 @@ class Tree extends Component {
         return this._formatLeaf(StateProvider.filterLeafs(this.props.leafs, this._getRootId() ))
     }
 
-    _eraseAll()
-    {
-        this.props.leafs.forEach((leaf)=>{
-            if(leaf.id>1){this.props.delete(leaf.id)}})
-    }
 
     _getHeader()
     {
@@ -133,9 +129,8 @@ class Tree extends Component {
                     <img className='header-logo' src='logo.jpeg'></img>
                 </div>
                 <div className='header-items'>
-                    <label className='header-erase-label'>Clear
-                        <button  className='header-erase-button' onClick={(e)=>{this._eraseAll() }}></button>
-                    </label>
+                <GlobalMenu leafs={this.props.leafs}
+                            delete={this.props.delete}/>
                 </div>
             </div>
         )

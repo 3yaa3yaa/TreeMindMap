@@ -4,7 +4,7 @@ ul {
 }
 
 .header{
-  height:20px;
+  height:30px;
   width: 100%;
   background-color: darkgreen;
 }
@@ -12,17 +12,13 @@ ul {
 .header-items{
   display: table-cell;
   height:20px;
-  padding-top: 0px;
+  padding-top: 5px;
   padding-left:10px;
   padding-right:20px;
   vertical-align: middle;
 }
 
-.header-erase-label{
-  color: lightgreen;
-  padding-top:0px;
-  height:20px;
-}
+
 .header-erase-button{
 
   display:none;
@@ -31,8 +27,6 @@ ul {
 .header-logo{
   height:20px;
 }
-
-
 
 .Tree-Element {
   display: table ;

@@ -12,6 +12,7 @@ import store, {persistor} from './ConfigureStore'
 // Store
 //const store = createStore(StateProvider.leafReducer)
 
+
 // Connected Component
 const App = connect(
     StateProvider.mapStateToProps,
