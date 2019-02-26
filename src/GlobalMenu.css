@@ -1,6 +1,6 @@
 
 
-.Menu {
+.GlobalMenu {
     position: absolute;
     width:120px;
     height:auto;
@@ -9,16 +9,17 @@
     border-radius:10px;
 }
 
-.Menu-Command {
+
+.GlobalMenu-Command {
     display:none;
 }
-.Menu-Command-Label{
+.GlobalMenu-Command-Label{
     float: left;
-    margin:10px;
+    margin:0px;
     padding:0px;
-    font-size: small;
-    color: green;
+    font-size: large;
+    color: aliceblue;
     border:none;
-    border-color: aliceblue;
+    border-color: white;
     border-width:1px;
 }

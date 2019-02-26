@@ -57,6 +57,20 @@ class Leaf extends Component {
         this.props.edit(newleaf)
     }
 
+    _getTextAreaStyle()
+    {
+        let lines = this.props.leafdata.title.split('\n')
+        let maxwidth= lines.reduce((acc,curr)=>{if(acc<curr){acc=curr}})
+        let out={
+            width: maxwidth * 10  ,
+            height: lines.length
+        }
+        alert(out.width)
+
+        return out
+
+    }
+
 
     _getDOM()
     {
@@ -67,7 +81,7 @@ class Leaf extends Component {
                 <div className="Leaf-Colomuns">
                 </div>
                 <div className="Leaf-Colomuns">
-                <textarea className="Leaf-TextArea" type="text"
+                <textarea className="Leaf-TextArea" type="text" style={(e)=>this._getTextAreaStyle()}
                           value={this.props.leafdata.title}
                           onKeyDown={(e)=>this.keyDownHandler(e)}
                           onChange={(e)=>this.onChangeHandler(e)}
