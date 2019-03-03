@@ -3,30 +3,6 @@ ul {
   padding-left: 0px;
 }
 
-.header{
-  height:30px;
-  width: 100%;
-  background-color: darkgreen;
-}
-
-.header-items{
-  display: table-cell;
-  height:20px;
-  padding-top: 5px;
-  padding-left:10px;
-  padding-right:20px;
-  vertical-align: middle;
-}
-
-
-.header-erase-button{
-
-  display:none;
-}
-
-.header-logo{
-  height:20px;
-}
 
 .Tree-Element {
   display: table ;

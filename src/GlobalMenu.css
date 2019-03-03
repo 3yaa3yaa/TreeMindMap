@@ -1,14 +1,5 @@
 
 
-.GlobalMenu {
-    position: absolute;
-    width:120px;
-    height:auto;
-    background-color: aliceblue;
-    z-index: 1;
-    border-radius:10px;
-}
-
 
 .GlobalMenu-Command {
     display:none;

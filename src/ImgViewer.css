@@ -7,11 +7,11 @@
 
 .ImgViewer-div {
   width: auto;
-  margin-top:1px;
-  margin-bottom:1px;
+  margin:5px;
 
 }
 
 .ImgViewer-img {
   width: 180px;
+  margin:5px;
 }

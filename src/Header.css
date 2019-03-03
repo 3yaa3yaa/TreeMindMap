@@ -1,0 +1,23 @@
+
+
+.header{
+  height:auto;
+  width: 100%;
+  background-color: darkgreen;
+}
+
+.header-items{
+  display: table-cell;
+  height:20px;
+  padding-top: 0px;
+  padding-bottom: 1px;
+  padding-left:10px;
+  padding-right:20px;
+  vertical-align: middle;
+  color: aliceblue;
+}
+
+.header-logo{
+  height:20px;
+  vertical-align: middle;
+}

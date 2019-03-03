@@ -51,7 +51,7 @@ class Menu extends Component {
     _getDOM(event)
     {
         return(
-            <div className="Menu" style={(e)=>this._getPositionStyle(e)}>
+            <div className="Menu" style={this._getPositionStyle(event)}>
                 <label  className="Menu-Command-Label"> Add Attachment
                     <input type='file' className="Menu-Command" onChange={(e) => {this.fileChangeHander(e);this._closeModal()}}></input>
                 </label>
@@ -70,7 +70,7 @@ class Menu extends Component {
     render() {
     return (
         <div>
-            <label  className="Menu-Command-Label"><Burger/>
+            <label  className="Menu-Command-Burger"><Burger/>
                 <input type='button' className="Menu-Command"
                        onClick={(e) => {this.setState({modal : this._switchModal(e)}) }}
                 ></input>
