@@ -97,6 +97,10 @@ class GlobalMenuModal extends Component {
                         <button  className='GlobalMenuModal-erase-button' onClick={(e)=>{this._eraseAll();this._closeModal() }}>Clear</button>
                     </div>
                 </div>
+                <div className='GlobalMenuModal-Item'>
+                    <div>Help</div>
+                    <div><a href="https://github.com/3yaa3yaa/TreeMindMap/blob/master/README.md">Link to README</a></div>
+                </div>
             </div>
         )
     }
