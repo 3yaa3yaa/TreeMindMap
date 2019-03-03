@@ -68,9 +68,7 @@ class Leaf extends Component {
             let maxwidth= lines.map((line)=>line.length).reduce(reducer,5)
 
             widthtobeset= (Math.floor(maxwidth  / 5) *75)+"px"
-            heighttobeset=(lines.length * 20)+"px"
-
-            //alert(widthtobeset+heighttobeset)
+            heighttobeset=((lines.length) * 20)+"px"
         }
 
         let out={
