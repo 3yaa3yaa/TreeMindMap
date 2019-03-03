@@ -88,17 +88,20 @@ class GlobalMenuModal extends Component {
     render() {
         return(
             <div className="GlobalMenuModal" style={this._getPositionStyle(this.props.event)}>
-                <div  className='GlobalMenuModal-Item'>Create new mindmap {this._getNewlyCreateForm()}
+                <div className='GlobalMenuModal-title'>Create new mindmap</div>
+                <div  className='GlobalMenuModal-Item'>
+                    {this._getNewlyCreateForm()}
                 </div>
-                <div  className='GlobalMenuModal-Item'>Your mindmaps {this._getLinks()}</div>
+                <div className='GlobalMenuModal-title'>Your mindmaps </div>
+                <div  className='GlobalMenuModal-Item'>{this._getLinks()}</div>
+                <div className='GlobalMenuModal-title'>Clear current mindmap</div>
                 <div className='GlobalMenuModal-Item'>
-                    <div>Clear current mindmap</div>
-                    <div>
-                        <button  className='GlobalMenuModal-erase-button' onClick={(e)=>{this._eraseAll();this._closeModal() }}>Clear</button>
-                    </div>
+                <div>
+                    <button  className='GlobalMenuModal-erase-button' onClick={(e)=>{this._eraseAll();this._closeModal() }}>Clear</button>
                 </div>
+                </div>
+                <div className='GlobalMenuModal-title'>Help</div>
                 <div className='GlobalMenuModal-Item'>
-                    <div>Help</div>
                     <div><a href="https://github.com/3yaa3yaa/TreeMindMap/blob/master/README.md">Link to README</a></div>
                 </div>
             </div>
