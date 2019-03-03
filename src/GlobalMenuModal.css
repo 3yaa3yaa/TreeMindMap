@@ -9,9 +9,15 @@
     z-index: 1;
     border-radius:10px;
 }
+.GlobalMenuModal-title {
+    margin: 10px;
+    padding-left: 0px;
+    color:green;
+}
 
 .GlobalMenuModal-Item {
     margin: 10px;
+    padding-left: 20px;
     color:green;
 }
 
