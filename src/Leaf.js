@@ -59,13 +59,26 @@ class Leaf extends Component {
 
     _getTextAreaStyle()
     {
-        let lines = this.props.leafdata.title.split('\n')
-        let maxwidth= lines.reduce((acc,curr)=>{if(acc<curr){acc=curr}})
-        let out={
-            width: maxwidth * 10  ,
-            height: lines.length
+        let widthtobeset="50px"
+        let heighttobeset="20px"
+        if(typeof(this.props.leafdata.title)=="string")
+        {
+            let lines = this.props.leafdata.title.split('\n')
+            let reducer=(acc,curr)=>{if(acc<curr){return curr}else{return acc}};
+            let maxwidth= lines.map((line)=>line.length).reduce(reducer,5)
+
+            widthtobeset= (Math.floor(maxwidth  / 5) *75)+"px"
+            heighttobeset=(lines.length * 20)+"px"
+
+            //alert(widthtobeset+heighttobeset)
         }
-        alert(out.width)
+
+        let out={
+            width: widthtobeset  ,
+            height: heighttobeset
+            // width: "100px",
+            // height: "50px"
+        }
 
         return out
 
@@ -76,16 +89,16 @@ class Leaf extends Component {
     {
     return (
         <div className="Leaf">
-            <ImgViewer leafdata={this.props.leafdata}/>
             <div className="Leaf-Row">
+                <div>
+                    <ImgViewer leafdata={this.props.leafdata}/>
                 <div className="Leaf-Colomuns">
-                </div>
-                <div className="Leaf-Colomuns">
-                <textarea className="Leaf-TextArea" type="text" style={(e)=>this._getTextAreaStyle()}
+                <textarea className="Leaf-TextArea" type="text" style={this._getTextAreaStyle()}
                           value={this.props.leafdata.title}
                           onKeyDown={(e)=>this.keyDownHandler(e)}
                           onChange={(e)=>this.onChangeHandler(e)}
                           ref={(e)=>{ this.leafRef=e}} />
+                </div>
                 </div>
                 <div className="Leaf-Colomuns">
                     <Menu leafdata={this.props.leafdata}

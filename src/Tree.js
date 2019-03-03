@@ -4,6 +4,7 @@ import Leaf from "./Leaf"
 import Connector from "./Connector"
 import StateProvider from "./StateProvider"
 import GlobalMenu from "./GlobalMenu";
+import Header from './Header';
 
 class Tree extends Component {
 
@@ -121,25 +122,11 @@ class Tree extends Component {
     }
 
 
-    _getHeader()
-    {
-        return (
-            <div className='header'>
-                <div className='header-items'>
-                    <img className='header-logo' src='logo.jpeg'></img>
-                </div>
-                <div className='header-items'>
-                <GlobalMenu leafs={this.props.leafs}
-                            delete={this.props.delete}/>
-                </div>
-            </div>
-        )
-    }
 
     render() {
         return (
             <div>
-                {this._getHeader()}
+                <Header leafs={this.props.leafs} delete={this.props.delete} />
                 {this._getTree()}
                 </div>
 

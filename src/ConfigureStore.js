@@ -8,7 +8,7 @@ import StateProvider from "./StateProvider";
 
 let re= new RegExp('key=(.*?)(&|$)')
 let param=window.location.search
-let keystring='root'
+let keystring='Home'
 if(re.test(param))
 {
     keystring=param.match(re)[1]

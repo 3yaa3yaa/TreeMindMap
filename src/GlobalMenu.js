@@ -1,57 +1,28 @@
 import React, { Component } from 'react';
 import './GlobalMenu.css';
 import Burger from './Burger'
+import GlobalMenuModal from "./GlobalMenuModal";
 
 class GlobalMenu extends Component {
 
     constructor(props) {
         super(props);
-        this.state={modal:""}
+        this.state={modal:"", newname:""}
     }
 
-    _eraseAll()
-    {
-        this.props.leafs.forEach((leaf)=>{
-            if(leaf.id>1){this.props.delete(leaf.id)}})
-    }
-
-    _collectKeys()
-    {
-        localStorage.key()
+    _closeModal() {
+        this.setState({modal:""})
     }
 
     _switchModal(event)
     {
         if(this.state.modal=="")
-        {return this._getDOM(event)}
+        {return <GlobalMenuModal event={event} delete={this.props.delete} leafs={this.props.leafs}/>}
         else
         {return ""}
     }
 
-    _getPositionStyle(event)
-    {
-        //let out="left:"+ event.pageX + ";top:" + event.pageY + ";"
-        let out={
-            left: event.pageX,
-            top: event.pageY +10
-        }
-        return out;
-    }
 
-
-    _getDOM(event)
-    {
-        return(
-            <div className="GlobalMenu" style={this._getPositionStyle(event)}>
-
-                <br />
-                <label className='header-erase-label'>Clear
-                    <button  className='header-erase-button' onClick={(e)=>{this._eraseAll() }}></button>
-                </label>
-
-            </div>
-        )
-    }
 
     render() {
     return (
