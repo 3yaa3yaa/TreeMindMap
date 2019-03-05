@@ -18,13 +18,22 @@ class Menu extends Component {
     _switchModal(event)
     {
         if(this.state.modal=="")
-        {return <MenuModal event={event}
+        {return <MenuModal position={this._getPositionStyle(event)}
                            leafdata={this.props.leafdata}
                            edit={this.props.edit}
                            addChild={this.props.addChild}
                            addSibling={this.props.addSibling} />}
         else
         {return ""}
+    }
+
+    _getPositionStyle(event)
+    {
+        let out={
+            left: event.pageX ,
+            top: event.pageY
+        }
+        return out;
     }
 
 

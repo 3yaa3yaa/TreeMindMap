@@ -5,16 +5,30 @@ class MenuModal extends Component {
 
     constructor(props) {
         super(props);
-        this.state={modal:""}
+        this.state={modal:"",
+        file:""}
         this.canvasRef=React.createRef()
 
     }
 
+    componentDidUpdate()
+    {
+        let ctx = this.canvasRef.getContext('2d')
+        let img=new Image()
+        img.onload=function(event){
+            this.canvasRef.width="200px"
+            this.canvasRef.height="200px"
+            ctx.drawImage(this,0,0)
+        }
+        img.src=this.state.file
+    }
+
+
     fileChangeHander(e)
     {
         e.preventDefault()
-        let reader = new FileReader()
-        let file = e.target.files[0]
+        // let reader = new FileReader()
+        // let file = e.target.files[0]
         // reader.onloadend = () => {
         //     let newleaf=this.props.leafdata
         //     if (newleaf.imgs==null)
@@ -24,26 +38,14 @@ class MenuModal extends Component {
         //     this.props.edit(newleaf)
         // }
         //reader.readAsDataURL(file)
+        this.setState({file:e.target.files[0]})
 
-        let ctx = this.canvasRef.getContext('2d')
-        let img=new Image()
-        img.src=file
-        ctx.drawImage(img,0,0)
     }
 
-
-    _getPositionStyle(event)
-    {
-        let out={
-            left: event.pageX,
-            top: event.pageY
-        }
-        return out;
-    }
 
     render() {
         return(
-            <div className="MenuModal" style={this._getPositionStyle(this.props.event)}>
+            <div className="MenuModal" style={this.props.position}>
                 <label  className="MenuModal-Command-Label"> Add Attachment
                     <input type='file' className="MenuModal-Command" onChange={(e) => {this.fileChangeHander(e)}}></input>
                     <canvas className="MenuModal-canvas" ref={(e)=>{ this.canvasRef=e}}> </canvas>

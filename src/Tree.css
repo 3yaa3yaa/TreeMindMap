@@ -10,6 +10,7 @@ ul {
 }
 
 .Tree-Trunk {
+  position:relative;
   list-style: none;
   display: table-cell;
   vertical-align: top;

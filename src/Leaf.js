@@ -66,7 +66,9 @@ class Leaf extends Component {
             let lines = this.props.leafdata.title.split('\n')
             let reducer=(acc,curr)=>{if(acc<curr){return curr}else{return acc}};
             let maxwidth= lines.map((line)=>line.length).reduce(reducer,5)
-            widthtobeset= (Math.floor(maxwidth  / 5) *75)+"px"
+            widthtobeset= (Math.floor(maxwidth  / 5) *75)
+            if(widthtobeset>200) {widthtobeset=200}
+            widthtobeset=widthtobeset+"px"
             //heighttobeset=(lines.length * 20)+"px"
             heighttobeset=this.leafRef.scrollHeight
         }
