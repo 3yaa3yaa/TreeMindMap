@@ -34,7 +34,7 @@ class GlobalMenuModal extends Component {
         //let out="left:"+ event.pageX + ";top:" + event.pageY + ";"
         let out={
             left: event.pageX,
-            top: event.pageY +20
+            top: event.pageY
         }
         return out;
     }
