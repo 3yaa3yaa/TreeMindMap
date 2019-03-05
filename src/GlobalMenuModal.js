@@ -29,15 +29,6 @@ class GlobalMenuModal extends Component {
         {return ""}
     }
 
-    _getPositionStyle(event)
-    {
-        //let out="left:"+ event.pageX + ";top:" + event.pageY + ";"
-        let out={
-            left: event.pageX,
-            top: event.pageY
-        }
-        return out;
-    }
 
     _getLocalStorageKeys()
     {
@@ -85,9 +76,10 @@ class GlobalMenuModal extends Component {
 
 
 
+
     render() {
-        return(
-            <div className="GlobalMenuModal" style={this._getPositionStyle(this.props.event)}>
+    return(
+            <div className="GlobalMenuModal" style={this.props.position}>
                 <div className='GlobalMenuModal-title'>Create new mindmap</div>
                 <div  className='GlobalMenuModal-Item'>
                     {this._getNewlyCreateForm()}
@@ -108,5 +100,6 @@ class GlobalMenuModal extends Component {
         )
     }
 }
+
 
 export default GlobalMenuModal;

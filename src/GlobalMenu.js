@@ -17,14 +17,23 @@ class GlobalMenu extends Component {
     _switchModal(event)
     {
         if(this.state.modal=="")
-        {return <GlobalMenuModal event={event} delete={this.props.delete} leafs={this.props.leafs}/>}
+        {return <GlobalMenuModal position={this._getPositionStyle(event)} delete={this.props.delete} leafs={this.props.leafs}/>}
         else
         {return ""}
     }
 
+    _getPositionStyle(event) {
+        //let out="left:"+ event.pageX + ";top:" + event.pageY + ";"
+        let out = {
+            left: event.pageX,
+            top: event.pageY + 20
+        }
+        return out;
+    }
 
 
-    render() {
+
+        render() {
     return (
         <div>
             <label  className="GlobalMenu-Command-Label"> <Burger/>
