@@ -14,6 +14,7 @@ ul {
   display: table-cell;
   vertical-align: top;
   height:5px;
+  min-width: 30px;
 }
 
 .Tree-Trunk-Sub {
