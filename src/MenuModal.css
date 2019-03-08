@@ -1,7 +1,7 @@
 
 
 .MenuModal {
-    position: fixed;
+    position: absolute;
     width:120px;
     height:auto;
     background-color: aliceblue;
@@ -23,6 +23,9 @@
     border-width:1px;
 }
 
+.MenuModal-canvas{
+    display: none;
+}
 
 .MenuModal-Command-Burger{
     float: left;

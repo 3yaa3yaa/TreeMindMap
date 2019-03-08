@@ -30,8 +30,8 @@ class Menu extends Component {
     _getPositionStyle(event)
     {
         let out={
-            left: event.pageX ,
-            top: event.pageY
+            left: event.offsetX ,
+            top: event.offsetY
         }
         return out;
     }
