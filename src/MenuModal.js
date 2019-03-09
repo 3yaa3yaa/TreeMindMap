@@ -12,9 +12,14 @@ class MenuModal extends Component {
 
     }
 
-    // componentDidMount() {
-    //     this.setState({modal:this._getModal()})
-    // }
+    componentDidMount() {
+        this.setState({modal:this._getModal()})
+    }
+
+    _endModal()
+    {
+        this.setState({modal:"",imgcanvas:""})
+    }
 
     fileChangeHander(e)
     {
@@ -62,23 +67,23 @@ class MenuModal extends Component {
         return(
             <div className="MenuModal" style={this.props.position}>
                 <label  className="MenuModal-Command-Label"> Add Attachment
-                    <input type='file' className="MenuModal-Command" onChange={(e) => {this.fileChangeHander(e)}}></input>
+                    <input type='file' className="MenuModal-Command" onChange={(e) => {this.fileChangeHander(e);this._endModal()}}></input>
                 </label>
-                {this.state.imgcanvas}
                 <br />
                 <label  className="MenuModal-Command-Label"> Add Child
-                    <input type='button' className="MenuModal-Command" onClick={(e) => {this.props.addChild(this.props.leafdata.id)}}></input>
+                    <input type='button' className="MenuModal-Command" onClick={(e) => {this.props.addChild(this.props.leafdata.id);this._endModal()}}></input>
                 </label>
                 <br />
-                <label  className="MenuModal-Command-Label"> Add SIbling
-                    <input type='button' className="MenuModal-Command" onClick={(e) => {this.props.addSibling(this.props.leafdata.id)}}></input>
+                <label  className="MenuModal-Command-Label"> Add Sibling
+                    <input type='button' className="MenuModal-Command" onClick={(e) => {this.props.addSibling(this.props.leafdata.id);this._endModal()}}></input>
                 </label>
             </div>
         )
     }
 
     render() {
-        return this._getModal()
+        //return this._getModal()
+        return <div>{this.state.modal}{this.state.imgcanvas}</div>
     }
 }
 

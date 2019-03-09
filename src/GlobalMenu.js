@@ -25,8 +25,8 @@ class GlobalMenu extends Component {
     _getPositionStyle(event) {
         //let out="left:"+ event.pageX + ";top:" + event.pageY + ";"
         let out = {
-            left: event.screenX,
-            top: event.screenY + 20
+            left: event.clientX,
+            top: event.clientY +10
         }
         return out;
     }
