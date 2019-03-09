@@ -10,10 +10,12 @@ ul {
 }
 
 .Tree-Trunk {
+  position:relative;
   list-style: none;
   display: table-cell;
   vertical-align: top;
   height:5px;
+  min-width: 30px;
 }
 
 .Tree-Trunk-Sub {

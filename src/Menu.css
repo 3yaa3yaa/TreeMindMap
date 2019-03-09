@@ -1,26 +1,10 @@
 
-
 .Menu {
-    position: absolute;
-    width:120px;
-    height:auto;
-    background-color: aliceblue;
-    z-index: 1;
-    border-radius:10px;
+    position: relative;
 }
 
 .Menu-Command {
     display:none;
-}
-.Menu-Command-Label{
-    float: left;
-    margin:10px;
-    padding:0px;
-    font-size: small;
-    color: green;
-    border:none;
-    border-color: aliceblue;
-    border-width:1px;
 }
 
 

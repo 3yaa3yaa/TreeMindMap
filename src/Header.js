@@ -24,17 +24,19 @@ class Header extends Component {
     {
         return (
             <div className='header'>
-                <div className='header-items'>
-                    <img className='header-logo' src='logo.jpeg'></img>
+                <div className='header-row'>
+                    <div className='header-items'>
+                        <img className='header-logo' src='logo.jpeg'></img>
+                    </div>
+                    <div className='header-items'>
+                    <GlobalMenu leafs={this.props.leafs}
+                                delete={this.props.delete}/>
+                    </div>
+                    <div className='header-items'>
+                        {this._getKey()}
+                    </div>
                 </div>
-                <div className='header-items'>
-                <GlobalMenu leafs={this.props.leafs}
-                            delete={this.props.delete}/>
-                </div>
-                <div className='header-items'>
-                    {this._getKey()}
-                </div>
-
+                <div className='header-margin'></div>
                 </div>
         )
     }

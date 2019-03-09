@@ -1,0 +1,39 @@
+
+
+.MenuModal {
+    position: absolute;
+    width:120px;
+    height:auto;
+    background-color: aliceblue;
+    z-index: 1;
+    border-radius:10px;
+}
+
+.MenuModal-Command {
+    display:none;
+}
+.MenuModal-Command-Label{
+    float: left;
+    margin:10px;
+    padding:0px;
+    font-size: small;
+    color: green;
+    border:none;
+    border-color: aliceblue;
+    border-width:1px;
+}
+
+.MenuModal-canvas{
+    display: none;
+}
+
+.MenuModal-Command-Burger{
+    float: left;
+    margin:0px;
+    padding:0px;
+    font-size: small;
+    color: green;
+    border:none;
+    border-color: aliceblue;
+    border-width:1px;
+}
