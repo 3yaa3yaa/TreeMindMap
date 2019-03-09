@@ -1,15 +1,27 @@
 .Connector-Table {
+  position: absolute;
+  top:0%;
+  bottom:0%;
+  left:0px;
+  right:0px;
   margin-top: 0px;
   margin-bottom: 0px;
   margin-left:0px;
   margin-right:0px;
   display: table;
   width: 30px;
-  height:100%;
+  height:50%;
   table-layout: fixed;
 }
 
-.Connector-Row {
+.Connector-Row-top {
+  height:auto;
+  display: table-row;
+}
+
+
+.Connector-Row-bottom {
+  height:100%;
   display: table-row;
 }
 
@@ -29,6 +41,7 @@
 
 .Connector-Single-BottomLeft {
   display: table-cell;
+
 }
 
 .Connector-Single-BottomRight {
@@ -78,10 +91,10 @@
 .Connector-Top-BottomLeft {
   display: table-cell;
   height:100%;
+
 }
 
 .Connector-Top-BottomRight {
-  list-style: none;
   display: table-cell;
   border-left: solid;
   border-left-width: 1px;
@@ -92,6 +105,7 @@
 .Connector-Middle-TopLeft {
   display: table-cell;
   height:5px;
+
 }
 
 .Connector-Middle-TopRight {
@@ -101,21 +115,24 @@
   border-bottom:solid;
   border-bottom-width: 1px;
   height:5px;
+
   /*border-bottom-left-radius: 10px;*/
 
 }
 
 .Connector-Middle-BottomLeft {
-  display: table-cell;
+  display:  table-cell;
   height:100%;
+
 }
 
 .Connector-Middle-BottomRight {
   list-style: none;
-  display: table-cell;
+  display:  table-cell;
   border-left:solid;
   border-left-width: 1px;
   height:100%;
+
 }
 
 
