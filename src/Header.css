@@ -1,9 +1,12 @@
 
 
-.header{
+.header-row{
+  position:fixed;
   height:auto;
+  top:0px;
   width: 100%;
   background-color: darkgreen;
+  z-index: 10;
 }
 
 .header-items{
@@ -21,3 +24,6 @@
   height:20px;
   vertical-align: middle;
 }
+.header-margin{
+  height:20px;
+  }

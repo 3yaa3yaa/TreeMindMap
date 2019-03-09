@@ -1,5 +1,7 @@
 
-
+.Menu {
+    position: relative;
+}
 
 .Menu-Command {
     display:none;

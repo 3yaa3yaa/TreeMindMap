@@ -30,8 +30,8 @@ class Menu extends Component {
     _getPositionStyle(event)
     {
         let out={
-            left: event.offsetX ,
-            top: event.offsetY
+            left: 20 ,
+            top: 0
         }
         return out;
     }
@@ -41,7 +41,7 @@ class Menu extends Component {
 
     render() {
     return (
-        <div>
+        <div className="Menu">
             <label  className="Menu-Command-Burger"><Burger/>
                 <input type='button' className="Menu-Command"
                        onClick={(e) => {this.setState({modal : this._switchModal(e)}) }}
