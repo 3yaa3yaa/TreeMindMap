@@ -13,7 +13,8 @@ class Connector extends Component {
     _getTableStyle()
     {
         let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-        if(isFirefox)
+        let isEdge = navigator.userAgent.toLowerCase().indexOf('edge') > -1;
+        if(isFirefox||isEdge)
         {
             return {height:"100%"}
         }
