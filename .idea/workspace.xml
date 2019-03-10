@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b54e9619-190e-42c8-9b56-5c196e903d15" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/GlobalMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/GlobalMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GlobalMenuModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/GlobalMenuModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Leaf.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Leaf.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Leaf.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Leaf.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MenuModal.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/MenuModal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MenuModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/MenuModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StateProvider.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/StateProvider.js" afterDir="false" />
-    </list>
+    <list default="true" id="b54e9619-190e-42c8-9b56-5c196e903d15" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -333,12 +325,12 @@
       <workItem from="1551788814202" duration="8983000" />
       <workItem from="1551882568902" duration="16718000" />
       <workItem from="1552148192662" duration="557000" />
-      <workItem from="1552190913570" duration="10387000" />
+      <workItem from="1552190913570" duration="10673000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="181064000" />
+    <option name="totallyTimeSpent" value="181350000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-37" width="1366" height="805" extended-state="6" />
