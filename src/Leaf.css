@@ -1,7 +1,6 @@
 .Leaf {
   text-align: left;
   padding: 10px;
-  background-color: palegreen;
   margin-top: 3px;
   margin-bottom: 3px;
   margin-left:0px;
@@ -12,7 +11,7 @@
 
 .Leaf-TextArea {
   text-align: left;
-  background-color: palegreen;
+  background-color: transparent;
   border: none;
   height: available;
   margin: 1px;

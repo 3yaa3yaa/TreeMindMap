@@ -84,11 +84,31 @@ class Leaf extends Component {
 
     }
 
-
-    _getDOM()
+    _getLeafStyle()
     {
+        let color=this.props.leafdata.color
+        let inheritedColor = this.props.inheritedColor
+        if(typeof (color)!='undefined')
+        {
+            return {backgroundColor: color}
+        }
+        else
+        {
+            if(typeof(inheritecColor)!='undefined')
+            {
+                return {backgroundColor: inheritedColor}
+            }
+            else
+            {
+                return {backgroundColor: "palegreen"}
+            }
+        }
+    }
+
+
+    _getDOM(){
     return (
-        <div className="Leaf">
+        <div className="Leaf" style={this._getLeafStyle()}>
             <div className="Leaf-Row">
                 <div>
                     <ImgViewer leafdata={this.props.leafdata}/>
