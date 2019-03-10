@@ -14,6 +14,17 @@ class GlobalMenu extends Component {
         this.setState({modal:""})
     }
 
+    // componentDidMount() {
+    //     let re=new RegExp("GlobalMenuModal.*")
+    //     document.onclick=(e)=>{
+    //         if(re.test(e.srcElement.className)!=true)
+    //         {
+    //             this.setState({modal:""})
+    //             document.onclick=null
+    //         }
+    //     }
+    // }
+
     _switchModal(event)
     {
         if(this.state.modal=="")

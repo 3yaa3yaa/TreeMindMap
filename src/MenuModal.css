@@ -2,7 +2,8 @@
 
 .MenuModal {
     position: absolute;
-    width:120px;
+    width:auto;
+    min-width: 120px;
     height:auto;
     background-color: aliceblue;
     z-index: 1;
@@ -10,10 +11,10 @@
 }
 
 .MenuModal-Command {
-    display:none;
+    display:block;
+    margin-left: 20px;
 }
 .MenuModal-Command-Label{
-    float: left;
     margin:10px;
     padding:0px;
     font-size: small;

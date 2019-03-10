@@ -15,7 +15,16 @@ class GlobalMenuModal extends Component {
             if(leaf.id>1){this.props.delete(leaf.id)}})
     }
 
-
+    // componentDidMount() {
+    //     this.setState({modal:this._getDOM()})
+    //     let re=new RegExp("GlobalMenuModal.*")
+    //     document.onclick=(e)=>{
+    //         if(re.test(e.srcElement.className)!=true)
+    //         {
+    //             this._closeModal()
+    //         }
+    //     }
+    // }
 
     _closeModal() {
         this.setState({modal:""})
@@ -69,16 +78,14 @@ class GlobalMenuModal extends Component {
 
     _getNewlyCreateForm()
     {
-        return <div><input type="text" onChange={(e)=>this.onChangeHander(e)}></input>
+        return <div><input type="text" className="GlobalMenuModal-inputnew" onChange={(e)=>this.onChangeHander(e)}></input>
             {this._getLinkToNewItem()}
         </div>
     }
 
-
-
-
-    render() {
-    return(
+    _getDOM()
+    {
+        return(
             <div className="GlobalMenuModal" style={this.props.position}>
                 <div className='GlobalMenuModal-title'>Create new mindmap</div>
                 <div  className='GlobalMenuModal-Item'>
@@ -88,9 +95,9 @@ class GlobalMenuModal extends Component {
                 <div  className='GlobalMenuModal-Item'>{this._getLinks()}</div>
                 <div className='GlobalMenuModal-title'>Clear current mindmap</div>
                 <div className='GlobalMenuModal-Item'>
-                <div>
-                    <button  className='GlobalMenuModal-erase-button' onClick={(e)=>{this._eraseAll();this._closeModal() }}>Clear</button>
-                </div>
+                    <div>
+                        <button  className='GlobalMenuModal-erase-button' onClick={(e)=>{this._eraseAll();this._closeModal() }}>Clear</button>
+                    </div>
                 </div>
                 <div className='GlobalMenuModal-title'>Help</div>
                 <div className='GlobalMenuModal-Item'>
@@ -98,6 +105,11 @@ class GlobalMenuModal extends Component {
                 </div>
             </div>
         )
+
+    }
+
+    render() {
+        return this._getDOM()
     }
 }
 

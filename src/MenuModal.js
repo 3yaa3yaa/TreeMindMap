@@ -9,16 +9,33 @@ class MenuModal extends Component {
         this.state={
             modal:"",
             imgcanvas:""}
-
     }
 
     componentDidMount() {
         this.setState({modal:this._getModal()})
+        let re=new RegExp("MenuModal.*")
+        document.onclick=(e)=>{
+            if(re.test(e.srcElement.className)!=true)
+            {
+                this._endModal()
+            }
+        }
     }
 
     _endModal()
     {
         this.setState({modal:"",imgcanvas:""})
+        document.onclick=null
+    }
+
+
+    colorPickHandler(e)
+    {
+        e.preventDefault()
+        let color=e.target.value
+        let newleaf=this.props.leafdata
+        newleaf.color=color
+        this.props.edit(newleaf)
     }
 
     fileChangeHander(e)
@@ -27,12 +44,6 @@ class MenuModal extends Component {
         let file = e.target.files[0]
         let reader = new FileReader()
         reader.onloadend = () => {
-            // let newleaf=this.props.leafdata
-            // if (newleaf.imgs==null)
-            // {newleaf.imgs = [reader.result]}
-            // else
-            // {newleaf.imgs.push([reader.result])}
-            // this.props.edit(newleaf)
             let img=new Image()
             img.onload=()=>{
                 let w= 200
@@ -65,18 +76,21 @@ class MenuModal extends Component {
     _getModal()
     {
         return(
-            <div className="MenuModal" style={this.props.position}>
-                <label  className="MenuModal-Command-Label"> Add Attachment
-                    <input type='file' className="MenuModal-Command" onChange={(e) => {this.fileChangeHander(e);this._endModal()}}></input>
+            <div className="MenuModal" style={this.props.position} ref={(e)=>{ this.menuModalRef=e}}>
+                <label  className="MenuModal-Command-Label"> Add Picture
                 </label>
+                <input type='file' className="MenuModal-Command" onChange={(e) => {this.fileChangeHander(e);this._endModal()}}></input>
                 <br />
-                <label  className="MenuModal-Command-Label"> Add Child
-                    <input type='button' className="MenuModal-Command" onClick={(e) => {this.props.addChild(this.props.leafdata.id);this._endModal()}}></input>
-                </label>
+                <label  className="MenuModal-Command-Label">Pick Color</label>
+                <input type='color'  className="MenuModal-Command" value="#98FB98" onChange={(e) => {this.colorPickHandler(e);this._endModal()}}>
+                </input>
                 <br />
-                <label  className="MenuModal-Command-Label"> Add Sibling
-                    <input type='button' className="MenuModal-Command" onClick={(e) => {this.props.addSibling(this.props.leafdata.id);this._endModal()}}></input>
-                </label>
+                <label  className="MenuModal-Command-Label"> Add Child</label>
+                <input type='button' className="MenuModal-Command"  value="Add" onClick={(e) => {this.props.addChild(this.props.leafdata.id);this._endModal()}}></input>
+                <br />
+                <label  className="MenuModal-Command-Label"> Add Sibling</label>
+                <input type='button' className="MenuModal-Command"  value="Add" onClick={(e) => {this.props.addSibling(this.props.leafdata.id);this._endModal()}}></input>
+                <br />
             </div>
         )
     }
