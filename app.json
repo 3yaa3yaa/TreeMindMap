@@ -1,0 +1,29 @@
+{
+    "modules": {
+      "staticContentMacros": [{
+          "url": "https://3yaa3yaa.github.io/TreeMindMap/",
+          "description": {
+              "value": "Allow users to add a background colour around selected content."
+          },
+          "documentation": {
+              "url" : "https://github.com/3yaa3yaa/TreeMindMap/blob/master/README.md"
+          },
+          "categories": ["formatting"],
+          "outputType": "inline",
+          "bodyType": "rich-text",
+          "name": {
+              "value": "MindMap"
+          },
+          "key": "bg-color-macro",
+          "parameters": [{
+              "identifier": "color",
+              "name": {
+                  "value": "Color"
+              },
+              "type": "string",
+              "required": true,
+              "multiple": false
+          }]
+      }]
+      }
+}
