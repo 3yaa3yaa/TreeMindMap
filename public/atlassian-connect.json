@@ -1,0 +1,26 @@
+{
+    "modules": {},
+    "key": "my-app-key",
+    "name": "My Connect App",
+    "description": "A connect app that does something",
+    "vendor": {
+        "name": "Nobuyuki Mukai",
+        "url": "https://github.com/3yaa3yaa/TreeMindMap"
+    },
+    "links": {
+        "self": "https://github.com/3yaa3yaa/TreeMindMap/blob/conflu/atlassian-connect.json"
+    },
+    "lifecycle": {
+        "installed": "/installed",
+        "uninstalled": "/uninstalled"
+    },
+    "baseUrl": "https://3yaa3yaa.github.io/TreeMindMap",
+    "authentication": {
+        "type": "jwt"
+    },
+    "enableLicensing": true,
+    "scopes": [
+        "read",
+        "write"
+    ]
+}
