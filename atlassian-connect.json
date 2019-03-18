@@ -1,29 +1,26 @@
 {
-    "modules": {
-      "staticContentMacros": [{
-          "url": "https://3yaa3yaa.github.io/TreeMindMap/",
-          "description": {
-              "value": "Allow users to add a background colour around selected content."
-          },
-          "documentation": {
-              "url" : "https://github.com/3yaa3yaa/TreeMindMap/blob/master/README.md"
-          },
-          "categories": ["formatting"],
-          "outputType": "inline",
-          "bodyType": "rich-text",
-          "name": {
-              "value": "MindMap"
-          },
-          "key": "bg-color-macro",
-          "parameters": [{
-              "identifier": "color",
-              "name": {
-                  "value": "Color"
-              },
-              "type": "string",
-              "required": true,
-              "multiple": false
-          }]
-      }]
-      }
+    "modules": {},
+    "key": "my-app-key",
+    "name": "My Connect App",
+    "description": "A connect app that does something",
+    "vendor": {
+        "name": "Nobuyuki Mukai",
+        "url": "https://github.com/3yaa3yaa/TreeMindMap"
+    },
+    "links": {
+        "self": "https://github.com/3yaa3yaa/TreeMindMap/blob/conflu/atlassian-connect.json"
+    },
+    "lifecycle": {
+        "installed": "/installed",
+        "uninstalled": "/uninstalled"
+    },
+    "baseUrl": "https://3yaa3yaa.github.io/TreeMindMap",
+    "authentication": {
+        "type": "jwt"
+    },
+    "enableLicensing": true,
+    "scopes": [
+        "read",
+        "write"
+    ]
 }

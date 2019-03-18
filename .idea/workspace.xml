@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b54e9619-190e-42c8-9b56-5c196e903d15" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/atlassian-connect.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/atlassian-connect.json" beforeDir="false" afterPath="$PROJECT_DIR$/atlassian-connect.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -213,6 +212,7 @@
         <option value="$PROJECT_DIR$/src/GlobalMenuModal.js" />
         <option value="$PROJECT_DIR$/src/GlobalMenu.js" />
         <option value="$PROJECT_DIR$/app.json" />
+        <option value="$PROJECT_DIR$/atlassian-connect.json" />
       </list>
     </option>
   </component>
@@ -313,12 +313,12 @@
       <workItem from="1551882568902" duration="16718000" />
       <workItem from="1552148192662" duration="557000" />
       <workItem from="1552190913570" duration="12080000" />
-      <workItem from="1552828369926" duration="1599000" />
+      <workItem from="1552828369926" duration="1977000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184356000" />
+    <option name="totallyTimeSpent" value="184734000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-37" width="1366" height="805" extended-state="6" />
