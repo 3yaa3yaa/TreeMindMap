@@ -16,7 +16,7 @@
     },
     "baseUrl": "https://3yaa3yaa.github.io/TreeMindMap",
     "authentication": {
-        "type": "jwt"
+        "type": "none"
     },
     "enableLicensing": true,
     "scopes": [
