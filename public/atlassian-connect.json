@@ -1,26 +1,49 @@
 {
-    "modules": {},
-    "key": "my-app-key",
-    "name": "My Connect App",
-    "description": "A connect app that does something",
+    "key": "atlassian-connect-mindmap",
+    "name": "Mind Map",
+    "description": "Mind Map Integration for Confluence",
+    "version": "0.1",
     "vendor": {
         "name": "Nobuyuki Mukai",
-        "url": "https://github.com/3yaa3yaa/TreeMindMap"
+        "url": "https://github.com/3yaa3yaa"
     },
-    "links": {
-        "self": "https://github.com/3yaa3yaa/TreeMindMap/blob/conflu/atlassian-connect.json"
-    },
-    "lifecycle": {
-        "installed": "/installed",
-        "uninstalled": "/uninstalled"
-    },
-    "baseUrl": "https://3yaa3yaa.github.io/TreeMindMap",
+    "baseUrl": "https://3yaa3yaa.github.io/TreeMindMap/",
     "authentication": {
         "type": "none"
     },
-    "enableLicensing": true,
-    "scopes": [
-        "read",
-        "write"
-    ]
+    "modules": {
+        "dynamicContentMacros": [
+            {
+                "key": "map",
+                "name": {
+                    "i18n": "gmaps.macro.name",
+                    "value": "Google Map"
+                },
+                "featured": true,
+                "url": "/display.html?data={data}",
+                "icon": {
+                    "height": 80,
+                    "url": "https://3yaa3yaa.github.io/TreeMindMap/logo.jpeg",
+                    "width": 80
+                },
+                "imagePlaceholder": {
+                    "width": 80,
+                    "height": 80,
+                    "url": "https://3yaa3yaa.github.io/TreeMindMap/logo.jpeg",
+                    "applyChrome": true
+                },
+                "width": "500px",
+                "height": "200px",
+                "description": {
+                    "i18n": "gmaps.macro.desc",
+                    "value": "Insert a Google map onto a page"
+                },
+                "editor": {
+                    "url": "/editor.html",
+                    "width": "865px",
+                    "height": "493px"
+                }
+            }
+        ]
+    }
 }
