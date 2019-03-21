@@ -14,32 +14,32 @@
     "modules": {
         "dynamicContentMacros": [
             {
-                "key": "map",
+                "key": "mindmap",
                 "name": {
-                    "i18n": "gmaps.macro.name",
-                    "value": "Google Map"
+                    "i18n": "mindmap.macro.name",
+                    "value": "Tree Mind Map"
                 },
                 "featured": true,
-                "url": "/display.html?data={data}",
+                "url": "/",
                 "icon": {
                     "height": 80,
-                    "url": "https://3yaa3yaa.github.io/TreeMindMap/logo.jpeg",
+                    "url": "/logo.jpeg",
                     "width": 80
                 },
                 "imagePlaceholder": {
                     "width": 80,
                     "height": 80,
-                    "url": "https://3yaa3yaa.github.io/TreeMindMap/logo.jpeg",
+                    "url": "/logo.jpeg",
                     "applyChrome": true
                 },
                 "width": "500px",
                 "height": "200px",
                 "description": {
-                    "i18n": "gmaps.macro.desc",
-                    "value": "Insert a Google map onto a page"
+                    "i18n": "mindmap.macro.desc",
+                    "value": "Insert a Mind Map onto a page"
                 },
                 "editor": {
-                    "url": "/editor.html",
+                    "url": "/",
                     "width": "865px",
                     "height": "493px"
                 }
