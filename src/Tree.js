@@ -122,14 +122,11 @@ class Tree extends Component {
     }
 
 
-
     render() {
         return (
             <div>
-                <Header leafs={this.props.leafs} delete={this.props.delete} />
                 {this._getTree()}
-                </div>
-
+            </div>
         );
     }
 }
