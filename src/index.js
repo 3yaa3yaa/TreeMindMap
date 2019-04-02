@@ -10,8 +10,7 @@ import {compose,createStore} from "redux";
 
 //import store, {persistor} from './ConfigureStore'
 // Store
-const store = createStore(StateProvider.leafReducer)
-
+//const store = createStore(StateProvider.leafReducer)
 
 // Connected Component
 const App = connect(
@@ -21,7 +20,9 @@ const App = connect(
 
 
 const Map=props=>{
-    const { width, height, color, text } = props;
+    const { initialState, stateHandler } = props;
+    const store = createStore(StateProvider.leafReducer, initialState)
+    store.subscribe(()=>stateHandler(store.getState()))
     return (
         <Provider store={store}>
             <App />
