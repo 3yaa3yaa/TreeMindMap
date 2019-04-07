@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/3yaa3yaa/treemindmap.git"
+    "url": "https://github.com/3yaa3yaa/TreeMindMap.git"
   },
   "peerDependencies": {
     "react": "^16.7.0",
@@ -16,7 +16,8 @@
   },
   "scripts": {
     "start": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack",
+    "publish": "npm publish"
   },
   "author": {
     "name": "Nobuyuki Mukai"
