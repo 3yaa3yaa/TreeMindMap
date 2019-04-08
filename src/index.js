@@ -21,7 +21,15 @@ const App = connect(
 
 const Map=props=>{
     const { initialState, stateHandler } = props;
-    const store = createStore(StateProvider.leafReducer, initialState)
+    let store;
+    if(initialState == null)
+    {
+        store = createStore(StateProvider.leafReducer)
+    }
+    else
+    {
+        store = createStore(StateProvider.leafReducer, initialState)
+    }
     store.subscribe(()=>stateHandler(store.getState()))
     return (
         <Provider store={store}>
