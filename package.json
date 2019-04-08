@@ -1,6 +1,6 @@
 {
   "name": "treemindmap",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "",
   "main": "build/index.js",
   "repository": {
@@ -17,7 +17,8 @@
   "scripts": {
     "start": "webpack --watch",
     "build": "webpack",
-    "publish": "npm publish"
+    "publish": "npm publish",
+    "install": "npm install"
   },
   "author": {
     "name": "Nobuyuki Mukai"
