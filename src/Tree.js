@@ -3,8 +3,8 @@ import './Tree.css';
 import Leaf from "./Leaf"
 import Connector from "./Connector"
 import StateProvider from "./StateProvider"
-import GlobalMenu from "./GlobalMenu";
-import Header from './Header';
+
+
 
 class Tree extends Component {
 
