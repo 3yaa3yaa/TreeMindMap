@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './Leaf.css';
 import ImgViewer from './ImgViewer'
 import Menu from './Menu'
+import { DragSource, DropTarget } from 'react-dnd'
+
 class Leaf extends Component {
 
     constructor(props) {
@@ -29,12 +31,6 @@ class Leaf extends Component {
                     e.preventDefault()
                     this.props.addSibling(this.props.leafdata.id)
                 }
-                // if (e.altKey==true)
-                // {
-                //     e.preventDefault()
-                //     this.props.addChild(this.props.leafdata.id)
-                //     break;
-                // }
                 break;
             case 9: //Tab
                 if (e.shiftKey!=true)
@@ -133,10 +129,42 @@ class Leaf extends Component {
     }
 
     render() {
-    return (
-        this._getDOM()
-    );
+        //const { isDragging,dragSource, text, connectDropTarget, isOver, children } = this.props;
+        const { dragSource,  connectDropTarget } = this.props;
+        return (
+             connectDropTarget(dragSource(this._getDOM()))
+        );
     }
 }
 
-export default Leaf;
+const dragSpec = {
+    beginDrag: (props) => { return props.leafdata },
+    endDrag: (props, monitor)=>{alert(JSON.stringify(monitor.getItem()));alert(JSON.stringify(monitor.getDropResult()))}
+}
+
+
+const dropSpec = {
+    drop: (props, monitor, component)=> {
+        return props.leafdata;
+    }
+}
+
+
+function collectDrag(connect, monitor) {
+    return {
+        dragSource: connect.dragSource(),
+        isDragging: monitor.isDragging(),
+    }
+}
+
+function collectDrop(connect, monitor) {
+    return {
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver(),
+    }
+}
+
+Leaf=DragSource("leaf", dragSpec, collectDrag)(Leaf)
+Leaf=DropTarget("leaf", dropSpec, collectDrop)(Leaf)
+
+export default Leaf ;

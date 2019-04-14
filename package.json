@@ -1,24 +1,16 @@
 {
   "name": "treemindmap",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "",
   "main": "build/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/3yaa3yaa/TreeMindMap.git"
   },
-  "peerDependencies": {
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-redux": "^6.0.0",
-    "react-scripts": "2.1.3",
-    "redux": "^4.0.1"
-  },
   "scripts": {
     "start": "webpack --watch",
     "build": "webpack",
-    "publish": "npm publish",
-    "install": "npm install"
+    "publish": "npm publish"
   },
   "author": {
     "name": "Nobuyuki Mukai"
@@ -28,9 +20,19 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
-    "react-scripts": "2.1.3",
+    "react-scripts": "^2.1.8",
     "redux": "^4.0.1",
-    "webpack": "^4.12.0"
+    "webpack": "^4.12.0",
+    "react-dnd": "^7.4.5",
+    "react-dnd-html5-backend": "^7.4.4",
+    "yarn": "^1.15.2"
+  },
+  "peerDependencies": {
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-redux": "^6.0.0",
+    "react-scripts": "2.1.8",
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
