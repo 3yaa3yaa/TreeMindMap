@@ -139,7 +139,20 @@ class Leaf extends Component {
 
 const dragSpec = {
     beginDrag: (props) => { return props.leafdata },
-    endDrag: (props, monitor)=>{alert(JSON.stringify(monitor.getItem()));alert(JSON.stringify(monitor.getDropResult()))}
+    endDrag: (props, monitor)=>{
+        const dragged=monitor.getItem()
+        const dropped=monitor.getDropResult()
+        if(dropped!=null)
+        {
+            if(dragged.id!=dropped.id)
+            {
+                let edited;
+                Object.assign(edited,dragged)
+                edited.parentid=dropped.id
+                //props.edit(dragged)
+            }
+        }
+    }
 }
 
 
