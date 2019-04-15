@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b54e9619-190e-42c8-9b56-5c196e903d15" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Leaf.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Leaf.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tree.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tree.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Leaf.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="141" column="93" selection-start-line="141" selection-start-column="93" selection-end-line="141" selection-end-column="93" />
+            <state relative-caret-position="105">
+              <caret line="143" column="14" selection-start-line="143" selection-start-column="14" selection-end-line="143" selection-end-column="14" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -127,8 +121,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Connector</find>
-      <find>Ticket</find>
       <find>getV</find>
       <find>isLast</find>
       <find>Leaf</find>
@@ -137,7 +129,6 @@
       <find>PUBLIC_URL</find>
       <find>f</find>
       <find>filterLeaf</find>
-      <find>edit</find>
       <find>ImgViewer</find>
       <find>regexp</find>
       <find>reg</find>
@@ -157,6 +148,9 @@
       <find>props</find>
       <find>publish</find>
       <find>paren</find>
+      <find>edit</find>
+      <find>_getTextAreaStyle</find>
+      <find>gettextareastyle</find>
     </findStrings>
     <replaceStrings>
       <replace>leaf</replace>
@@ -381,12 +375,12 @@
       <workItem from="1555142202824" duration="7408000" />
       <workItem from="1555164494314" duration="737000" />
       <workItem from="1555166234366" duration="408000" />
-      <workItem from="1555204657583" duration="7621000" />
+      <workItem from="1555204657583" duration="10111000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="235114000" />
+    <option name="totallyTimeSpent" value="237604000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-37" width="1366" height="805" extended-state="6" />
@@ -747,8 +741,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Leaf.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="141" column="93" selection-start-line="141" selection-start-column="93" selection-end-line="141" selection-end-column="93" />
+        <state relative-caret-position="105">
+          <caret line="143" column="14" selection-start-line="143" selection-start-column="14" selection-end-line="143" selection-end-column="14" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
