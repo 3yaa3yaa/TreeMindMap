@@ -89,6 +89,7 @@ class StateProvider
                 }
             }
             )
+        //alert(JSON.stringify(newleafs))
         return { leafs: newleafs }
     }
 
