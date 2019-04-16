@@ -3,8 +3,8 @@ import './Tree.css';
 import Leaf from "./Leaf"
 import Connector from "./Connector"
 import StateProvider from "./StateProvider"
-
-
+import {DragDropContext} from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
 
 class Tree extends Component {
 
@@ -62,16 +62,18 @@ class Tree extends Component {
         let out = []
         dataarr.forEach((leaf)=>{
                 out.push((
-                        <ul class="Tree-Element">
+                        <ul className="Tree-Element">
                             <li className="Tree-Trunk">
                                 {this._getConnector(leaf)}
                             </li>
-                            <li class="Tree-Trunk">
+                            <li className="Tree-Trunk">
+                                <ul className="Tree-Element">
                                 <li className="Tree-Trunk-Sub">
                                     {this._getLeaf(leaf)}
                                 </li>
+                                </ul>
                             </li>
-                             <li class="Tree-Branch" >
+                             <li className="Tree-Branch" >
                                  {this._formatLeaf(StateProvider.filterLeafs(this.props.leafs, leaf.id ))}
                             </li>
                         </ul>
@@ -131,4 +133,5 @@ class Tree extends Component {
     }
 }
 
+Tree=DragDropContext(HTML5Backend)(Tree)
 export default Tree;
