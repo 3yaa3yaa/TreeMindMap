@@ -81,7 +81,7 @@ class StateProvider
             {
                 if(oldleaf.id==newleaf.id)
                 {
-                    return newleaf
+                    return Object.assign({},newleaf)
                 }
                 else
                 {

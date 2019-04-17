@@ -156,7 +156,6 @@ const dragSpec = {
     }
 }
 
-
 const dropSpec = {
     drop: (props, monitor, component)=> {
         return props.leafdata;

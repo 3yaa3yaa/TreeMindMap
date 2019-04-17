@@ -7,11 +7,12 @@ import { Provider, connect } from 'react-redux'
 //import * as serviceWorker from './serviceWorker';
 import {compose,createStore} from "redux";
 //import { PersistGate } from 'redux-persist/integration/react'
-import { DragDropContextProvider } from 'react-dnd'
-
 //import store, {persistor} from './ConfigureStore'
 // Store
 //const store = createStore(StateProvider.leafReducer)
+
+
+
 
 // Connected Component
 const App = connect(
@@ -33,6 +34,7 @@ const Map=props=>{
     }
     store.subscribe(()=>stateHandler(store.getState()))
     return (
+
             <Provider store={store}>
                 <App />
             </Provider>
