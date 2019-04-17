@@ -6,6 +6,9 @@ This software is released under the MIT License, see LICENSE.txt.
 This is a NPM component of mind map tool written in React.
 https://www.npmjs.com/package/treemindmap
 
+## What's it look like?
+![howto](https://github.com/3yaa3yaa/TreeMindMap/blob/master/HowTo.png)
+
 ## Projects that uses this component
 
 * https://github.com/3yaa3yaa/TreeMindMap-Site
@@ -31,7 +34,3 @@ render(
   document.getElementById('root')
 );
 ```
-
-
-## What's it look like?
-![howto](https://github.com/3yaa3yaa/TreeMindMap/blob/master/HowTo.png)
