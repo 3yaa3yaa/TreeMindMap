@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/treemindmap.svg)](https://badge.fury.io/js/treemindmap)
+[![Build Status](https://travis-ci.org/3yaa3yaa/TreeMindMap.svg?branch=master)](https://travis-ci.org/3yaa3yaa/TreeMindMap)
 # Tree Mind Map
 This software is released under the MIT License, see LICENSE.txt.
 
