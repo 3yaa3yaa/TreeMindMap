@@ -4,14 +4,7 @@ import './index.css';
 import Tree from './Tree';
 import StateProvider from './StateProvider';
 import { Provider, connect } from 'react-redux'
-//import * as serviceWorker from './serviceWorker';
 import {compose,createStore} from "redux";
-//import { PersistGate } from 'redux-persist/integration/react'
-//import store, {persistor} from './ConfigureStore'
-// Store
-//const store = createStore(StateProvider.leafReducer)
-
-
 
 
 // Connected Component
@@ -22,23 +15,30 @@ const App = connect(
 
 
 const Map=props=>{
-    const { initialState, stateHandler } = props;
+    const { initialState, stateHandler,noStore } = props;
     let store;
-    if(initialState == null)
+    if(noStore==true)
     {
-        store = createStore(StateProvider.leafReducer)
+        return <App />
     }
     else
     {
-        store = createStore(StateProvider.leafReducer, initialState)
-    }
-    store.subscribe(()=>stateHandler(store.getState()))
-    return (
-
+        if(initialState == null)
+        {
+            store = createStore(StateProvider.leafReducer)
+        }
+        else
+        {
+            store = createStore(StateProvider.leafReducer, initialState)
+        }
+        store.subscribe(()=>stateHandler(store.getState()))
+        return (
             <Provider store={store}>
                 <App />
             </Provider>
-    )
+        )
+    }
+
 }
 
 export default Map;
