@@ -13,31 +13,26 @@ const App = connect(
     StateProvider.mapDispatchToProps
 )(Tree)
 
-
 const Map=props=>{
-    const { initialState, stateHandler,noStore } = props;
+    const { initialState, stateHandler } = props;
     let store;
-    if(noStore==true)
+    if(initialState == null)
     {
-        return <App />
+        store = createStore(StateProvider.leafReducer)
     }
     else
     {
-        if(initialState == null)
-        {
-            store = createStore(StateProvider.leafReducer)
-        }
-        else
-        {
-            store = createStore(StateProvider.leafReducer, initialState)
-        }
-        store.subscribe(()=>stateHandler(store.getState()))
-        return (
-            <Provider store={store}>
-                <App />
-            </Provider>
-        )
+        store = createStore(StateProvider.leafReducer, initialState)
     }
+    if(stateHandler!=null)
+    {
+        store.subscribe(()=>stateHandler(store.getState()))
+    }
+    return (
+        <Provider store={store}>
+            <App />
+        </Provider>
+    )
 
 }
 
