@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b54e9619-190e-42c8-9b56-5c196e903d15" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GlobalMenu.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GlobalMenu.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GlobalMenuModal.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GlobalMenuModal.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Header.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Header.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Menu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MenuModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/MenuModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/StateProvider.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/StateProvider.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -48,7 +37,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MenuModal.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
@@ -56,6 +45,15 @@
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="274">
+              <caret line="27" column="15" lean-forward="true" selection-start-line="25" selection-end-line="27" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -88,18 +86,6 @@
               <caret line="95" lean-forward="true" selection-start-line="95" selection-end-line="95" />
               <folding>
                 <element signature="e#2#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ImgViewer.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -232,7 +218,6 @@
         <option value="$PROJECT_DIR$/.babelrc" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/Leaf.js" />
         <option value="$PROJECT_DIR$/src/Tree.js" />
         <option value="$PROJECT_DIR$/LICENSE.txt" />
@@ -243,6 +228,7 @@
         <option value="$PROJECT_DIR$/src/Menu.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/StateProvider.js" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -359,9 +345,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Mocha.test" />
       <item itemvalue="npm.build" />
       <item itemvalue="npm.publish" />
+      <item itemvalue="Mocha.test" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -402,7 +388,7 @@
       <workItem from="1555339060887" duration="15701000" />
       <workItem from="1555499780935" duration="4963000" />
       <workItem from="1555588873828" duration="6991000" />
-      <workItem from="1555682100571" duration="9433000" />
+      <workItem from="1555682100571" duration="10235000" />
     </task>
     <servers />
   </component>
@@ -415,19 +401,19 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="278029000" />
+    <option name="totallyTimeSpent" value="278831000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-37" width="1366" height="805" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24962853" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24962853" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295129" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49257058" visible="true" weight="0.5103245" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49257058" visible="true" weight="0.5103245" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -644,9 +630,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Burger.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -796,6 +779,13 @@
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="27" column="15" lean-forward="true" selection-start-line="25" selection-end-line="27" selection-end-column="15" />
         </state>
       </provider>
     </entry>
