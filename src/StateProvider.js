@@ -103,7 +103,6 @@ class StateProvider
 
     // Reducer
     static leafReducer(state = { leafs: [], id:"" }, action) {
-
         switch (action.type) {
             case 'delete':
                 return StateProvider.delete(state.leafs,action.id)

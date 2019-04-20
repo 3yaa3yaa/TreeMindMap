@@ -6,23 +6,44 @@ import StateProvider from './StateProvider';
 import { Provider, connect } from 'react-redux'
 import {compose,createStore} from "redux";
 
-
 // Connected Component
 const App = connect(
     StateProvider.mapStateToProps,
     StateProvider.mapDispatchToProps
 )(Tree)
 
+function convertIntialData(givenData)
+{
+    if (givenData==null)
+    {
+        return null;
+    }
+    else
+    {
+        if(typeof(givenData)=="string")
+        {
+            return JSON.parse(givenData)
+        }
+        else
+        {
+            return givenData
+        }
+    }
+
+}
+
+
 const Map=props=>{
     const { initialState, stateHandler } = props;
     let store;
-    if(initialState == null)
+    let convertedInitialState=convertIntialData(initialState)
+    if(convertedInitialState == null)
     {
         store = createStore(StateProvider.leafReducer)
     }
     else
     {
-        store = createStore(StateProvider.leafReducer, initialState)
+        store = createStore(StateProvider.leafReducer, convertedInitialState)
     }
     if(stateHandler!=null)
     {

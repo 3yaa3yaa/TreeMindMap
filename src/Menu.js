@@ -36,9 +36,6 @@ class Menu extends Component {
         return out;
     }
 
-
-
-
     render() {
     return (
         <div className="Menu">
