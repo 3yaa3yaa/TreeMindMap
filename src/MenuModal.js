@@ -13,7 +13,7 @@ class MenuModal extends Component {
 
     componentDidMount() {
         this.setState({modal:this._getModal()})
-        let re=new RegExp("MenuModal.*")
+        let re=new RegExp("^MenuModal.*")
         document.onclick=(e)=>{
             if(re.test(e.srcElement.className)!=true)
             {
