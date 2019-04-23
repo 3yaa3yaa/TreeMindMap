@@ -7,27 +7,8 @@ class MenuModal extends Component {
     constructor(props) {
         super(props);
         this.state={
-            modal:"",
             imgcanvas:""}
     }
-
-    componentDidMount() {
-        this.setState({modal:this._getModal()})
-        let re=new RegExp("^MenuModal.*")
-        document.onclick=(e)=>{
-            if(re.test(e.srcElement.className)!=true)
-            {
-                this._endModal()
-            }
-        }
-    }
-
-    _endModal()
-    {
-        this.setState({modal:"",imgcanvas:""})
-        document.onclick=null
-    }
-
 
     colorPickHandler(e)
     {
@@ -79,17 +60,17 @@ class MenuModal extends Component {
             <div className="MenuModal" style={this.props.position} ref={(e)=>{ this.menuModalRef=e}}>
                 <label  className="MenuModal-Command-Label"> Add Picture
                 </label>
-                <input type='file' className="MenuModal-Command" onChange={(e) => {this.fileChangeHander(e);this._endModal()}}></input>
+                <input type='file' className="MenuModal-Command" onChange={(e) => {this.fileChangeHander(e);this.props.closeModal()}}></input>
                 <br />
                 <label  className="MenuModal-Command-Label">Pick Color</label>
-                <input type='color'  className="MenuModal-Command" value="#98FB98" onChange={(e) => {this.colorPickHandler(e);this._endModal()}}>
+                <input type='color'  className="MenuModal-Command" value="#98FB98" onChange={(e) => {this.colorPickHandler(e);this.props.closeModal()}}>
                 </input>
                 <br />
                 <label  className="MenuModal-Command-Label"> Add Child</label>
-                <input type='button' className="MenuModal-Command"  value="Add" onClick={(e) => {this.props.addChild(this.props.leafdata.id);this._endModal()}}></input>
+                <input type='button' className="MenuModal-Command"  value="Add" onClick={(e) => {this.props.addChild(this.props.leafdata.id);this.props.closeModal()}}></input>
                 <br />
                 <label  className="MenuModal-Command-Label"> Add Sibling</label>
-                <input type='button' className="MenuModal-Command"  value="Add" onClick={(e) => {this.props.addSibling(this.props.leafdata.id);this._endModal()}}></input>
+                <input type='button' className="MenuModal-Command"  value="Add" onClick={(e) => {this.props.addSibling(this.props.leafdata.id);this.props.closeModal()}}></input>
                 <br />
             </div>
         )
@@ -97,7 +78,7 @@ class MenuModal extends Component {
 
     render() {
         //return this._getModal()
-        return <div>{this.state.modal}{this.state.imgcanvas}</div>
+        return <div>{this._getModal()}{this.state.imgcanvas}</div>
     }
 }
 
