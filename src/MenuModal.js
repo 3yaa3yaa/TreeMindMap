@@ -47,6 +47,7 @@ class MenuModal extends Component {
                                    }
                         >
                         </ImgCanvas>})
+                this.setState({imgcanvas:""})
             }
             img.src=reader.result
 
