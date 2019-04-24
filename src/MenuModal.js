@@ -12,7 +12,7 @@ class MenuModal extends Component {
 
     colorPickHandler(e)
     {
-        e.preventDefault()
+        //e.preventDefault()
         let color=e.target.value
         let newleaf=this.props.leafdata
         newleaf.color=color
@@ -21,7 +21,7 @@ class MenuModal extends Component {
 
     fileChangeHander(e)
     {
-        e.preventDefault()
+        //e.preventDefault()
         let file = e.target.files[0]
         let reader = new FileReader()
         reader.onloadend = () => {
@@ -63,11 +63,11 @@ class MenuModal extends Component {
                 <input type='file' className="MenuModal-Command" onChange={(e) => {this.fileChangeHander(e);this.props.closeModal()}}></input>
                 <br />
                 <label  className="MenuModal-Command-Label">Pick Color</label>
-                <input type='color'  className="MenuModal-Command" value="#98FB98" onChange={(e) => {this.colorPickHandler(e);this.props.closeModal()}}>
+                <input type='color'  className="MenuModal-Command"  onChange={(e) => {this.colorPickHandler(e);this.props.closeModal()}}>
                 </input>
                 <br />
                 <label  className="MenuModal-Command-Label"> Add Child</label>
-                <input type='button' className="MenuModal-Command"  value="Add" onClick={(e) => {this.props.addChild(this.props.leafdata.id);this.props.closeModal()}}></input>
+                <input type='button' className="MenuModal-Command" value="Add" onClick={(e) => {this.props.addChild(this.props.leafdata.id);this.props.closeModal()}}></input>
                 <br />
                 <label  className="MenuModal-Command-Label"> Add Sibling</label>
                 <input type='button' className="MenuModal-Command"  value="Add" onClick={(e) => {this.props.addSibling(this.props.leafdata.id);this.props.closeModal()}}></input>
