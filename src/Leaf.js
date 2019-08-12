@@ -10,13 +10,15 @@ class Leaf extends Component {
     constructor(props) {
         super(props);
         this.leafRef=React.createRef()
-
+        this.state={focused:true}
     }
 
     componentDidMount()
     {
         this.leafRef.focus()
     }
+
+
 
     onChange(e)
     {
@@ -102,6 +104,28 @@ class Leaf extends Component {
         }
     }
 
+    _getDescription(){
+        if(this.state.focused)
+        {
+            return <div className="Leaf-Colomuns">
+                <textarea className="Leaf-TextArea" type="text" style={this._getTextAreaStyle()}
+                          value={this.props.leafdata.title}
+                          onKeyDown={(e)=>this.keyDownHandler(e)}
+                          onChange={(e)=>this.onChangeHandler(e)}
+                          ref={(e)=>{ this.leafRef=e}} />
+            </div>
+        }
+        else
+        {
+            return <div className="Leaf-Colomuns">
+                <textarea className="Leaf-TextArea" type="text" style={this._getTextAreaStyle()}
+                          value="this is not focused!"
+                          onKeyDown={(e)=>this.keyDownHandler(e)}
+                          onChange={(e)=>this.onChangeHandler(e)}
+                          ref={(e)=>{ this.leafRef=e}} />
+            </div>
+        }
+    }
 
     _getDOM(){
     return (
@@ -109,13 +133,7 @@ class Leaf extends Component {
             <div className="Leaf-Row">
                 <div>
                     <ImgViewer leafdata={this.props.leafdata}/>
-                <div className="Leaf-Colomuns">
-                <textarea className="Leaf-TextArea" type="text" style={this._getTextAreaStyle()}
-                          value={this.props.leafdata.title}
-                          onKeyDown={(e)=>this.keyDownHandler(e)}
-                          onChange={(e)=>this.onChangeHandler(e)}
-                          ref={(e)=>{ this.leafRef=e}} />
-                </div>
+                    {this._getDescription()}
                 </div>
                 <div className="Leaf-Colomuns">
                     <Menu leafdata={this.props.leafdata}
