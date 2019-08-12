@@ -11,6 +11,8 @@ class Leaf extends Component {
         super(props);
         this.leafRef=React.createRef()
         this.state={focused:true}
+        //this.leafRef.onfocus=()=>{this.setState({focused:true})}
+        //this.leafRef.onblur=()=>{this.setState({focused:false})}
     }
 
     componentDidMount()
