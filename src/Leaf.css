@@ -26,12 +26,14 @@
 
 
 .Leaf-Row{
+  position: relative;
   display: table-row;
   position: center;
   vertical-align: middle;
 }
 
 .Leaf-Colomuns{
+  position: relative;
   display: table-cell;
   margin:0px;
   vertical-align: middle;
