@@ -3,21 +3,23 @@ import './Leaf.css';
 import ImgViewer from './ImgViewer'
 import Menu from './Menu'
 import { DragSource, DropTarget } from 'react-dnd'
+import MarkdownTextBox from 'markdowntextbox';
 import StateProvider from './StateProvider'
 
 class Leaf extends Component {
 
     constructor(props) {
         super(props);
+        this.leafTextAreaRef=React.createRef()
         this.leafRef=React.createRef()
         this.state={focused:true}
-        //this.leafRef.onfocus=()=>{this.setState({focused:true})}
-        //this.leafRef.onblur=()=>{this.setState({focused:false})}
+        //this.leafTextAreaRef.onfocus=()=>{this.setState({focused:true})}
+        //this.leafTextAreaRef.onblur=()=>{this.setState({focused:false})}
     }
 
     componentDidMount()
     {
-        this.leafRef.focus()
+        //this.leafTextAreaRef.focus()
     }
 
 
@@ -58,27 +60,41 @@ class Leaf extends Component {
         this.props.edit(newleaf)
     }
 
+    onFocusHandler(e)
+    {
+        this.setState({focused:true})
+        //this.leafRef.style={backgroundColor: "#0000FF"};
+    }
+
+    onBlurHandler(e)
+    {
+
+        this.setState({focused:false})
+        //this.leafRef.style
+        //this.leafRef.style={backgroundColor: "#FF0000"};
+    }
+
+    _getLeafInputFieldsStyle()
+    {
+        if(this.state.focused)
+        {
+            return {opacity:"1"}
+        }
+        else
+        {
+            return {opacity: "0"}
+        }
+    }
+
+
     _getTextAreaStyle()
     {
-        let widthtobeset="50px"
-        let heighttobeset="20px"
-        if(typeof(this.props.leafdata.title)=="string")
-        {
-            let lines = this.props.leafdata.title.split('\n')
-            let reducer=(acc,curr)=>{if(acc<curr){return curr}else{return acc}};
-            let maxwidth= lines.map((line)=>line.length).reduce(reducer,5)
-            widthtobeset= (Math.floor(maxwidth  / 5) *75)
-            if(widthtobeset>200) {widthtobeset=200}
-            widthtobeset=widthtobeset+"px"
-            //heighttobeset=(lines.length * 20)+"px"
-            heighttobeset=this.leafRef.scrollHeight
-        }
+        let leafsize=this._getLeafSize()
 
         let out={
-            width: widthtobeset  ,
-            height: heighttobeset
-            // width: "100px",
-            // height: "50px"
+            position: "absolute",
+            width: leafsize.width,
+            height: leafsize.height
         }
 
         return out
@@ -89,53 +105,86 @@ class Leaf extends Component {
     {
         let color=this.props.leafdata.color
         let inheritedColor = this.props.inheritedColor
+        let sizeinfo = this._getLeafSize()
         if(typeof (color)!='undefined')
         {
-            return {backgroundColor: color}
+            return {backgroundColor: color,
+                    width: sizeinfo.width,
+                    height: sizeinfo.height}
         }
         else
         {
             if(typeof(inheritecColor)!='undefined')
             {
-                return {backgroundColor: inheritedColor}
+                return {backgroundColor: inheritedColor,
+                        width: sizeinfo.width,
+                        height: sizeinfo.height}
             }
             else
             {
-                return {backgroundColor: "palegreen"}
+                return {backgroundColor: "palegreen",
+                        width: sizeinfo.width,
+                        height: sizeinfo.height}
             }
         }
     }
 
-    _getDescription(){
-        if(this.state.focused)
-        {
-            return <div className="Leaf-Colomuns">
-                <textarea className="Leaf-TextArea" type="text" style={this._getTextAreaStyle()}
-                          value={this.props.leafdata.title}
-                          onKeyDown={(e)=>this.keyDownHandler(e)}
-                          onChange={(e)=>this.onChangeHandler(e)}
-                          ref={(e)=>{ this.leafRef=e}} />
-            </div>
+    _getLeafFirstColumnStyle()
+    {
+        let leafsize=this._getLeafSize()
+
+        let out={
+            width: leafsize.width,
+            height: leafsize.height
         }
-        else
-        {
-            return <div className="Leaf-Colomuns">
-                <textarea className="Leaf-TextArea" type="text" style={this._getTextAreaStyle()}
-                          value="this is not focused!"
-                          onKeyDown={(e)=>this.keyDownHandler(e)}
-                          onChange={(e)=>this.onChangeHandler(e)}
-                          ref={(e)=>{ this.leafRef=e}} />
-            </div>
+        return out
+    }
+
+    _getLeafSize() {
+        let widthtobeset = "50px"
+        let heighttobeset = "20px"
+        if (typeof (this.props.leafdata.title) == "string") {
+            let lines = this.props.leafdata.title.split('\n')
+            let reducer = (acc, curr) => {
+                if (acc < curr) {
+                    return curr
+                } else {
+                    return acc
+                }
+            };
+            let maxwidth = lines.map((line) => line.length).reduce(reducer, 5)
+            widthtobeset = (Math.floor(maxwidth / 5) * 75)
+            if (widthtobeset > 200) {
+                widthtobeset = 200
+            }
+            widthtobeset = widthtobeset + "px"
+            //heighttobeset=(lines.length * 20)+"px"
+            heighttobeset = this.leafTextAreaRef.scrollHeight
         }
+        let out= {
+            width: widthtobeset,
+            height: heighttobeset
+        }
+        return out;
     }
 
     _getDOM(){
     return (
-        <div className="Leaf" style={this._getLeafStyle()}>
+        <div className="Leaf"
+             onFocus={(e)=>this.onFocusHandler(e)}
+             onBlur={(e)=>this.onBlurHandler(e)}
+             ref={(e)=>{this.leafRef=e}} >
             <div className="Leaf-Row">
-                <div>
-                    <ImgViewer leafdata={this.props.leafdata}/>
-                    {this._getDescription()}
+                <div className="Leaf-Columns" style={this._getLeafFirstColumnStyle()}>
+                    <div className="Leaf-Row"><ImgViewer leafdata={this.props.leafdata}/></div>
+                    <div className="Leaf-Row">
+                        <div className="Leaf-Colomuns">
+                            <MarkdownTextBox value={this.props.leafdata.title}
+                                             onKeyDown={(e)=>this.keyDownHandler(e)}
+                                             onChange={(e)=>this.onChangeHandler(e)}
+                                             ref={(e)=>{ this.leafTextAreaRef=e}} />
+                        </div>
+                    </div>
                 </div>
                 <div className="Leaf-Colomuns">
                     <Menu leafdata={this.props.leafdata}
