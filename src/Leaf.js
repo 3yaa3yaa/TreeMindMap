@@ -12,7 +12,7 @@ class Leaf extends Component {
         super(props);
         this.leafTextAreaRef=React.createRef()
         this.leafRef=React.createRef()
-        this.state={focused:true}
+        this.state={focused:true, hover:false}
         //this.leafTextAreaRef.onfocus=()=>{this.setState({focused:true})}
         //this.leafTextAreaRef.onblur=()=>{this.setState({focused:false})}
     }
@@ -176,7 +176,7 @@ class Leaf extends Component {
 
     _getBurgerVisibility()
     {
-        if(this.state.focused)
+        if(this.state.hover)
         {
             return {visibility: "visible" }
         }
@@ -191,6 +191,8 @@ class Leaf extends Component {
         <div className="Leaf"
              onFocus={(e)=>this.onFocusHandler(e)}
              onBlur={(e)=>this.onBlurHandler(e)}
+             onMouseOver={(e)=>this.setState({hover:true})}
+             onMouseLeave={(e)=>this.setState({hover:false})}
              ref={(e)=>{this.leafRef=e}} >
             <div className="Leaf-Row">
                 <div className="Leaf-Columns" style={this._getLeafFirstColumnStyle()}>
