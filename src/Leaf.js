@@ -86,19 +86,25 @@ class Leaf extends Component {
         }
     }
 
-
+    
     _getTextAreaStyle()
     {
         let leafsize=this._getLeafSize()
 
-        let out={
-            position: "absolute",
+        return {
+            textAlign: "left",
+            backgroundColor: "transparent",
+            border: "none",
             width: leafsize.width,
-            height: leafsize.height
+            height: leafsize.height,
+            margin: "1px",
+            padding: "0px",
+            minWidth: "50px",
+            verticalAlign: "middle",
+            color: "white",
+            webkitUserSelect : "auto",
+            webkitOverflowScrolling: "touch"
         }
-
-        return out
-
     }
 
     _getLeafStyle()
@@ -180,9 +186,10 @@ class Leaf extends Component {
                     <div className="Leaf-Row">
                         <div className="Leaf-Colomuns">
                             <MarkdownTextBox value={this.props.leafdata.title}
+                                             style={this._getTextAreaStyle()}
                                              onKeyDown={(e)=>this.keyDownHandler(e)}
                                              onChange={(e)=>this.onChangeHandler(e)}
-                                             ref={(e)=>{ this.leafTextAreaRef=e}} />
+                                              />
                         </div>
                     </div>
                 </div>
