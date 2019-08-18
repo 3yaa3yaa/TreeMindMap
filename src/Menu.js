@@ -53,7 +53,7 @@ class Menu extends Component {
 
     render() {
     return (
-        <div className="Menu">
+        <div className="Menu" style={this.props.style}>
             <label  className="Menu-Command-Burger"><Burger/>
                 <input type='button' className="Menu-Command"
                        onClick={() => {this._switchModal() }}
