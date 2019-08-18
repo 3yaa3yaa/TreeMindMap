@@ -7,10 +7,9 @@ class Burger extends Component {
         super(props);
     }
 
-
     render() {
     return (
-        <div id="humberger">
+        <div id="humberger" style={this.props.style}>
             <div></div>
             <div></div>
             <div></div>

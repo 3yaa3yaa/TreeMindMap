@@ -86,7 +86,7 @@ class Leaf extends Component {
         }
     }
 
-    
+
     _getTextAreaStyle()
     {
         let leafsize=this._getLeafSize()
@@ -174,6 +174,18 @@ class Leaf extends Component {
         return out;
     }
 
+    _getBurgerVisibility()
+    {
+        if(this.state.focused)
+        {
+            return {visibility: "visible" }
+        }
+        else
+        {
+            return {visibility: "hidden"}
+        }
+    }
+
     _getDOM(){
     return (
         <div className="Leaf"
@@ -197,7 +209,8 @@ class Leaf extends Component {
                     <Menu leafdata={this.props.leafdata}
                           edit={this.props.edit}
                           addChild={this.props.addChild}
-                          addSibling={this.props.addSibling}/>
+                          addSibling={this.props.addSibling}
+                          style={this._getBurgerVisibility()}/>
                 </div>
             </div>
         </div>
