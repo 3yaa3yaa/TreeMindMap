@@ -99,46 +99,35 @@ class Leaf extends Component {
 
     _getLeafStyle()
     {
-        let color=this.props.leafdata.color
-        let inheritedColor = this.props.inheritedColor
-        let sizeinfo = this._getLeafSize()
-        if(typeof (color)!='undefined')
-        {
-            return {backgroundColor: color,
-                    width: sizeinfo.width,
-                    height: sizeinfo.height}
-        }
-        else
-        {
-            if(typeof(inheritecColor)!='undefined')
-            {
-                return {backgroundColor: inheritedColor,
-                        width: sizeinfo.width,
-                        height: sizeinfo.height}
+        let color=this.props.leafdata.color;
+        if(color==undefined){color="silver"};
+
+        return {
+            textAlign: "left",
+            backgroundColor: color,
+            padding: "10px",
+            marginTop: "3px",
+            marginBottom: "3px",
+            marginLeft:"0px",
+            marginRight:"0px",
+            borderRadius:"10px",
+            resize: "both"
             }
-            else
-            {
-                return {backgroundColor: "palegreen",
-                        width: sizeinfo.width,
-                        height: sizeinfo.height}
-            }
-        }
     }
 
     _getLeafFirstColumnStyle()
     {
-        let leafsize=this._getLeafSize()
-
-        let out={
-            width: leafsize.width,
-            height: leafsize.height
-        }
-        return out
+        // let leafsize=this._getLeafSize()
+        //
+        // let out={
+        //     width: leafsize.width,
+        //     height: leafsize.height
+        // }
+        // return out
     }
 
     _getLeafSize() {
         let widthtobeset = "50px"
-        let heighttobeset = "20px"
         if (typeof (this.props.leafdata.title) == "string") {
             let lines = this.props.leafdata.title.split('\n')
             let reducer = (acc, curr) => {
@@ -154,12 +143,9 @@ class Leaf extends Component {
                 widthtobeset = 200
             }
             widthtobeset = widthtobeset + "px"
-            //heighttobeset=(lines.length * 20)+"px"
-            heighttobeset = this.leafTextAreaRef.scrollHeight
         }
         let out= {
-            width: widthtobeset,
-            height: heighttobeset
+            width: widthtobeset
         }
         return out;
     }
@@ -184,10 +170,10 @@ class Leaf extends Component {
              onKeyDown={(e)=>this.keyDownHandler(e)}
              onMouseOver={(e)=>this.setState({hover:true})}
              onMouseLeave={(e)=>this.setState({hover:false})}
+             style={this._getLeafStyle()}
              ref={(e)=>{this.leafRef=e}} >
             <div className="Leaf-Row">
                 <div className="Leaf-Columns" style={this._getLeafFirstColumnStyle()}>
-                    <div className="Leaf-Row"><ImgViewer leafdata={this.props.leafdata}/></div>
                     <div className="Leaf-Row">
                         <div className="Leaf-Colomuns">
                             <MarkdownTextBox value={this.props.leafdata.title}
@@ -196,6 +182,7 @@ class Leaf extends Component {
                                               />
                         </div>
                     </div>
+                    <div className="Leaf-Row"><ImgViewer leafdata={this.props.leafdata}/></div>
                 </div>
                 <div className="Leaf-Colomuns">
                     <Menu leafdata={this.props.leafdata}
