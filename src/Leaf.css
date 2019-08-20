@@ -1,6 +1,6 @@
 .Leaf {
   text-align: left;
-  background-color: darkgray;
+  background-color: silver;
   padding: 10px;
   margin-top: 3px;
   margin-bottom: 3px;
@@ -10,26 +10,9 @@
   resize: both;
 }
 
-.Leaf-TextArea {
-  text-align: left;
-  background-color: transparent;
-  border: none;
-  height: available;
-  margin: 1px;
-  padding: 0px;
-  min-width: 50px;
-  width: 50px;
-  vertical-align: middle;
-  color: darkgreen;
-  -webkit-user-select : auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-
 .Leaf-Row{
   position: static;
   display: table-row;
-  position: center;
   vertical-align: middle;
 }
 
