@@ -22,15 +22,6 @@ class Leaf extends Component {
         //this.leafTextAreaRef.focus()
     }
 
-
-
-    onChange(e)
-    {
-        // let newdata = this.state.data
-        // newdata.name=e.target.value
-        // this.setState({ data : newdata });
-    }
-
     keyDownHandler(e) {
         switch (e.keyCode) {
             case 13: //Enter
@@ -85,7 +76,6 @@ class Leaf extends Component {
             return {opacity: "0"}
         }
     }
-
 
     _getTextAreaStyle()
     {
@@ -191,6 +181,7 @@ class Leaf extends Component {
         <div className="Leaf"
              onFocus={(e)=>this.onFocusHandler(e)}
              onBlur={(e)=>this.onBlurHandler(e)}
+             onKeyDown={(e)=>this.keyDownHandler(e)}
              onMouseOver={(e)=>this.setState({hover:true})}
              onMouseLeave={(e)=>this.setState({hover:false})}
              ref={(e)=>{this.leafRef=e}} >
@@ -201,7 +192,6 @@ class Leaf extends Component {
                         <div className="Leaf-Colomuns">
                             <MarkdownTextBox value={this.props.leafdata.title}
                                              style={this._getTextAreaStyle()}
-                                             onKeyDown={(e)=>this.keyDownHandler(e)}
                                              onChange={(e)=>this.onChangeHandler(e)}
                                               />
                         </div>

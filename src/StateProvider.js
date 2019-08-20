@@ -50,27 +50,62 @@ class StateProvider
         }
         else
         {
-        let leaf={id:StateProvider.getNewId(leafs),
-            parentid: "ROOT"}
-            //leaf.title="How to use Tree Mind Map\n\nTo add child:ENTER\nTo add sibling :TAB\nTo delete item:DELETE\n"
-        return { leafs: leafs.concat(leaf) }
+            let leaf={id:StateProvider.getNewId(leafs),
+                      parentid: "ROOT",
+                      index:0}
+            return { leafs: leafs.concat(leaf) }
         }
+    }
 
+    static getNextIndex(leafs, currentleaf)
+    {
+        let siblings= leafs.filter((leaf)=>leaf.parentid==currentleaf.parentid);
+        if(siblings.length==0)
+        {
+            return 0;
+        }
+        else
+        {
+            let sort = siblings.sort((a,b)=>{return a.index-b.index});
+            let flag=false;
+            for(s of sort)
+            {
+                if(flag){return s.index};
+                if(s.id==currentleaf.id){flag=true};
+            }
+            return sort[sort.length].index + 1;
+        }
+    }
+
+    static getNewIndex(leafs, parentid)
+    {
+        let siblings= leafs.filter((leaf)=>leaf.parentid==parentid);
+        if(siblings.length==0)
+        {
+            return 0;
+        }
+        else
+        {
+            return siblings.sort((a,b)=>{return b.index-a.index})[0].index+1;
+        }
     }
 
     static addChild(leafs, id)
     {
         //let leaf=new LeafData(StateProvider.getCurrent(leafs, id).id)
+        let parentid=StateProvider.getCurrent(leafs, id).id;
         let leaf={id:StateProvider.getNewId(leafs),
-                  parentid: StateProvider.getCurrent(leafs, id).id}
+                  parentid: parentid,
+                  index: this.getNewIndex(leafs, parentid)}
         return { leafs: leafs.concat(leaf) }
     }
 
     static addSibling(leafs, id)
     {
-        //let leaf=new LeafData(StateProvider.getCurrent(leafs, id).parentid)
+        let parentid=StateProvider.getCurrent(leafs, id).parentid;
         let leaf={id:StateProvider.getNewId(leafs),
-            parentid: StateProvider.getCurrent(leafs, id).parentid}
+                  parentid: parentid,
+                  index: this.getNewIndex(leafs,parentid)}
         return { leafs: leafs.concat(leaf) }
 
     }
@@ -81,7 +116,11 @@ class StateProvider
             {
                 if(oldleaf.id==newleaf.id)
                 {
-                    return Object.assign({},newleaf)
+                    if(oldleaf.parentid!=newleaf.parentid)
+                    {
+                        newleaf.index=this.getNewIndex(leafs,newleaf.parentid);
+                    };
+                    return Object.assign({},newleaf);
                 }
                 else
                 {
@@ -89,7 +128,6 @@ class StateProvider
                 }
             }
             )
-        //alert(JSON.stringify(newleafs))
         return { leafs: newleafs }
     }
 
@@ -177,7 +215,7 @@ class StateProvider
                 }
             )
         }
-        return out
+        return out.sort((a,b)=>{return a.index - b.index})
     }
 
     // Map Redux state to component props
