@@ -21,19 +21,18 @@ class Tree extends Component {
     _getLeaf(leaf)
     {
         return <Leaf leafdata={leaf}
+                     focusId={this.props.focusId}
                      edit={this.props.edit}
                      addChild={this.props.addChild}
                      delete={this.props.delete}
-                     addSibling={this.props.addSibling}/>
+                     addSibling={this.props.addSibling}
+                     move={this.props.move}
+                     />
     }
 
     _getConnector(leaf)
     {
         let arr = [<Connector mode={this._getMode(leaf,this.props.leafs)}/>]
-        // if(leaf.parentid!="ROOT")
-        // {
-        //     this._getConnectorSub(leaf,leaf,arr)
-        // }
         return arr;
     }
 
