@@ -29,31 +29,34 @@ class StateProvider
         return { type: 'edit', leaf }
     }
 
+    static moveAction(id, moveTo)
+    {
+        return { type: 'move', id, moveTo }
+    }
+
+
 
     //Reducer implementation
-    static delete(leafs,id)
+    static delete(leafs,id, focusId)
     {
         //let leaf=new LeafData("ROOT")
         //return { leafs: leafs.concat(leaf) }
         let newleafs= leafs.filter((leaf)=>{return leaf.id != id})
-        return {leafs:newleafs}
+        return {leafs:newleafs, focusId: focusId}
     }
 
-    static addRoot(leafs,id)
+    static addRoot(leafs,id,focusId)
     {
-        //let leaf=new LeafData("ROOT")
-        //return { leafs: leafs.concat(leaf) }
-
         if (StateProvider.filterLeafs(leafs,'ROOT').length>0)
         {
-            return {leafs:leafs}
+            return {leafs:leafs, focusId: 'ROOT'}
         }
         else
         {
             let leaf={id:StateProvider.getNewId(leafs),
                       parentid: "ROOT",
                       index:0}
-            return { leafs: leafs.concat(leaf) }
+            return { leafs: leafs.concat(leaf) , focusId: leaf.id}
         }
     }
 
@@ -97,7 +100,7 @@ class StateProvider
         let leaf={id:StateProvider.getNewId(leafs),
                   parentid: parentid,
                   index: this.getNewIndex(leafs, parentid)}
-        return { leafs: leafs.concat(leaf) }
+        return { leafs: leafs.concat(leaf), focusId: leaf.id }
     }
 
     static addSibling(leafs, id)
@@ -106,11 +109,11 @@ class StateProvider
         let leaf={id:StateProvider.getNewId(leafs),
                   parentid: parentid,
                   index: this.getNewIndex(leafs,parentid)}
-        return { leafs: leafs.concat(leaf) }
+        return { leafs: leafs.concat(leaf), focusId: leaf.id }
 
     }
 
-    static edit(leafs, newleaf)
+    static edit(leafs, newleaf, focusId)
     {
         let newleafs = leafs.map((oldleaf)=>
             {
@@ -128,8 +131,96 @@ class StateProvider
                 }
             }
             )
-        return { leafs: newleafs }
+        return { leafs: newleafs , focusId: focusId}
     }
+
+    static findChildren(leafs, parentid)
+    {
+        return leafs.filter(leaf=>leaf.parentid==parentid);
+    }
+    static findSiblings(leafs, id)
+    {
+        let leaf=StateProvider.getCurrent(leafs, id);
+        return StateProvider.findChildren(leafs,leaf.parentid);
+    }
+
+    static getOldest(leafs)
+    {
+        return leafs.sort((a,b)=>{return (b.index-a.index)})[0];
+    }
+
+    static checkIfImOldest(leafs, id)
+    {
+        let leaf=StateProvider.getOldest(StateProvider.findSiblings(leafs, id));
+        if(leaf!=null && leaf.id==id)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    static getYoungest(leafs)
+    {
+        return leafs.sort((a,b)=>{return (a.index-b.index)})[0];
+    }
+
+
+    static getYoungestChild(leafs, parentid)
+    {
+        return StateProvider.getYoungest(StateProvider.findChildren(leafs, parentid))
+    }
+
+    static whereToMove()
+    {
+        return {
+            LEVELDOWN: Symbol(),
+            LEVELUP: Symbol(),
+            DOWN: Symbol(),
+            UP: Symbol()
+        }
+    }
+
+    static upOrDown(leafs, leaf, whereTo)
+    {
+        let compare;
+        if(whereTo==StateProvider.whereToMove().DOWN){compare=(a,b)=>{return (b.index-a.index)}}
+        else{compare=(a,b)=>{return (a.index-b.index)}};
+
+        let flag=false;
+        let sorted=StateProvider.findChildren(leafs, leaf.parentid).sort(compare);
+        for(s of sorted)
+        {
+            if(flag){return s};
+            if(s.id==leaf.id){flag=true};
+        }
+    }
+
+    static move(leafs, focusId, whereToMove)
+    {
+        let current = this.getCurrent(leafs, focusId);
+        let destination = StateProvider.whereToMove();
+        let moveTo="";
+        switch (whereToMove) {
+            case destination.UP:
+                moveTo=StateProvider.upOrDown(leafs.current, destination.UP);
+                break;
+            case destination.DOWN:
+                moveTo=StateProvider.upOrDown(leafs.current, destination.DOWN);
+                break;
+            case destination.LEVELUP:
+                moveTo=this.getCurrent(leafs, current.parentid).id;
+                break;
+            case destination.LEVELDOWN:
+                moveTo=StateProvider.getYoungestChild(leafs, current.id);
+                break;
+        }
+        return { leafs: leafs , focusId: focusId}
+    }
+
 
 
     static getCurrent(leafs, id)
@@ -140,23 +231,28 @@ class StateProvider
 
 
     // Reducer
-    static leafReducer(state = { leafs: [], id:"" }, action) {
+    static leafReducer(state = { leafs: [], id:"", focusId:"" }, action) {
         switch (action.type) {
             case 'delete':
-                return StateProvider.delete(state.leafs,action.id)
+                return StateProvider.delete(state.leafs, action.id,state.focusId)
             case 'addRoot':
-                return StateProvider.addRoot(state.leafs,state.id)
+                return StateProvider.addRoot(state.leafs ,state.id,state.id)
             case 'addSibling':
-                return StateProvider.addSibling(state.leafs,action.id)
+                if(StateProvider.checkIfImOldest(state.leafs,action.id)==false)
+                    {return StateProvider.move(state.leafs, action.id, StateProvider.whereToMove().DOWN)}
+                else
+                    {return StateProvider.addSibling(state.leafs ,action.id)}
             case 'addChild':
-                return StateProvider.addChild(state.leafs,action.id)
-            case 'setPointer':
-                return StateProvider.setPointer(state.leafs,action.id)
+                if(StateProvider.findChildren(state.leafs,action.id).length>0)
+                    {return StateProvider.move(state.leafs, action.id, StateProvider.whereToMove().LEVELDOWN)}
+                else
+                    {return StateProvider.addChild(state.leafs ,action.id)}
             case 'edit':
-                return StateProvider.edit(state.leafs,action.leaf)
-
+                return StateProvider.edit(state.leafs ,action.leaf,state.focusId)
+            case 'move':
+                return StateProvider.move(state.leafs, action.focusId, action.whereTo)
             default:
-                return state
+                return state;
         }
     }
 
@@ -221,7 +317,8 @@ class StateProvider
     // Map Redux state to component props
     static mapStateToProps(state) {
         return {
-            leafs: state.leafs
+            leafs: state.leafs,
+            focusId: state.focusId
         }
     }
 
@@ -232,7 +329,8 @@ class StateProvider
             addRoot: () => dispatch(StateProvider.addRootAction()),
             addSibling: (id) => dispatch(StateProvider.addSiblingAction(id)),
             addChild: (id) => dispatch(StateProvider.addChildAction(id)),
-            edit: (leaf) => dispatch(StateProvider.editAction(leaf))
+            edit: (leaf) => dispatch(StateProvider.editAction(leaf)),
+            move: (id, moveTo) => dispatch(StateProvider.moveAction(id, moveTo))
         }
     }
 }

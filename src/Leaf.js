@@ -53,14 +53,14 @@ class Leaf extends Component {
 
     onFocusHandler(e)
     {
-        this.setState({focused:true})
+        //this.setState({focused:true})
         //this.leafRef.style={backgroundColor: "#0000FF"};
     }
 
     onBlurHandler(e)
     {
 
-        this.setState({focused:false})
+        //this.setState({focused:false})
         //this.leafRef.style
         //this.leafRef.style={backgroundColor: "#FF0000"};
     }
@@ -162,6 +162,18 @@ class Leaf extends Component {
         }
     }
 
+    _getIsFocused()
+    {
+        if(this.props.leafdata.id==this.props.focusId)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     _getDOM(){
     return (
         <div className="Leaf"
@@ -179,6 +191,7 @@ class Leaf extends Component {
                             <MarkdownTextBox value={this.props.leafdata.title}
                                              style={this._getTextAreaStyle()}
                                              onChange={(e)=>this.onChangeHandler(e)}
+                                             focus={this._getIsFocused()}
                                               />
                         </div>
                     </div>
