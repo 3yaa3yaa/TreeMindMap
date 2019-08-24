@@ -3,7 +3,7 @@ import './Leaf.css';
 import ImgViewer from './ImgViewer'
 import Menu from './Menu'
 import { DragSource, DropTarget } from 'react-dnd'
-import MarkdownTextBox from 'markdowntextbox';
+import MarkdownTextBox from '@3yaa3yaa/markdowntextbox';
 import StateProvider from './StateProvider'
 
 class Leaf extends Component {
