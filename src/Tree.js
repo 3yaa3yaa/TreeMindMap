@@ -13,11 +13,6 @@ class Tree extends Component {
         props.addRoot()
     }
 
-    _getRootId()
-    {
-        return "ROOT";
-    }
-
     _getLeaf(leaf)
     {
         return <Leaf leafdata={leaf}
@@ -95,7 +90,7 @@ class Tree extends Component {
     {
         let out=""
         let filtered = StateProvider.filterLeafs(leafs,leaf.parentid)
-        if(leaf.parentid=="ROOT")
+        if(leaf.parentid==0)
         {out=""}
         else
         {
@@ -119,7 +114,7 @@ class Tree extends Component {
 
     _getTree()
     {
-        return this._formatLeaf(StateProvider.filterLeafs(this.props.leafs, this._getRootId() ))
+        return this._formatLeaf(StateProvider.filterLeafs(this.props.leafs, 0 ))
     }
 
 
