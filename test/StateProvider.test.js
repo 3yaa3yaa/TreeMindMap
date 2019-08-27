@@ -1,11 +1,20 @@
 import StateProvider from '../src/StateProvider';
 
-function testConvert(){
+function testConvertToDictionary(){
     let data1={id:0,some:"data"}
     let data2={id:1,some:"data2"};
     let convert = StateProvider.convertToDictionary([data1,data2])
     test("Convert",()=>expect(convert).toEqual({0:data1,1:data2}))
 }
+
+function testConvertToArray(){
+    let data1={id:0,some:"data"}
+    let data2={id:1,some:"data2"};
+    let convert = StateProvider.convertToArray({0:data1,1:data2})
+    test("Convert",()=>expect(convert).toEqual([data1,data2]))
+}
+
+
 
 function testRoot()
 {
@@ -80,12 +89,35 @@ function testChild()
             {id:3,parentid:2,elderbrotherid:0}])});
 }
 
-testConvert();
+function testEdit()
+{
+    let store=StateProvider.addRoot([],0,0);
+    let leafs_root=store.leafs;
+
+    let leafs_hasachild=StateProvider.addChild(leafs_root,1).leafs;
+    leafs_hasachild=StateProvider.addChild(leafs_hasachild,2).leafs;
+    let valueadded=StateProvider.edit(leafs_hasachild,{id:2,parentid:1,elderbrotherid:0,value:"some data"},1)
+    test("Edit : Value added", ()=>{expect(valueadded).toEqual(
+        {focusId:2, leafs:[{id:1,parentid:0,elderbrotherid:0},
+                {id:2,parentid:1,elderbrotherid:0, value:"some data"},
+                {id:3,parentid:2,elderbrotherid:0}]}
+        )});
+
+    let dnd=StateProvider.edit(leafs_hasachild,{id:3,parentid:1,elderbrotherid:0,value:"One level down"},1)
+    test("Edit : Drag and Drop -- One level down", ()=>{expect(dnd).toEqual(
+        {focusId:3, leafs:[{id:1,parentid:0,elderbrotherid:0},
+                {id:2,parentid:1,elderbrotherid:0},
+                {id:3,parentid:1,elderbrotherid:2, value:"One level down"}]}
+    )});
+}
+
+testConvertToDictionary();
+testConvertToArray();
 testYoungerBrother();
 testRoot();
 testSibling();
 testChild();
 testMove();
-
+testEdit();
 
 
