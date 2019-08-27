@@ -98,7 +98,7 @@ class StateProvider
     static convertToArray(leafobjects)
     {
         let out=[];
-        let keys=leafobjects.keys();
+        let keys=Object.keys(leafobjects);
         keys.forEach((key)=>{out.push(leafobjects[key])})
         return out;
 
@@ -106,19 +106,20 @@ class StateProvider
 
     static edit(leafs, newleaf, focusId)
     {
-        let converted=StateProvider.convertToDictionary(leafs);
-        let currentleaf=converted[newleaf.id];
+        let leafDictionary=StateProvider.convertToDictionary(leafs);
+        let currentleaf=leafDictionary[newleaf.id];
         let youngerbrotherleaf=StateProvider.getYoungerBrother(leafs, currentleaf);
 
-        if(oldleaf.elderbrotherid!=newleaf.elderbrotherid)
+        if(currentleaf.elderbrotherid!=newleaf.elderbrotherid)
         {
             if(youngerbrotherleaf!=null)
             {
-                converted[youngerbrotherleaf.id].elderbrotherid=oldleaf.elderbrotherid;
+                leafDictionary[youngerbrotherleaf.id].elderbrotherid=currentleaf.elderbrotherid;
             }
-            converted[oldleaf.id]=newleaf;
         }
-        let newleafs=StateProvider.convertToArray(converted);
+        leafDictionary[currentleaf.id]=newleaf;
+
+        let newleafs=StateProvider.convertToArray(leafDictionary);
         return { leafs: newleafs , focusId: newleaf.id}
     }
 
