@@ -63,11 +63,11 @@ function testMove()
     let leafs_hasasibling=StateProvider.addSibling(leafs_root,1).leafs;
     leafs_hasasibling=StateProvider.addSibling(leafs_hasasibling,2).leafs;
 
-    test("Focused Leaf", ()=>{expect(StateProvider.getCurrent(leafs_hasasibling,1)).toEqual(
+    test("Focused Leaf", ()=>{expect(StateProvider.getLeaf(leafs_hasasibling,1)).toEqual(
         {id:1,parentid:0,elderbrotherid:0})});
 
     test("Younger brother Leaf", ()=>{expect(StateProvider.getYoungerBrother(leafs_hasasibling,
-        StateProvider.getCurrent(leafs_hasasibling,1))).toEqual(
+        StateProvider.getLeaf(leafs_hasasibling,1))).toEqual(
         {id:2,parentid:0,elderbrotherid:1})});
 
     let movedDown=StateProvider.move(leafs_hasasibling,1, StateProvider.whereToMove().DOWN);
@@ -102,15 +102,44 @@ function testEdit()
                 {id:2,parentid:1,elderbrotherid:0, value:"some data"},
                 {id:3,parentid:2,elderbrotherid:0}]}
         )});
+    test("Integrity Check after edit", ()=>{expect(StateProvider.IsIntegrityCheckOK(valueadded.leafs)).toBe(true)});
 
-    let dnd=StateProvider.edit(leafs_hasachild,{id:3,parentid:1,elderbrotherid:0,value:"One level down"},1)
+
+    let dnd=StateProvider.edit(leafs_hasachild,{id:3,parentid:1,elderbrotherid:2,value:"One level down"},1)
     test("Edit : Drag and Drop -- One level down", ()=>{expect(dnd).toEqual(
         {focusId:3, leafs:[{id:1,parentid:0,elderbrotherid:0},
                 {id:2,parentid:1,elderbrotherid:0},
                 {id:3,parentid:1,elderbrotherid:2, value:"One level down"}]}
     )});
+    test("Integrity Check after dnd", ()=>{expect(StateProvider.IsIntegrityCheckOK(dnd.leafs)).toBe(true)});
+
 }
 
+function testIntegrityCheck() {
+    let data_1 = [{id:1,parentid:0,elderbrotherid:0},
+        {id:2,parentid:1,elderbrotherid:0},
+        {id:3,parentid:1,elderbrotherid:2, value:"Test Data"}];
+
+    test("Integrity Check 1", ()=>{expect(StateProvider.IsIntegrityCheckOK(data_1)).toBe(true)});
+
+    let data_2 = [{id:1,parentid:0,elderbrotherid:0},
+            {id:2,parentid:4,elderbrotherid:0},
+            {id:3,parentid:1,elderbrotherid:2, value:"Test Data"}];
+
+    test("Integrity Check 2", ()=>{expect(StateProvider.IsIntegrityCheckOK(data_2)).toBe(false)});
+}
+
+function testGetLeaf() {
+    let data = [{id:1,parentid:0,elderbrotherid:0},
+        {id:2,parentid:1,elderbrotherid:0},
+        {id:3,parentid:1,elderbrotherid:2, value:"Test Data"}];
+    test("Get Current id=2", ()=>{expect(StateProvider.getLeaf(data,2)).toEqual({id:2,parentid:1,elderbrotherid:0})});
+    test("Get Current id=4", ()=>{expect(StateProvider.getLeaf(data,4)).toEqual(null)});
+
+
+}
+
+testGetLeaf();
 testConvertToDictionary();
 testConvertToArray();
 testYoungerBrother();
@@ -119,5 +148,5 @@ testSibling();
 testChild();
 testMove();
 testEdit();
-
+testIntegrityCheck();
 

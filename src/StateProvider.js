@@ -63,7 +63,7 @@ class StateProvider
 
     static addChild(leafs, id)
     {
-        let parentid=StateProvider.getCurrent(leafs, id).id;
+        let parentid=StateProvider.getLeaf(leafs, id).id;
         let children=StateProvider.findChildren(leafs, id);
         let elderbrotherid;
         if(children.length==0){elderbrotherid=0}
@@ -80,7 +80,7 @@ class StateProvider
 
     static addSibling(leafs, id)
     {
-        let parentid=StateProvider.getCurrent(leafs, id).parentid;
+        let parentid=StateProvider.getLeaf(leafs, id).parentid;
         let leaf={id:StateProvider.getNewId(leafs),
                   parentid: parentid,
                   elderbrotherid: id
@@ -129,7 +129,7 @@ class StateProvider
     }
     static findSiblings(leafs, id)
     {
-        let leaf=StateProvider.getCurrent(leafs, id);
+        let leaf=StateProvider.getLeaf(leafs, id);
         return StateProvider.findChildren(leafs,leaf.parentid);
     }
 
@@ -151,7 +151,7 @@ class StateProvider
 
     static move(leafs, focusId, whereToMove)
     {
-        let current = this.getCurrent(leafs, focusId);
+        let current = this.getLeaf(leafs, focusId);
         let destination = StateProvider.whereToMove();
         let moveTo="";
         switch (whereToMove) {
@@ -165,7 +165,7 @@ class StateProvider
                 else{moveTo=current.id};
                 break;
             case destination.LEVELUP:
-                moveTo=this.getCurrent(leafs, current.parentid).id;
+                moveTo=this.getLeaf(leafs, current.parentid).id;
                 break;
             case destination.LEVELDOWN:
                 let children = StateProvider.findChildren(leafs,current.id);
@@ -182,10 +182,17 @@ class StateProvider
 
 
 
-    static getCurrent(leafs, id)
+    static getLeaf(leafs, id)
     {
         let result = leafs.filter((leaf)=>{return leaf.id==id})
-        return result[0]
+        if(result.length>0)
+        {
+            return result[0];
+        }
+        else
+        {
+            return null;
+        }
     }
 
 
@@ -202,24 +209,63 @@ class StateProvider
         }
     }
 
+    static IsIntegrityCheckOK(leafs)
+    {
+        for(let leaf of leafs)
+        {
+            if(leaf.elderbrotherid>0)
+            {
+                let elderbrother = StateProvider.getLeaf(leafs, leaf.elderbrotherid);
+                if(elderbrother==null)
+                {
+                    return false;
+                }
+                else
+                {
+                    if(leaf.parentid != elderbrother.parentid)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
 
     // Reducer
     static leafReducer(state = { leafs: [], id:"", focusId:"" }, action) {
+        let result;
         switch (action.type) {
             case 'delete':
-                return StateProvider.delete(state.leafs, action.id,state.focusId)
+                result= StateProvider.delete(state.leafs, action.id,state.focusId);
+                break;
             case 'addRoot':
-                return StateProvider.addRoot(state.leafs ,state.id,state.id)
+                result= StateProvider.addRoot(state.leafs ,state.id,state.id);
+                break;
             case 'addSibling':
-                return StateProvider.addSibling(state.leafs ,action.id)
+                result= StateProvider.addSibling(state.leafs ,action.id);
+                break;
             case 'addChild':
-                return StateProvider.addChild(state.leafs ,action.id)
+                result = StateProvider.addChild(state.leafs ,action.id);
+                break;
             case 'edit':
-                return StateProvider.edit(state.leafs ,action.leaf,state.focusId)
+                result= StateProvider.edit(state.leafs ,action.leaf,state.focusId);
+                break;
             case 'move':
-                return StateProvider.move(state.leafs, action.focusId, action.whereTo)
+                result = StateProvider.move(state.leafs, action.focusId, action.whereTo);
+                break;
             default:
-                return state;
+                result= state;
+                break;
+        }
+        if(StateProvider.IsIntegrityCheckOK(result.leafs))
+        {
+            return result;
+        }
+        else
+        {
+            return state;
         }
     }
 
@@ -263,22 +309,46 @@ class StateProvider
     }
 
 
-    static filterLeafs(leafarray, parentid)
+    static filterLeafs(leafs, parentid)
     {
-        let out=[]
-        //alert('Filtering with '+ parentid)
-        if(leafarray.length>0)
+        let out=[];
+        if(leafs.length>0)
         {
-            leafarray.forEach((leaf)=>
-                {
-                    if(leaf.parentid==parentid)
-                    {
-                        out.push(leaf)
-                    }
-                }
-            )
+            let bigbrother = leafs.filter((leaf)=>{return (leaf.parentid==parentid && leaf.elderbrotherid==0)})[0];
+            StateProvider.recursivelyGetSiblings(leafs, bigbrother, out);
+            return out;
         }
-        return out
+        else
+        {
+            return null;
+        }
+
+        // if(leafarray.length>0)
+        // {
+        //     leafarray.forEach((leaf)=>
+        //         {
+        //             if(leaf.parentid==parentid)
+        //             {
+        //                 out.push(leaf)
+        //             }
+        //         }
+        //     )
+        // }
+        //return out
+    }
+
+    static recursivelyGetSiblings(leafs, leaf, out)
+    {
+        out.push(leaf);
+        let youngerbrother = StateProvider.getYoungerBrother(leafs, leaf);
+        if(youngerbrother==null)
+        {
+            return leafs;
+        }
+        else
+        {
+            return StateProvider.recursivelyGetSiblings(leafs, youngerbrother, out);
+        }
     }
 
     // Map Redux state to component props
