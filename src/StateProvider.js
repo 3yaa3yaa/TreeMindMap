@@ -11,7 +11,6 @@ class StateProvider
     {
         return { type: 'delete',id }
     }
-    // Action
     static addRootAction()
     {
         return { type: 'addRoot' }
@@ -29,9 +28,14 @@ class StateProvider
         return { type: 'edit', leaf }
     }
 
-    static moveAction(id, moveTo)
+    static walkAction(whereTo)
     {
-        return { type: 'move', id, moveTo }
+        return { type: 'walk', whereTo }
+    }
+
+    static jumpAction(id)
+    {
+        return { type: 'jump', id }
     }
 
 
@@ -39,9 +43,37 @@ class StateProvider
     //Reducer implementation
     static delete(leafs,id, focusId)
     {
-        //let leaf=new LeafData("ROOT")
-        //return { leafs: leafs.concat(leaf) }
-        let newleafs= leafs.filter((leaf)=>{return leaf.id != id})
+        let me = StateProvider.getLeaf(leafs, id);
+        let parent=StateProvider.getLeaf(leafs, me.parentid);
+        let elderbro=StateProvider.getLeaf(leafs, me.elderbrotherid);
+        let youngerbro = StateProvider.getYoungerBrother(leafs, me.id);
+
+        let newleafs = leafs.filter((leaf)=>{return leaf.id != id});
+        if(youngerbro!=null)
+        {
+            newleafs=newleafs.map((l)=>{
+                if(l.id==youngerbro.id)
+                {
+                    youngerbro.elderbrotherid=me.elderbrotherid;
+                    return youngerbro;
+                }
+                else
+                {
+                    return l;
+                }
+            })
+        }
+        if(elderbro!=null)
+        {
+            focusId=elderbro.id;
+        }
+        else
+        {
+            if(parent!=null)
+            {
+                focusId=parent.id;
+            }
+        }
         return {leafs:newleafs, focusId: focusId}
     }
 
@@ -61,7 +93,6 @@ class StateProvider
         }
     }
 
-
     static addChild(leafs, id)
     {
         let parentid=StateProvider.getLeaf(leafs, id).id;
@@ -78,14 +109,12 @@ class StateProvider
         return { leafs: leafs.concat(leaf), focusId: leaf.id }
     }
 
-
     static addSibling(leafs, id)
     {
         let parentid=StateProvider.getLeaf(leafs, id).parentid;
         let leaf={id:StateProvider.getNewId(leafs),
                   parentid: parentid,
-                  elderbrotherid: id
-                  }
+                  elderbrotherid: id}
         return { leafs: leafs.concat(leaf), focusId: leaf.id }
     }
 
@@ -149,7 +178,12 @@ class StateProvider
         }
     }
 
-    static move(leafs, focusId, whereToMove)
+    static jump(leafs, focusId)
+    {
+        return { leafs: leafs , focusId: focusId}
+    }
+
+    static walk(leafs, focusId, whereToMove)
     {
         let current = this.getLeaf(leafs, focusId);
         let destination = StateProvider.whereToMove();
@@ -252,8 +286,10 @@ class StateProvider
             case 'edit':
                 result= StateProvider.edit(state.leafs ,action.leaf,state.focusId);
                 break;
-            case 'move':
-                result = StateProvider.move(state.leafs, action.focusId, action.whereTo);
+            case 'walk':
+                result = StateProvider.walk(state.leafs, state.focusId, action.whereTo);
+            case 'jump':
+                result = StateProvider.jump(state.leafs, action.id);
                 break;
             default:
                 result= state;
@@ -342,7 +378,7 @@ class StateProvider
         {
             return leafs;
         }
-        
+
         out.push(leaf);
         let youngerbrother = StateProvider.getYoungerBrother(leafs, leaf);
         if(youngerbrother==null)
@@ -371,7 +407,8 @@ class StateProvider
             addSibling: (id) => dispatch(StateProvider.addSiblingAction(id)),
             addChild: (id) => dispatch(StateProvider.addChildAction(id)),
             edit: (leaf) => dispatch(StateProvider.editAction(leaf)),
-            move: (id, moveTo) => dispatch(StateProvider.moveAction(id, moveTo))
+            walk: (whereTo) => dispatch(StateProvider.walkAction(whereTo)),
+            jump: (id) => dispatch(StateProvider.jumpAction(id))
         }
     }
 }

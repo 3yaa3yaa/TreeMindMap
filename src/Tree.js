@@ -21,7 +21,8 @@ class Tree extends Component {
                      addChild={this.props.addChild}
                      delete={this.props.delete}
                      addSibling={this.props.addSibling}
-                     move={this.props.move}
+                     walk={this.props.walk}
+                     jump={this.props.jump}
                      />
     }
 

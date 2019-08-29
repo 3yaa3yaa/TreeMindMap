@@ -70,7 +70,7 @@ function testMove()
         StateProvider.getLeaf(leafs_hasasibling,1))).toEqual(
         {id:2,parentid:0,elderbrotherid:1})});
 
-    let movedDown=StateProvider.move(leafs_hasasibling,1, StateProvider.whereToMove().DOWN);
+    let movedDown=StateProvider.walk(leafs_hasasibling,1, StateProvider.whereToMove().DOWN);
     test("Keyword", ()=>{expect(StateProvider.whereToMove().DOWN).toEqual("DOWN")});
 
     test("Moved Down_focusId", ()=>{expect(movedDown.focusId).toEqual(2)});
