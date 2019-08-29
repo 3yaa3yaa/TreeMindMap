@@ -41,6 +41,22 @@ class Leaf extends Component {
                     e.preventDefault()
                     this.props.delete(this.props.leafdata.id)
                     break;
+            case 38: //UP
+                e.preventDefault()
+                this.props.walk(StateProvider.whereToMove().UP);
+                break;
+            case 40: //Down
+                e.preventDefault()
+                this.props.walk(StateProvider.whereToMove().DOWN);
+                break;
+            case 37 : //LEFT
+                e.preventDefault()
+                this.props.walk(StateProvider.whereToMove().LEVELUP);
+                break;
+            case 39: //RIGHT
+                e.preventDefault()
+                this.props.walk(StateProvider.whereToMove().LEVELDOWN);
+                break;
         }
     }
 
@@ -53,8 +69,7 @@ class Leaf extends Component {
 
     onFocusHandler(e)
     {
-        //this.setState({focused:true})
-        //this.leafRef.style={backgroundColor: "#0000FF"};
+        //this.props.jump(this.props.leafdata.id);
     }
 
     onBlurHandler(e)
@@ -182,6 +197,7 @@ class Leaf extends Component {
              onKeyDown={(e)=>this.keyDownHandler(e)}
              onMouseOver={(e)=>this.setState({hover:true})}
              onMouseLeave={(e)=>this.setState({hover:false})}
+             onClick={(e)=>{this.props.jump(this.props.leafdata.id)}}
              style={this._getLeafStyle()}
              ref={(e)=>{this.leafRef=e}} >
             <div className="Leaf-Row">
