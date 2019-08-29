@@ -58,22 +58,53 @@ function testYoungerBrother()
 
 function testMove()
 {
-    let store=StateProvider.addRoot([],0,0);
+    let store=StateProvider.addRoot([],0,0);//1
     let leafs_root=store.leafs;
-    let leafs_hasasibling=StateProvider.addSibling(leafs_root,1).leafs;
-    leafs_hasasibling=StateProvider.addSibling(leafs_hasasibling,2).leafs;
+    let leafs=StateProvider.addSibling(leafs_root,1).leafs;//2
+    leafs=StateProvider.addSibling(leafs,2).leafs;//3
+    leafs=StateProvider.addSibling(leafs,3).leafs;//4
+    leafs=StateProvider.addSibling(leafs,4).leafs;//5
+    leafs=StateProvider.addChild(leafs,5).leafs;//6
+    leafs=StateProvider.addSibling(leafs,6).leafs;//7
 
-    test("Focused Leaf", ()=>{expect(StateProvider.getLeaf(leafs_hasasibling,1)).toEqual(
+    test("Focused Leaf", ()=>{expect(StateProvider.getLeaf(leafs,1)).toEqual(
         {id:1,parentid:0,elderbrotherid:0})});
 
-    test("Younger brother Leaf", ()=>{expect(StateProvider.getYoungerBrother(leafs_hasasibling,
-        StateProvider.getLeaf(leafs_hasasibling,1))).toEqual(
+    test("Younger brother Leaf", ()=>{expect(StateProvider.getYoungerBrother(leafs,
+        StateProvider.getLeaf(leafs,1))).toEqual(
         {id:2,parentid:0,elderbrotherid:1})});
+    test("Keyword DOWN", ()=>{expect(StateProvider.whereToMove().DOWN).toEqual("DOWN")});
+    test("Keyword UP", ()=>{expect(StateProvider.whereToMove().UP).toEqual("UP")});
+    test("Keyword LEVELUP", ()=>{expect(StateProvider.whereToMove().LEVELUP).toEqual("LEVELUP")});
+    test("Keyword LEVELDOWN", ()=>{expect(StateProvider.whereToMove().LEVELDOWN).toEqual("LEVELDOWN")});
 
-    let movedDown=StateProvider.walk(leafs_hasasibling,1, StateProvider.whereToMove().DOWN);
-    test("Keyword", ()=>{expect(StateProvider.whereToMove().DOWN).toEqual("DOWN")});
 
-    test("Moved Down_focusId", ()=>{expect(movedDown.focusId).toEqual(2)});
+    let movedDown=StateProvider.walk(leafs,1, StateProvider.whereToMove().DOWN);
+    test("Moved Down focusId", ()=>{expect(movedDown.focusId).toEqual(2)});
+
+    let movedDown_2=StateProvider.walk(leafs,5, StateProvider.whereToMove().DOWN);
+    test("Moved Down on the end focusId", ()=>{expect(movedDown_2.focusId).toEqual(5)});
+
+
+    let movedUp=StateProvider.walk(leafs,6, StateProvider.whereToMove().UP);
+    test("Moved UP_focusId", ()=>{expect(movedUp.focusId).toEqual(6)});
+
+    let movedUp_2=StateProvider.walk(leafs,4, StateProvider.whereToMove().UP);
+    test("Moved UP on the top focusId", ()=>{expect(movedUp_2.focusId).toEqual(3)});
+
+    let levelDown=StateProvider.walk(leafs,5, StateProvider.whereToMove().LEVELDOWN);
+    test("Moved LEVELDOWN_focusId", ()=>{expect(levelDown.focusId).toEqual(6)});
+
+    let levelDown_2=StateProvider.walk(leafs,6, StateProvider.whereToMove().LEVELDOWN);
+    test("Moved LEVELDOWN on the end focusId", ()=>{expect(levelUp_2.focusId).toEqual(6)});
+
+    let levelUp=StateProvider.walk(leafs,7, StateProvider.whereToMove().LEVELUP);
+    test("Moved LEVELUP_focusId", ()=>{expect(levelUp.focusId).toEqual(5)});
+
+    let levelUp_2=StateProvider.walk(leafs,4, StateProvider.whereToMove().LEVELUP);
+    test("Moved LEVELUP on the top focusId", ()=>{expect(levelUp_2.focusId).toEqual(4)});
+
+
 }
 
 function testChild()
