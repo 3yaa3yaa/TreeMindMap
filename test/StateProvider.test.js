@@ -89,6 +89,69 @@ function testChild()
             {id:3,parentid:2,elderbrotherid:0}])});
 }
 
+function testNewId()
+{
+    let leafs = [{id:1,parentid:0,elderbrotherid:0},
+        {id:2,parentid:1,elderbrotherid:0},
+        {id:3,parentid:2,elderbrotherid:0},
+        {id:4,parentid:2,elderbrotherid:3},
+        {id:5,parentid:2,elderbrotherid:4},
+        {id:6,parentid:2,elderbrotherid:5}];
+
+    test("Test New Id 1", ()=>{expect(StateProvider.getNewId(leafs)).toBe(7)});
+
+    let leafs_2 = null;
+
+    test("Test New Id 2", ()=>{expect(StateProvider.getNewId(leafs_2)).toBe(1)});
+
+}
+
+function testFilter()
+{
+    let leafs = [{id:1,parentid:0,elderbrotherid:0},
+        {id:2,parentid:1,elderbrotherid:0},
+        {id:3,parentid:2,elderbrotherid:0},
+        {id:4,parentid:2,elderbrotherid:3},
+        {id:5,parentid:2,elderbrotherid:4},
+        {id:6,parentid:2,elderbrotherid:5}];
+
+    test("Test filter 1", ()=>{expect(StateProvider.filterAndSortLeafs(leafs, 2)).toEqual(
+           [{id:3,parentid:2,elderbrotherid:0},
+            {id:4,parentid:2,elderbrotherid:3},
+            {id:5,parentid:2,elderbrotherid:4},
+            {id:6,parentid:2,elderbrotherid:5}])});
+
+
+    let leafs_sort = [{id:1,parentid:0,elderbrotherid:0},
+        {id:2,parentid:1,elderbrotherid:0},
+        {id:6,parentid:2,elderbrotherid:5},
+        {id:5,parentid:2,elderbrotherid:4},
+        {id:4,parentid:2,elderbrotherid:3},
+        {id:3,parentid:2,elderbrotherid:0}];
+
+    test("Test filter 2", ()=>{expect(StateProvider.filterAndSortLeafs(leafs_sort, 2)).toEqual(
+        [{id:3,parentid:2,elderbrotherid:0},
+            {id:4,parentid:2,elderbrotherid:3},
+            {id:5,parentid:2,elderbrotherid:4},
+            {id:6,parentid:2,elderbrotherid:5}])});
+
+    let leafs_3 = null;
+    test("Test filter 3", ()=>{expect(StateProvider.filterAndSortLeafs(leafs_3, 0)).toBe(null)});
+
+
+    let leafs_4 = [{id:1,parentid:0,elderbrotherid:0}];
+    test("Test filter 4", ()=>{expect(StateProvider.filterAndSortLeafs(leafs_4, 0)).toEqual(
+        [{id:1,parentid:0,elderbrotherid:0}])});
+
+
+    let leafs_5 = [{id:1,parentid:0,elderbrotherid:0}];
+    test("Test filter 5", ()=>{expect(StateProvider.filterAndSortLeafs(leafs_5, 1)).toEqual(
+        [])});
+
+
+}
+
+
 function testEdit()
 {
     let store=StateProvider.addRoot([],0,0);
@@ -139,6 +202,8 @@ function testGetLeaf() {
 
 }
 
+testNewId();
+testFilter();
 testGetLeaf();
 testConvertToDictionary();
 testConvertToArray();

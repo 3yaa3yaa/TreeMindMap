@@ -47,7 +47,8 @@ class StateProvider
 
     static addRoot(leafs,id,focusId)
     {
-        if (StateProvider.filterLeafs(leafs,0).length>0)
+        let filtered=StateProvider.filterAndSortLeafs(leafs,0);
+        if (filtered!=null && filtered.length>0)
         {
             return {leafs:leafs, focusId: 0}
         }
@@ -87,7 +88,6 @@ class StateProvider
                   }
         return { leafs: leafs.concat(leaf), focusId: leaf.id }
     }
-
 
     static convertToDictionary(leafs)
     {
@@ -287,7 +287,6 @@ class StateProvider
         })[0].id;
         }
         else{return 0}
-
     }
 
     static findLeaf(leafarray, id)
@@ -309,10 +308,10 @@ class StateProvider
     }
 
 
-    static filterLeafs(leafs, parentid)
+    static filterAndSortLeafs(leafs, parentid)
     {
         let out=[];
-        if(leafs.length>0)
+        if(Array.isArray(leafs) && leafs.length>0)
         {
             let bigbrother = leafs.filter((leaf)=>{return (leaf.parentid==parentid && leaf.elderbrotherid==0)})[0];
             StateProvider.recursivelyGetSiblings(leafs, bigbrother, out);
@@ -339,6 +338,11 @@ class StateProvider
 
     static recursivelyGetSiblings(leafs, leaf, out)
     {
+        if(leaf==null)
+        {
+            return leafs;
+        }
+        
         out.push(leaf);
         let youngerbrother = StateProvider.getYoungerBrother(leafs, leaf);
         if(youngerbrother==null)

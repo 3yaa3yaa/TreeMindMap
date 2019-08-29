@@ -33,7 +33,7 @@ class Tree extends Component {
 
     _getConnectorSub(originalleaf,rootleaf,result)
     {
-        StateProvider.filterLeafs(this.props.leafs,rootleaf.id).slice(1).forEach(
+        StateProvider.filterAndSortLeafs(this.props.leafs,rootleaf.id).slice(1).forEach(
             (leaf)=>{
                 result.push(<Connector mode={this._getVertical(originalleaf)}/>)
                 this._getConnectorSub(originalleaf,leaf,result)
@@ -54,32 +54,35 @@ class Tree extends Component {
 
     _formatLeaf(dataarr) {
         let out = []
-        dataarr.forEach((leaf)=>{
+        if(dataarr!=null)
+        {
+            dataarr.forEach((leaf)=>{
                 out.push((
-                        <ul className="Tree-Element">
-                            <li className="Tree-Trunk">
-                                {this._getConnector(leaf)}
-                            </li>
-                            <li className="Tree-Trunk">
-                                <ul className="Tree-Element">
+                    <ul className="Tree-Element">
+                        <li className="Tree-Trunk">
+                            {this._getConnector(leaf)}
+                        </li>
+                        <li className="Tree-Trunk">
+                            <ul className="Tree-Element">
                                 <li className="Tree-Trunk-Sub">
                                     {this._getLeaf(leaf)}
                                 </li>
-                                </ul>
-                            </li>
-                             <li className="Tree-Branch" >
-                                 {this._formatLeaf(StateProvider.filterLeafs(this.props.leafs, leaf.id ))}
-                            </li>
-                        </ul>
-                        ))
+                            </ul>
+                        </li>
+                        <li className="Tree-Branch" >
+                            {this._formatLeaf(StateProvider.filterAndSortLeafs(this.props.leafs, leaf.id ))}
+                        </li>
+                    </ul>
+                ))
                 //out.push(this._formatLeaf(this._filterLeafs(this.props.leafs, leaf.id )))
-        })
+            })
+        }
         return <ul>{out}</ul>
     }
 
     _isLastRecord(leaf,leafs)
     {
-        let filtered = StateProvider.filterLeafs(leafs,leaf.parentid)
+        let filtered = StateProvider.filterAndSortLeafs(leafs,leaf.parentid)
         if(leaf.id==filtered[filtered.length-1].id || filtered.length==0)
         {return true}
         else
@@ -89,7 +92,7 @@ class Tree extends Component {
     _getMode(leaf,leafs)
     {
         let out=""
-        let filtered = StateProvider.filterLeafs(leafs,leaf.parentid)
+        let filtered = StateProvider.filterAndSortLeafs(leafs,leaf.parentid)
         if(leaf.parentid==0)
         {out=""}
         else
@@ -114,7 +117,7 @@ class Tree extends Component {
 
     _getTree()
     {
-        return this._formatLeaf(StateProvider.filterLeafs(this.props.leafs, 0 ))
+        return this._formatLeaf(StateProvider.filterAndSortLeafs(this.props.leafs, 0 ))
     }
 
 
