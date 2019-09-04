@@ -87,16 +87,20 @@ function testMove()
 
 
     let movedUp=StateProvider.walk(leafs,6, StateProvider.whereToMove().UP);
-    test("Moved UP_focusId", ()=>{expect(movedUp.focusId).toEqual(6)});
+    test("Moved UP on the top", ()=>{expect(movedUp.focusId).toEqual(6)});
 
     let movedUp_2=StateProvider.walk(leafs,4, StateProvider.whereToMove().UP);
-    test("Moved UP on the top focusId", ()=>{expect(movedUp_2.focusId).toEqual(3)});
+    test("Moved UP", ()=>{expect(movedUp_2.focusId).toEqual(3)});
+
+    let children=StateProvider.findChildren(leafs, 5)
+    test("Find Children", ()=>{expect(children).toEqual([leafs[5], leafs[6]])});
+    test("Find Youngest child", ()=>{expect(children.filter((child=>child.elderbrotherid==0))[0]).toEqual(leafs[5])});
 
     let levelDown=StateProvider.walk(leafs,5, StateProvider.whereToMove().LEVELDOWN);
     test("Moved LEVELDOWN_focusId", ()=>{expect(levelDown.focusId).toEqual(6)});
 
     let levelDown_2=StateProvider.walk(leafs,6, StateProvider.whereToMove().LEVELDOWN);
-    test("Moved LEVELDOWN on the end focusId", ()=>{expect(levelUp_2.focusId).toEqual(6)});
+    test("Moved LEVELDOWN on the end focusId", ()=>{expect(levelDown_2.focusId).toEqual(6)});
 
     let levelUp=StateProvider.walk(leafs,7, StateProvider.whereToMove().LEVELUP);
     test("Moved LEVELUP_focusId", ()=>{expect(levelUp.focusId).toEqual(5)});

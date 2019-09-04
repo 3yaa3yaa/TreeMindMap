@@ -98,7 +98,7 @@ class StateProvider
         let parentid=StateProvider.getLeaf(leafs, id).id;
         let children=StateProvider.findChildren(leafs, id);
         let elderbrotherid;
-        if(children.length==0){elderbrotherid=0}
+        if(children==null){elderbrotherid=0}
         else{elderbrotherid=children.sort((a, b) => {return (b - a)})[0].id};
 
         let leaf= {
@@ -154,7 +154,15 @@ class StateProvider
 
     static findChildren(leafs, parentid)
     {
-        return leafs.filter(leaf=>leaf.parentid==parentid);
+        let children=leafs.filter(leaf=>leaf.parentid==parentid);
+        if(Array.isArray(children) && children.length>0)
+        {
+            return children;
+        }
+        else
+        {
+            return null;
+        }
     }
     static findSiblings(leafs, id)
     {
@@ -190,7 +198,7 @@ class StateProvider
         let moveTo="";
         switch (whereToMove) {
             case destination.UP:
-                if(current.elderbrotherid!=null){moveTo=current.elderbrotherid}
+                if(current.elderbrotherid!=0){moveTo=current.elderbrotherid}
                 else{moveTo=current.id};
                 break;
             case destination.DOWN:
@@ -199,13 +207,21 @@ class StateProvider
                 else{moveTo=current.id};
                 break;
             case destination.LEVELUP:
-                moveTo=this.getLeaf(leafs, current.parentid).id;
+                let parent=StateProvider.getLeaf(leafs, current.parentid);
+                if(parent==null){moveTo=focusId;}
+                else {moveTo=parent.id;};
                 break;
             case destination.LEVELDOWN:
                 let children = StateProvider.findChildren(leafs,current.id);
-                let youngestChild=children.filter((child=>{child.elderbrotherid==0}))[0];
-                if(youngestChild!=null){moveTo=youngestChild.id}
-                else{moveTo=current.id};
+                if(children!=null)
+                {
+                    let youngestChild=children.filter((child=>child.elderbrotherid==0))[0];
+                    if(youngestChild!=null){moveTo=youngestChild.id};
+                }
+                else
+                {
+                    moveTo=current.id
+                }
                 break;
             default:
                 moveTo=focusId;
@@ -278,16 +294,25 @@ class StateProvider
                 result= StateProvider.addRoot(state.leafs ,state.id,state.id);
                 break;
             case 'addSibling':
-                result= StateProvider.addSibling(state.leafs ,action.id);
+                let youngerbrothers=StateProvider.getYoungerBrother(state.leafs,StateProvider.getLeaf(state.leafs,state.focusId)  );
+                if(youngerbrothers == null)
+                    {result= StateProvider.addSibling(state.leafs ,action.id)}
+                else
+                    {result = StateProvider.walk(state.leafs, state.focusId, StateProvider.whereToMove().DOWN)};
                 break;
             case 'addChild':
-                result = StateProvider.addChild(state.leafs ,action.id);
+                let children = StateProvider.findChildren(state.leafs, state.focusId);
+                if(children == null)
+                    {result = StateProvider.addChild(state.leafs ,action.id)}
+                else
+                    {result = StateProvider.walk(state.leafs, state.focusId, StateProvider.whereToMove().LEVELDOWN)};
                 break;
             case 'edit':
                 result= StateProvider.edit(state.leafs ,action.leaf,state.focusId);
                 break;
             case 'walk':
                 result = StateProvider.walk(state.leafs, state.focusId, action.whereTo);
+                break;
             case 'jump':
                 result = StateProvider.jump(state.leafs, action.id);
                 break;

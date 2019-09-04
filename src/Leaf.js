@@ -26,8 +26,8 @@ class Leaf extends Component {
         switch (e.keyCode) {
             case 13: //Enter
                 if (e.shiftKey != true) {
-                    e.preventDefault()
-                    this.props.addSibling(this.props.leafdata.id)
+                    e.preventDefault();
+                    this.props.addSibling(this.props.leafdata.id);
                 }
                 break;
             case 9: //Tab
@@ -121,8 +121,8 @@ class Leaf extends Component {
             textAlign: "left",
             backgroundColor: color,
             padding: "10px",
-            marginTop: "3px",
-            marginBottom: "3px",
+            marginTop: "1px",
+            marginBottom: "1px",
             marginLeft:"0px",
             marginRight:"0px",
             borderRadius:"10px",
