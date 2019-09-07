@@ -32,7 +32,6 @@ function convertIntialData(givenData)
 
 }
 
-
 const Map=props=>{
     const { initialState, stateHandler } = props;
     let store;

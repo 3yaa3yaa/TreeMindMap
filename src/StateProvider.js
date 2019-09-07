@@ -11,7 +11,6 @@ class StateProvider
     {
         return { type: 'delete',id }
     }
-    // Action
     static addRootAction()
     {
         return { type: 'addRoot' }
@@ -29,96 +28,313 @@ class StateProvider
         return { type: 'edit', leaf }
     }
 
-
-    //Reducer implementation
-    static delete(leafs,id)
+    static walkAction(whereTo)
     {
-        //let leaf=new LeafData("ROOT")
-        //return { leafs: leafs.concat(leaf) }
-        let newleafs= leafs.filter((leaf)=>{return leaf.id != id})
-        return {leafs:newleafs}
+        return { type: 'walk', whereTo }
     }
 
-    static addRoot(leafs,id)
+    static jumpAction(id)
     {
-        //let leaf=new LeafData("ROOT")
-        //return { leafs: leafs.concat(leaf) }
+        return { type: 'jump', id }
+    }
 
-        if (StateProvider.filterLeafs(leafs,'ROOT').length>0)
+
+
+    //Reducer implementation
+    static delete(leafs,id, focusId)
+    {
+        let me = StateProvider.getLeaf(leafs, id);
+        let parent=StateProvider.getLeaf(leafs, me.parentid);
+        let elderbro=StateProvider.getLeaf(leafs, me.elderbrotherid);
+        let youngerbro = StateProvider.getYoungerBrother(leafs, me.id);
+
+        let newleafs = leafs.filter((leaf)=>{return leaf.id != id});
+        if(youngerbro!=null)
         {
-            return {leafs:leafs}
+            newleafs=newleafs.map((l)=>{
+                if(l.id==youngerbro.id)
+                {
+                    youngerbro.elderbrotherid=me.elderbrotherid;
+                    return youngerbro;
+                }
+                else
+                {
+                    return l;
+                }
+            })
+        }
+        if(elderbro!=null)
+        {
+            focusId=elderbro.id;
         }
         else
         {
-        let leaf={id:StateProvider.getNewId(leafs),
-            parentid: "ROOT"}
-            //leaf.title="How to use Tree Mind Map\n\nTo add child:ENTER\nTo add sibling :TAB\nTo delete item:DELETE\n"
-        return { leafs: leafs.concat(leaf) }
+            if(parent!=null)
+            {
+                focusId=parent.id;
+            }
         }
+        return {leafs:newleafs, focusId: focusId}
+    }
 
+    static addRoot(leafs,id,focusId)
+    {
+        let filtered=StateProvider.filterAndSortLeafs(leafs,0);
+        if (filtered!=null && filtered.length>0)
+        {
+            return {leafs:leafs, focusId: 0}
+        }
+        else
+        {
+            let leaf={id:StateProvider.getNewId(leafs),
+                      parentid: 0,
+                      elderbrotherid:0}
+            return { leafs: leafs.concat(leaf) , focusId: leaf.id}
+        }
     }
 
     static addChild(leafs, id)
     {
-        //let leaf=new LeafData(StateProvider.getCurrent(leafs, id).id)
-        let leaf={id:StateProvider.getNewId(leafs),
-                  parentid: StateProvider.getCurrent(leafs, id).id}
-        return { leafs: leafs.concat(leaf) }
+        let parentid=StateProvider.getLeaf(leafs, id).id;
+        let children=StateProvider.findChildren(leafs, id);
+        let elderbrotherid;
+        if(children==null){elderbrotherid=0}
+        else{elderbrotherid=children.sort((a, b) => {return (b - a)})[0].id};
+
+        let leaf= {
+            id: StateProvider.getNewId(leafs),
+            parentid: parentid,
+            elderbrotherid: elderbrotherid
+        }
+        return { leafs: leafs.concat(leaf), focusId: leaf.id }
     }
 
     static addSibling(leafs, id)
     {
-        //let leaf=new LeafData(StateProvider.getCurrent(leafs, id).parentid)
+        let parentid=StateProvider.getLeaf(leafs, id).parentid;
         let leaf={id:StateProvider.getNewId(leafs),
-            parentid: StateProvider.getCurrent(leafs, id).parentid}
-        return { leafs: leafs.concat(leaf) }
+                  parentid: parentid,
+                  elderbrotherid: id}
+        return { leafs: leafs.concat(leaf), focusId: leaf.id }
+    }
+
+    static convertToDictionary(leafs)
+    {
+        let out={};
+        leafs.forEach(leaf=>{out[leaf.id]=leaf})
+        return out;
+    }
+    static convertToArray(leafobjects)
+    {
+        let out=[];
+        let keys=Object.keys(leafobjects);
+        keys.forEach((key)=>{out.push(leafobjects[key])})
+        return out;
 
     }
 
-    static edit(leafs, newleaf)
+    static edit(leafs, newleaf, focusId)
     {
-        let newleafs = leafs.map((oldleaf)=>
+        let leafDictionary=StateProvider.convertToDictionary(leafs);
+        let currentleaf=leafDictionary[newleaf.id];
+        let youngerbrotherleaf=StateProvider.getYoungerBrother(leafs, currentleaf);
+        //console.log("Before:" + JSON.stringify(currentleaf) + "      After:" + JSON.stringify(newleaf) )
+
+        if(currentleaf.elderbrotherid!=newleaf.elderbrotherid)
+        {
+            if(youngerbrotherleaf!=null)
             {
-                if(oldleaf.id==newleaf.id)
+                leafDictionary[youngerbrotherleaf.id].elderbrotherid=currentleaf.elderbrotherid;
+            }
+        }
+        leafDictionary[currentleaf.id]=newleaf;
+
+        let newleafs=StateProvider.convertToArray(leafDictionary);
+        return { leafs: newleafs , focusId: newleaf.id}
+    }
+
+    static findChildren(leafs, parentid)
+    {
+        let children=leafs.filter(leaf=>leaf.parentid==parentid);
+        if(Array.isArray(children) && children.length>0)
+        {
+            return children;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    static findSiblings(leafs, id)
+    {
+        let leaf=StateProvider.getLeaf(leafs, id);
+        return StateProvider.findChildren(leafs,leaf.parentid);
+    }
+
+
+    static getYoungestChild(leafs, parentid)
+    {
+        return StateProvider.getYoungest(StateProvider.findChildren(leafs, parentid))
+    }
+
+    static whereToMove()
+    {
+        return {
+            LEVELDOWN: "LEVELDOWN",
+            LEVELUP: "LEVELUP",
+            DOWN: "DOWN",
+            UP: "UP"
+        }
+    }
+
+    static jump(leafs, focusId)
+    {
+        return { leafs: leafs , focusId: focusId}
+    }
+
+    static walk(leafs, focusId, whereToMove)
+    {
+        let current = this.getLeaf(leafs, focusId);
+        let destination = StateProvider.whereToMove();
+        let moveTo="";
+        switch (whereToMove) {
+            case destination.UP:
+                if(current.elderbrotherid!=0){moveTo=current.elderbrotherid}
+                else{moveTo=current.id};
+                break;
+            case destination.DOWN:
+                let youngerbrother=StateProvider.getYoungerBrother(leafs,current);
+                if(youngerbrother!=null){moveTo=youngerbrother.id}
+                else{moveTo=current.id};
+                break;
+            case destination.LEVELUP:
+                let parent=StateProvider.getLeaf(leafs, current.parentid);
+                if(parent==null){moveTo=focusId;}
+                else {moveTo=parent.id;};
+                break;
+            case destination.LEVELDOWN:
+                let children = StateProvider.findChildren(leafs,current.id);
+                if(children!=null)
                 {
-                    return Object.assign({},newleaf)
+                    let youngestChild=children.filter((child=>child.elderbrotherid==0))[0];
+                    if(youngestChild!=null){moveTo=youngestChild.id};
                 }
                 else
                 {
-                    return oldleaf
+                    moveTo=current.id
                 }
-            }
-            )
-        //alert(JSON.stringify(newleafs))
-        return { leafs: newleafs }
+                break;
+            default:
+                moveTo=focusId;
+                break;
+        }
+        return { leafs: leafs , focusId: moveTo}
     }
 
 
-    static getCurrent(leafs, id)
+
+    static getLeaf(leafs, id)
     {
         let result = leafs.filter((leaf)=>{return leaf.id==id})
-        return result[0]
+        if(result.length>0)
+        {
+            return result[0];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
+    static getYoungerBrother(leafs, leaf)
+    {
+        let out = leafs.filter((l)=>{return (l.elderbrotherid == leaf.id)});
+        if(out.length>0)
+        {
+            return out[0];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    static IsIntegrityCheckOK(state)
+    {
+        //Check if it has full properties
+        if(!(state.hasOwnProperty("leafs") && state.hasOwnProperty("focusId")))
+        {
+            return false;
+        }
+
+        //Check integrity of leafs
+        for(let leaf of state.leafs)
+        {
+            if(leaf.elderbrotherid>0)
+            {
+                let elderbrother = StateProvider.getLeaf(state.leafs, leaf.elderbrotherid);
+                if(elderbrother==null)
+                {
+                    return false;
+                }
+                else
+                {
+                    if(leaf.parentid != elderbrother.parentid)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
 
     // Reducer
-    static leafReducer(state = { leafs: [], id:"" }, action) {
+    static leafReducer(state = { leafs: [], id:"", focusId:"" }, action) {
+        let result;
         switch (action.type) {
             case 'delete':
-                return StateProvider.delete(state.leafs,action.id)
+                result= StateProvider.delete(state.leafs, action.id,state.focusId);
+                break;
             case 'addRoot':
-                return StateProvider.addRoot(state.leafs,state.id)
+                result= StateProvider.addRoot(state.leafs ,state.id,state.id);
+                break;
             case 'addSibling':
-                return StateProvider.addSibling(state.leafs,action.id)
+                let youngerbrothers=StateProvider.getYoungerBrother(state.leafs,StateProvider.getLeaf(state.leafs,state.focusId)  );
+                if(youngerbrothers == null)
+                    {result= StateProvider.addSibling(state.leafs ,action.id)}
+                else
+                    {result = StateProvider.walk(state.leafs, state.focusId, StateProvider.whereToMove().DOWN)};
+                break;
             case 'addChild':
-                return StateProvider.addChild(state.leafs,action.id)
-            case 'setPointer':
-                return StateProvider.setPointer(state.leafs,action.id)
+                let children = StateProvider.findChildren(state.leafs, state.focusId);
+                if(children == null)
+                    {result = StateProvider.addChild(state.leafs ,action.id)}
+                else
+                    {result = StateProvider.walk(state.leafs, state.focusId, StateProvider.whereToMove().LEVELDOWN)};
+                break;
             case 'edit':
-                return StateProvider.edit(state.leafs,action.leaf)
-
+                result= StateProvider.edit(state.leafs ,action.leaf,state.focusId);
+                break;
+            case 'walk':
+                result = StateProvider.walk(state.leafs, state.focusId, action.whereTo);
+                break;
+            case 'jump':
+                result = StateProvider.jump(state.leafs, action.id);
+                break;
             default:
-                return state
+                result= state;
+                break;
+        }
+        if(StateProvider.IsIntegrityCheckOK(result))
+        {
+            return result;
+        }
+        else
+        {
+            return state;
         }
     }
 
@@ -140,7 +356,6 @@ class StateProvider
         })[0].id;
         }
         else{return 0}
-
     }
 
     static findLeaf(leafarray, id)
@@ -162,28 +377,58 @@ class StateProvider
     }
 
 
-    static filterLeafs(leafarray, parentid)
+    static filterAndSortLeafs(leafs, parentid)
     {
-        let out=[]
-        //alert('Filtering with '+ parentid)
-        if(leafarray.length>0)
+        let out=[];
+        if(Array.isArray(leafs) && leafs.length>0)
         {
-            leafarray.forEach((leaf)=>
-                {
-                    if(leaf.parentid==parentid)
-                    {
-                        out.push(leaf)
-                    }
-                }
-            )
+            let bigbrother = leafs.filter((leaf)=>{return (leaf.parentid==parentid && leaf.elderbrotherid==0)})[0];
+            StateProvider.recursivelyGetSiblings(leafs, bigbrother, out);
+            return out;
         }
-        return out
+        else
+        {
+            return null;
+        }
+
+        // if(leafarray.length>0)
+        // {
+        //     leafarray.forEach((leaf)=>
+        //         {
+        //             if(leaf.parentid==parentid)
+        //             {
+        //                 out.push(leaf)
+        //             }
+        //         }
+        //     )
+        // }
+        //return out
+    }
+
+    static recursivelyGetSiblings(leafs, leaf, out)
+    {
+        if(leaf==null)
+        {
+            return leafs;
+        }
+
+        out.push(leaf);
+        let youngerbrother = StateProvider.getYoungerBrother(leafs, leaf);
+        if(youngerbrother==null)
+        {
+            return leafs;
+        }
+        else
+        {
+            return StateProvider.recursivelyGetSiblings(leafs, youngerbrother, out);
+        }
     }
 
     // Map Redux state to component props
     static mapStateToProps(state) {
         return {
-            leafs: state.leafs
+            leafs: state.leafs,
+            focusId: state.focusId
         }
     }
 
@@ -194,7 +439,9 @@ class StateProvider
             addRoot: () => dispatch(StateProvider.addRootAction()),
             addSibling: (id) => dispatch(StateProvider.addSiblingAction(id)),
             addChild: (id) => dispatch(StateProvider.addChildAction(id)),
-            edit: (leaf) => dispatch(StateProvider.editAction(leaf))
+            edit: (leaf) => dispatch(StateProvider.editAction(leaf)),
+            walk: (whereTo) => dispatch(StateProvider.walkAction(whereTo)),
+            jump: (id) => dispatch(StateProvider.jumpAction(id))
         }
     }
 }
