@@ -60,17 +60,17 @@ class Tree extends Component {
             dataarr.forEach((leaf)=>{
                 out.push((
                     <ul className="Tree-Element">
-                        <li className="Tree-Trunk">
+                        <li key={leaf.id + "-connector"} className="Tree-Trunk">
                             {this._getConnector(leaf)}
                         </li>
-                        <li className="Tree-Trunk">
+                        <li key={leaf.id + "-leaf"} className="Tree-Trunk">
                             <ul className="Tree-Element">
-                                <li className="Tree-Trunk-Sub">
+                                <li key={leaf.id + "-leaf-detail"} className="Tree-Trunk-Sub">
                                     {this._getLeaf(leaf)}
                                 </li>
                             </ul>
                         </li>
-                        <li className="Tree-Branch" >
+                        <li  key={leaf.id + "-leaf-children"} className="Tree-Branch" >
                             {this._formatLeaf(StateProvider.filterAndSortLeafs(this.props.leafs, leaf.id ))}
                         </li>
                     </ul>
