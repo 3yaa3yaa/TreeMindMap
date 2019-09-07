@@ -36,6 +36,11 @@ class Leaf extends Component {
                     e.preventDefault()
                     this.props.addChild(this.props.leafdata.id)
                 }
+                else
+                {
+                    e.preventDefault()
+                    this.props.walk(StateProvider.whereToMove().LEVELUP);
+                }
                 break;
             case 46: //Delete
                     e.preventDefault()
@@ -49,14 +54,14 @@ class Leaf extends Component {
                 e.preventDefault()
                 this.props.walk(StateProvider.whereToMove().DOWN);
                 break;
-            case 37 : //LEFT
-                e.preventDefault()
-                this.props.walk(StateProvider.whereToMove().LEVELUP);
-                break;
-            case 39: //RIGHT
-                e.preventDefault()
-                this.props.walk(StateProvider.whereToMove().LEVELDOWN);
-                break;
+            // case 37 : //LEFT
+            //     e.preventDefault()
+            //     this.props.walk(StateProvider.whereToMove().LEVELUP);
+            //     break;
+            // case 39: //RIGHT
+            //     e.preventDefault()
+            //     this.props.walk(StateProvider.whereToMove().LEVELDOWN);
+            //     break;
         }
     }
 
@@ -108,7 +113,7 @@ class Leaf extends Component {
             verticalAlign: "middle",
             color: "white",
             webkitUserSelect : "auto",
-            webkitOverflowScrolling: "touch"
+            //webkitOverflowScrolling: "touch"
         }
     }
 
@@ -205,7 +210,6 @@ class Leaf extends Component {
                     <div className="Leaf-Row">
                         <div className="Leaf-Colomuns">
                             <MarkdownTextBox value={this.props.leafdata.title}
-                                             style={this._getTextAreaStyle()}
                                              onChange={(e)=>this.onChangeHandler(e)}
                                              focus={this._getIsFocused()}
                                               />
