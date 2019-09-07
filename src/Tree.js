@@ -59,7 +59,7 @@ class Tree extends Component {
         {
             dataarr.forEach((leaf)=>{
                 out.push((
-                    <ul className="Tree-Element">
+                    <ul key={leaf.id + "-block"} className="Tree-Element">
                         <li key={leaf.id + "-connector"} className="Tree-Trunk">
                             {this._getConnector(leaf)}
                         </li>

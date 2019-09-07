@@ -12,7 +12,6 @@ class Leaf extends Component {
         super(props);
         this.leafTextAreaRef=React.createRef()
         this.leafRef=React.createRef()
-        this.state={focused:true, hover:false}
         //this.leafTextAreaRef.onfocus=()=>{this.setState({focused:true})}
         //this.leafTextAreaRef.onblur=()=>{this.setState({focused:false})}
     }
@@ -67,35 +66,11 @@ class Leaf extends Component {
 
     onChangeHandler(e)
     {
-        let newleaf = this.props.leafdata
+        let newleaf = Object.assign({},this.props.leafdata)
         newleaf.title=e.target.value
         this.props.edit(newleaf)
     }
 
-    onFocusHandler(e)
-    {
-        //this.props.jump(this.props.leafdata.id);
-    }
-
-    onBlurHandler(e)
-    {
-
-        //this.setState({focused:false})
-        //this.leafRef.style
-        //this.leafRef.style={backgroundColor: "#FF0000"};
-    }
-
-    _getLeafInputFieldsStyle()
-    {
-        if(this.state.focused)
-        {
-            return {opacity:"1"}
-        }
-        else
-        {
-            return {opacity: "0"}
-        }
-    }
 
     _getTextAreaStyle()
     {
@@ -135,17 +110,6 @@ class Leaf extends Component {
             }
     }
 
-    _getLeafFirstColumnStyle()
-    {
-        // let leafsize=this._getLeafSize()
-        //
-        // let out={
-        //     width: leafsize.width,
-        //     height: leafsize.height
-        // }
-        // return out
-    }
-
     _getLeafSize() {
         let widthtobeset = "50px"
         if (typeof (this.props.leafdata.title) == "string") {
@@ -172,7 +136,7 @@ class Leaf extends Component {
 
     _getBurgerVisibility()
     {
-        if(this.state.hover)
+        if(this._getIsFocused())
         {
             return {visibility: "visible" }
         }
@@ -197,8 +161,6 @@ class Leaf extends Component {
     _getDOM(){
     return (
         <div className="Leaf"
-             onFocus={(e)=>this.onFocusHandler(e)}
-             onBlur={(e)=>this.onBlurHandler(e)}
              onKeyDown={(e)=>this.keyDownHandler(e)}
              onMouseOver={(e)=>this.setState({hover:true})}
              onMouseLeave={(e)=>this.setState({hover:false})}
@@ -206,7 +168,7 @@ class Leaf extends Component {
              style={this._getLeafStyle()}
              ref={(e)=>{this.leafRef=e}} >
             <div className="Leaf-Row">
-                <div className="Leaf-Columns" style={this._getLeafFirstColumnStyle()}>
+                <div className="Leaf-Columns" >
                     <div className="Leaf-Row">
                         <div className="Leaf-Colomuns">
                             <MarkdownTextBox value={this.props.leafdata.title}
@@ -250,8 +212,9 @@ const dragSpec = {
         {
             if(dragged.id!=dropped.id)
             {
-                dragged.parentid=dropped.id
-                component.props.edit(dragged)
+                let newvalue = Object.assign({}, dragged);
+                newvalue.parentid=dropped.id;
+                component.props.edit(newvalue);
             }
         }
     }

@@ -138,6 +138,7 @@ class StateProvider
         let leafDictionary=StateProvider.convertToDictionary(leafs);
         let currentleaf=leafDictionary[newleaf.id];
         let youngerbrotherleaf=StateProvider.getYoungerBrother(leafs, currentleaf);
+        console.log("Before:" + JSON.stringify(currentleaf) + "      After:" + JSON.stringify(newleaf) )
 
         if(currentleaf.elderbrotherid!=newleaf.elderbrotherid)
         {
@@ -259,13 +260,20 @@ class StateProvider
         }
     }
 
-    static IsIntegrityCheckOK(leafs)
+    static IsIntegrityCheckOK(state)
     {
-        for(let leaf of leafs)
+        //Check if it has full properties
+        if(!(state.hasOwnProperty("leafs") && state.hasOwnProperty("focusId")))
+        {
+            return false;
+        }
+
+        //Check integrity of leafs
+        for(let leaf of state.leafs)
         {
             if(leaf.elderbrotherid>0)
             {
-                let elderbrother = StateProvider.getLeaf(leafs, leaf.elderbrotherid);
+                let elderbrother = StateProvider.getLeaf(state.leafs, leaf.elderbrotherid);
                 if(elderbrother==null)
                 {
                     return false;
@@ -320,7 +328,7 @@ class StateProvider
                 result= state;
                 break;
         }
-        if(StateProvider.IsIntegrityCheckOK(result.leafs))
+        if(StateProvider.IsIntegrityCheckOK(result))
         {
             return result;
         }

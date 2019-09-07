@@ -200,7 +200,7 @@ function testEdit()
                 {id:2,parentid:1,elderbrotherid:0, value:"some data"},
                 {id:3,parentid:2,elderbrotherid:0}]}
         )});
-    test("Integrity Check after edit", ()=>{expect(StateProvider.IsIntegrityCheckOK(valueadded.leafs)).toBe(true)});
+    test("Integrity Check after edit", ()=>{expect(StateProvider.IsIntegrityCheckOK(valueadded)).toBe(true)});
 
 
     let dnd=StateProvider.edit(leafs_hasachild,{id:3,parentid:1,elderbrotherid:2,value:"One level down"},1)
@@ -209,7 +209,7 @@ function testEdit()
                 {id:2,parentid:1,elderbrotherid:0},
                 {id:3,parentid:1,elderbrotherid:2, value:"One level down"}]}
     )});
-    test("Integrity Check after dnd", ()=>{expect(StateProvider.IsIntegrityCheckOK(dnd.leafs)).toBe(true)});
+    test("Integrity Check after dnd", ()=>{expect(StateProvider.IsIntegrityCheckOK(dnd)).toBe(true)});
 
 }
 
@@ -218,14 +218,15 @@ function testIntegrityCheck() {
         {id:2,parentid:1,elderbrotherid:0},
         {id:3,parentid:1,elderbrotherid:2, value:"Test Data"}];
 
-    test("Integrity Check 1", ()=>{expect(StateProvider.IsIntegrityCheckOK(data_1)).toBe(true)});
+    test("Integrity Check 1", ()=>{expect(StateProvider.IsIntegrityCheckOK({focusId:"0", leafs: data_1})).toBe(true)});
 
     let data_2 = [{id:1,parentid:0,elderbrotherid:0},
             {id:2,parentid:4,elderbrotherid:0},
             {id:3,parentid:1,elderbrotherid:2, value:"Test Data"}];
 
-    test("Integrity Check 2", ()=>{expect(StateProvider.IsIntegrityCheckOK(data_2)).toBe(false)});
+    test("Integrity Check 2", ()=>{expect(StateProvider.IsIntegrityCheckOK({focusId:"0", leafs: data_2})).toBe(false)});
 }
+
 
 function testGetLeaf() {
     let data = [{id:1,parentid:0,elderbrotherid:0},
@@ -233,7 +234,6 @@ function testGetLeaf() {
         {id:3,parentid:1,elderbrotherid:2, value:"Test Data"}];
     test("Get Current id=2", ()=>{expect(StateProvider.getLeaf(data,2)).toEqual({id:2,parentid:1,elderbrotherid:0})});
     test("Get Current id=4", ()=>{expect(StateProvider.getLeaf(data,4)).toEqual(null)});
-
 
 }
 
