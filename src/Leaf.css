@@ -1,37 +1,12 @@
-.Leaf {
-  text-align: left;
-  padding: 10px;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  margin-left:0px;
-  margin-right:0px;
-  border-radius:10px;
-  resize: both;
-}
-
-.Leaf-TextArea {
-  text-align: left;
-  background-color: transparent;
-  border: none;
-  height: available;
-  margin: 1px;
-  padding: 0px;
-  min-width: 50px;
-  width: 50px;
-  vertical-align: middle;
-  color: darkgreen;
-  -webkit-user-select : auto;
-  -webkit-overflow-scrolling: touch;
-}
-
 
 .Leaf-Row{
+  position: static;
   display: table-row;
-  position: center;
   vertical-align: middle;
 }
 
 .Leaf-Colomuns{
+  position: static;
   display: table-cell;
   margin:0px;
   vertical-align: middle;
@@ -46,6 +21,6 @@
   font-size: small;
   color: green;
   border:none;
-  border-color: aliceblue;
+  border-color: whitesmoke;
   border-width:1px;
 }

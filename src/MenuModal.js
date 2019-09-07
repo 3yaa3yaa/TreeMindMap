@@ -67,10 +67,10 @@ class MenuModal extends Component {
                 <input type='color'  className="MenuModal-Command"  onChange={(e) => {this.colorPickHandler(e);this.props.closeModal()}}>
                 </input>
                 <br />
-                <label  className="MenuModal-Command-Label"> Add Child</label>
+                <label  className="MenuModal-Command-Label">Level Down </label>
                 <input type='button' className="MenuModal-Command" value="Add" onClick={(e) => {this.props.addChild(this.props.leafdata.id);this.props.closeModal()}}></input>
                 <br />
-                <label  className="MenuModal-Command-Label"> Add Sibling</label>
+                <label  className="MenuModal-Command-Label">Down</label>
                 <input type='button' className="MenuModal-Command"  value="Add" onClick={(e) => {this.props.addSibling(this.props.leafdata.id);this.props.closeModal()}}></input>
                 <br />
             </div>
