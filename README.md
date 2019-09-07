@@ -10,7 +10,7 @@ https://www.npmjs.com/package/treemindmap
 
 ## What's it look like?
 Sample page -- https://3yaa3yaa.github.io/TreeMindMap-Site/
-![howto](https://github.com/3yaa3yaa/TreeMindMap/blob/master/HowTo.png)
+![howto](https://github.com/3yaa3yaa/TreeMindMap/blob/master/howto.png)
 
 ## Projects that uses this component
 
