@@ -138,7 +138,7 @@ class StateProvider
         let leafDictionary=StateProvider.convertToDictionary(leafs);
         let currentleaf=leafDictionary[newleaf.id];
         let youngerbrotherleaf=StateProvider.getYoungerBrother(leafs, currentleaf);
-        console.log("Before:" + JSON.stringify(currentleaf) + "      After:" + JSON.stringify(newleaf) )
+        //console.log("Before:" + JSON.stringify(currentleaf) + "      After:" + JSON.stringify(newleaf) )
 
         if(currentleaf.elderbrotherid!=newleaf.elderbrotherid)
         {
