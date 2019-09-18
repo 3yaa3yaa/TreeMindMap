@@ -1,5 +1,5 @@
 .Connector-Table {
-  position: absolute;
+  /*position: absolute;*/
   top:0%;
   bottom:0%;
   left:0px;
@@ -10,7 +10,7 @@
   margin-right:0px;
   display: table;
   width: 30px;
-  height:50%;
+  height:100%;
   table-layout: fixed;
 }
 

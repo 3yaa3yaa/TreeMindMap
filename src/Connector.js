@@ -16,11 +16,11 @@ class Connector extends Component {
         let isEdge = navigator.userAgent.toLowerCase().indexOf('edge') > -1;
         if(isFirefox||isEdge)
         {
-            return {height:"100%"}
+            return {position:"absolute"}
         }
         else
         {
-            return {height:"50%"}
+            return {height:"100%"}
         }
     }
 
