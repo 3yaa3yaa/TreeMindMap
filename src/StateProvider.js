@@ -88,7 +88,8 @@ class StateProvider
         {
             let leaf={id:StateProvider.getNewId(leafs),
                       parentid: 0,
-                      elderbrotherid:0}
+                      elderbrotherid:0,
+                      title:""}
             return { leafs: leafs.concat(leaf) , focusId: leaf.id}
         }
     }
@@ -104,7 +105,8 @@ class StateProvider
         let leaf= {
             id: StateProvider.getNewId(leafs),
             parentid: parentid,
-            elderbrotherid: elderbrotherid
+            elderbrotherid: elderbrotherid,
+            title:""
         }
         return { leafs: leafs.concat(leaf), focusId: leaf.id }
     }
@@ -114,7 +116,8 @@ class StateProvider
         let parentid=StateProvider.getLeaf(leafs, id).parentid;
         let leaf={id:StateProvider.getNewId(leafs),
                   parentid: parentid,
-                  elderbrotherid: id}
+                  elderbrotherid: id,
+                  title:""}
         return { leafs: leafs.concat(leaf), focusId: leaf.id }
     }
 
@@ -186,6 +189,75 @@ class StateProvider
             UP: "UP"
         }
     }
+
+    static getAllChildren(leaf, leafs)
+    {
+        let children = StateProvider.findChildren(leafs, leaf.id)
+        if(children!=null)
+        {
+            for(let child of children)
+            {
+                let grandchildren=StateProvider.getAllChildren(child, leafs);
+                if(grandchildren!=null)
+                {
+                    children=children.concat()
+                }
+            }
+        }
+        return children;
+    }
+
+    static sumLabelsOfChildren(leaf, leafs, label)
+    {
+        let children=StateProvider.getAllChildren(leaf, leafs)
+        let array=[];
+        if(children===null){return array};
+
+        for(let child of children)
+        {
+            let regexp;
+            if(label==="")
+            {regexp= new RegExp('#([^ ]+)( |$)','g')}
+            else
+            {regexp= new RegExp('#'+ label+':([^ ]+)( |$)','g')};
+
+            array=array.concat([...child.title.matchAll(regexp)].map(item=>{return item[1]}));
+        }
+
+        let reducer=(acc, cur)=>{
+            let val=parseFloat(cur);
+            if(!val.isNaN)
+            {
+                return acc+val;
+            }
+            else
+            {
+                return acc+0;
+            }
+        };
+        return array.reduce(reducer,0);
+    }
+
+    static countLabelsOfChildren(leaf, leafs, label)
+    {
+        let children=StateProvider.getAllChildren(leaf, leafs)
+        let array=[];
+        if(children!=null)
+        {
+            for(let child of children)
+            {
+                let regexp;
+                if(label==="")
+                {regexp= new RegExp('#([^ ]+)( |$)','g')}
+                else
+                {regexp= new RegExp('#'+ label+':([^ ]+)( |$)','g')};
+
+                array=array.concat([...child.title.matchAll(regexp)].map(item=>{return item[1]}));
+            }
+        }
+        return array.length;
+    }
+
 
     static jump(leafs, focusId)
     {

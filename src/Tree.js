@@ -18,6 +18,8 @@ class Tree extends Component {
         return <Leaf leafdata={leaf}
                      focusId={this.props.focusId}
                      edit={this.props.edit}
+                     sumOfChildren={(label)=>{return StateProvider.sumLabelsOfChildren(leaf, this.props.leafs,label)}}
+                     countOfChildren={(label)=>{return StateProvider.countLabelsOfChildren(leaf, this.props.leafs,label)}}
                      addChild={this.props.addChild}
                      delete={this.props.delete}
                      addSibling={this.props.addSibling}

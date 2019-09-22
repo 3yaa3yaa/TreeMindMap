@@ -5,6 +5,7 @@ import Menu from './Menu'
 import { DragSource, DropTarget } from 'react-dnd'
 import MarkdownTextBox from '@3yaa3yaa/markdowntextbox';
 import StateProvider from './StateProvider'
+import ReservedList from "./Reserved";
 
 class Leaf extends Component {
 
@@ -12,8 +13,7 @@ class Leaf extends Component {
         super(props);
         this.leafTextAreaRef=React.createRef()
         this.leafRef=React.createRef()
-        //this.leafTextAreaRef.onfocus=()=>{this.setState({focused:true})}
-        //this.leafTextAreaRef.onblur=()=>{this.setState({focused:false})}
+        this.reservedList = new ReservedList(this.props.sumOfChildren, this.props.countOfChildren);
     }
 
     componentDidMount()
@@ -158,6 +158,8 @@ class Leaf extends Component {
         }
     }
 
+
+
     _getDOM(){
     return (
         <div className="Leaf"
@@ -172,6 +174,7 @@ class Leaf extends Component {
                     <div className="Leaf-Row">
                         <div className="Leaf-Colomuns">
                             <MarkdownTextBox value={this.props.leafdata.title}
+                                             reservedItems={this.reservedList.items}
                                              onChange={(e)=>this.onChangeHandler(e)}
                                              focus={this._getIsFocused()}
                                               />
