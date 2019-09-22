@@ -20,7 +20,7 @@ function testRoot()
 {
     let store=StateProvider.addRoot([],0,0);
     let leafs_root=store.leafs;
-    test("Root leafs", ()=>{expect(leafs_root).toEqual([{id:1,parentid:0,elderbrotherid:0}])});
+    test("Root leafs", ()=>{expect(leafs_root).toEqual([{id:1,parentid:0,elderbrotherid:0,title:""}])});
 }
 
 function testSibling()
@@ -31,9 +31,9 @@ function testSibling()
     let leafs_hasasibling=StateProvider.addSibling(leafs_root,1).leafs;
     leafs_hasasibling=StateProvider.addSibling(leafs_hasasibling,2).leafs;
     test("Siblings", ()=>{expect(leafs_hasasibling).toEqual(
-        [{id:1,parentid:0,elderbrotherid:0},
-            {id:2,parentid:0,elderbrotherid:1},
-            {id:3,parentid:0,elderbrotherid:2}])});
+        [{id:1,parentid:0,elderbrotherid:0,title:""},
+            {id:2,parentid:0,elderbrotherid:1,title:""},
+            {id:3,parentid:0,elderbrotherid:2,title:""}])});
 }
 
 function testYoungerBrother()
@@ -44,15 +44,15 @@ function testYoungerBrother()
     leafs_hasasibling=StateProvider.addSibling(leafs_hasasibling,2).leafs;
 
     test("Sibling_1", ()=>{expect(leafs_hasasibling[1]).toEqual(
-        {id:2,parentid:0,elderbrotherid:1})});
+        {id:2,parentid:0,elderbrotherid:1,title:""})});
 
     test("Sibling_2", ()=>{expect(leafs_hasasibling[2]).toEqual(
-        {id:3,parentid:0,elderbrotherid:2})});
+        {id:3,parentid:0,elderbrotherid:2,title:""})});
 
 
     let tobeTested=StateProvider.getYoungerBrother(leafs_hasasibling,leafs_hasasibling[1])
     test("YoungerBrother", ()=>{expect(tobeTested).toEqual(
-            {id:3,parentid:0,elderbrotherid:2})});
+            {id:3,parentid:0,elderbrotherid:2,title:""})});
 
 }
 
@@ -68,11 +68,11 @@ function testMove()
     leafs=StateProvider.addSibling(leafs,6).leafs;//7
 
     test("Focused Leaf", ()=>{expect(StateProvider.getLeaf(leafs,1)).toEqual(
-        {id:1,parentid:0,elderbrotherid:0})});
+        {id:1,parentid:0,elderbrotherid:0,title:""})});
 
     test("Younger brother Leaf", ()=>{expect(StateProvider.getYoungerBrother(leafs,
         StateProvider.getLeaf(leafs,1))).toEqual(
-        {id:2,parentid:0,elderbrotherid:1})});
+        {id:2,parentid:0,elderbrotherid:1,title:""})});
     test("Keyword DOWN", ()=>{expect(StateProvider.whereToMove().DOWN).toEqual("DOWN")});
     test("Keyword UP", ()=>{expect(StateProvider.whereToMove().UP).toEqual("UP")});
     test("Keyword LEVELUP", ()=>{expect(StateProvider.whereToMove().LEVELUP).toEqual("LEVELUP")});
@@ -119,19 +119,19 @@ function testChild()
     let leafs_hasachild=StateProvider.addChild(leafs_root,1).leafs;
     leafs_hasachild=StateProvider.addChild(leafs_hasachild,2).leafs;
     test("Children", ()=>{expect(leafs_hasachild).toEqual(
-        [{id:1,parentid:0,elderbrotherid:0},
-            {id:2,parentid:1,elderbrotherid:0},
-            {id:3,parentid:2,elderbrotherid:0}])});
+        [{id:1,parentid:0,elderbrotherid:0,title:""},
+            {id:2,parentid:1,elderbrotherid:0,title:""},
+            {id:3,parentid:2,elderbrotherid:0,title:""}])});
 }
 
 function testNewId()
 {
-    let leafs = [{id:1,parentid:0,elderbrotherid:0},
-        {id:2,parentid:1,elderbrotherid:0},
-        {id:3,parentid:2,elderbrotherid:0},
-        {id:4,parentid:2,elderbrotherid:3},
-        {id:5,parentid:2,elderbrotherid:4},
-        {id:6,parentid:2,elderbrotherid:5}];
+    let leafs = [{id:1,parentid:0,elderbrotherid:0,title:""},
+        {id:2,parentid:1,elderbrotherid:0,title:""},
+        {id:3,parentid:2,elderbrotherid:0,title:""},
+        {id:4,parentid:2,elderbrotherid:3,title:""},
+        {id:5,parentid:2,elderbrotherid:4,title:""},
+        {id:6,parentid:2,elderbrotherid:5,title:""}];
 
     test("Test New Id 1", ()=>{expect(StateProvider.getNewId(leafs)).toBe(7)});
 
@@ -143,43 +143,43 @@ function testNewId()
 
 function testFilter()
 {
-    let leafs = [{id:1,parentid:0,elderbrotherid:0},
-        {id:2,parentid:1,elderbrotherid:0},
-        {id:3,parentid:2,elderbrotherid:0},
-        {id:4,parentid:2,elderbrotherid:3},
-        {id:5,parentid:2,elderbrotherid:4},
-        {id:6,parentid:2,elderbrotherid:5}];
+    let leafs = [{id:1,parentid:0,elderbrotherid:0,title:""},
+        {id:2,parentid:1,elderbrotherid:0,title:""},
+        {id:3,parentid:2,elderbrotherid:0,title:""},
+        {id:4,parentid:2,elderbrotherid:3,title:""},
+        {id:5,parentid:2,elderbrotherid:4,title:""},
+        {id:6,parentid:2,elderbrotherid:5,title:""}];
 
     test("Test filter 1", ()=>{expect(StateProvider.filterAndSortLeafs(leafs, 2)).toEqual(
-           [{id:3,parentid:2,elderbrotherid:0},
-            {id:4,parentid:2,elderbrotherid:3},
-            {id:5,parentid:2,elderbrotherid:4},
-            {id:6,parentid:2,elderbrotherid:5}])});
+           [{id:3,parentid:2,elderbrotherid:0,title:""},
+            {id:4,parentid:2,elderbrotherid:3,title:""},
+            {id:5,parentid:2,elderbrotherid:4,title:""},
+            {id:6,parentid:2,elderbrotherid:5,title:""}])});
 
 
-    let leafs_sort = [{id:1,parentid:0,elderbrotherid:0},
-        {id:2,parentid:1,elderbrotherid:0},
-        {id:6,parentid:2,elderbrotherid:5},
-        {id:5,parentid:2,elderbrotherid:4},
-        {id:4,parentid:2,elderbrotherid:3},
-        {id:3,parentid:2,elderbrotherid:0}];
+    let leafs_sort = [{id:1,parentid:0,elderbrotherid:0,title:""},
+        {id:2,parentid:1,elderbrotherid:0,title:""},
+        {id:6,parentid:2,elderbrotherid:5,title:""},
+        {id:5,parentid:2,elderbrotherid:4,title:""},
+        {id:4,parentid:2,elderbrotherid:3,title:""},
+        {id:3,parentid:2,elderbrotherid:0,title:""}];
 
     test("Test filter 2", ()=>{expect(StateProvider.filterAndSortLeafs(leafs_sort, 2)).toEqual(
-        [{id:3,parentid:2,elderbrotherid:0},
-            {id:4,parentid:2,elderbrotherid:3},
-            {id:5,parentid:2,elderbrotherid:4},
-            {id:6,parentid:2,elderbrotherid:5}])});
+        [{id:3,parentid:2,elderbrotherid:0,title:""},
+            {id:4,parentid:2,elderbrotherid:3,title:""},
+            {id:5,parentid:2,elderbrotherid:4,title:""},
+            {id:6,parentid:2,elderbrotherid:5,title:""}])});
 
     let leafs_3 = null;
     test("Test filter 3", ()=>{expect(StateProvider.filterAndSortLeafs(leafs_3, 0)).toBe(null)});
 
 
-    let leafs_4 = [{id:1,parentid:0,elderbrotherid:0}];
+    let leafs_4 = [{id:1,parentid:0,elderbrotherid:0,title:""}];
     test("Test filter 4", ()=>{expect(StateProvider.filterAndSortLeafs(leafs_4, 0)).toEqual(
-        [{id:1,parentid:0,elderbrotherid:0}])});
+        [{id:1,parentid:0,elderbrotherid:0,title:""}])});
 
 
-    let leafs_5 = [{id:1,parentid:0,elderbrotherid:0}];
+    let leafs_5 = [{id:1,parentid:0,elderbrotherid:0,title:""}];
     test("Test filter 5", ()=>{expect(StateProvider.filterAndSortLeafs(leafs_5, 1)).toEqual(
         [])});
 
@@ -194,47 +194,58 @@ function testEdit()
 
     let leafs_hasachild=StateProvider.addChild(leafs_root,1).leafs;
     leafs_hasachild=StateProvider.addChild(leafs_hasachild,2).leafs;
-    let valueadded=StateProvider.edit(leafs_hasachild,{id:2,parentid:1,elderbrotherid:0,value:"some data"},1)
+    let valueadded=StateProvider.edit(leafs_hasachild,{id:2,parentid:1,elderbrotherid:0,value:"some data",title:""},1)
     test("Edit : Value added", ()=>{expect(valueadded).toEqual(
-        {focusId:2, leafs:[{id:1,parentid:0,elderbrotherid:0},
-                {id:2,parentid:1,elderbrotherid:0, value:"some data"},
-                {id:3,parentid:2,elderbrotherid:0}]}
+        {focusId:2, leafs:[{id:1,parentid:0,elderbrotherid:0,title:""},
+                {id:2,parentid:1,elderbrotherid:0, value:"some data",title:""},
+                {id:3,parentid:2,elderbrotherid:0,title:""}]}
         )});
     test("Integrity Check after edit", ()=>{expect(StateProvider.IsIntegrityCheckOK(valueadded)).toBe(true)});
 
 
-    let dnd=StateProvider.edit(leafs_hasachild,{id:3,parentid:1,elderbrotherid:2,value:"One level down"},1)
+    let dnd=StateProvider.edit(leafs_hasachild,{id:3,parentid:1,elderbrotherid:2,value:"One level down",title:""},1)
     test("Edit : Drag and Drop -- One level down", ()=>{expect(dnd).toEqual(
-        {focusId:3, leafs:[{id:1,parentid:0,elderbrotherid:0},
-                {id:2,parentid:1,elderbrotherid:0},
-                {id:3,parentid:1,elderbrotherid:2, value:"One level down"}]}
+        {focusId:3, leafs:[{id:1,parentid:0,elderbrotherid:0,title:""},
+                {id:2,parentid:1,elderbrotherid:0,title:""},
+                {id:3,parentid:1,elderbrotherid:2, value:"One level down",title:""}]}
     )});
     test("Integrity Check after dnd", ()=>{expect(StateProvider.IsIntegrityCheckOK(dnd)).toBe(true)});
 
 }
 
 function testIntegrityCheck() {
-    let data_1 = [{id:1,parentid:0,elderbrotherid:0},
-        {id:2,parentid:1,elderbrotherid:0},
-        {id:3,parentid:1,elderbrotherid:2, value:"Test Data"}];
+    let data_1 = [{id:1,parentid:0,elderbrotherid:0,title:""},
+        {id:2,parentid:1,elderbrotherid:0,title:""},
+        {id:3,parentid:1,elderbrotherid:2, value:"Test Data",title:""}];
 
     test("Integrity Check 1", ()=>{expect(StateProvider.IsIntegrityCheckOK({focusId:"0", leafs: data_1})).toBe(true)});
 
-    let data_2 = [{id:1,parentid:0,elderbrotherid:0},
-            {id:2,parentid:4,elderbrotherid:0},
-            {id:3,parentid:1,elderbrotherid:2, value:"Test Data"}];
+    let data_2 = [{id:1,parentid:0,elderbrotherid:0,title:""},
+            {id:2,parentid:4,elderbrotherid:0,title:""},
+            {id:3,parentid:1,elderbrotherid:2, value:"Test Data",title:""}];
 
     test("Integrity Check 2", ()=>{expect(StateProvider.IsIntegrityCheckOK({focusId:"0", leafs: data_2})).toBe(false)});
 }
 
 
 function testGetLeaf() {
-    let data = [{id:1,parentid:0,elderbrotherid:0},
-        {id:2,parentid:1,elderbrotherid:0},
-        {id:3,parentid:1,elderbrotherid:2, value:"Test Data"}];
-    test("Get Current id=2", ()=>{expect(StateProvider.getLeaf(data,2)).toEqual({id:2,parentid:1,elderbrotherid:0})});
+    let data = [{id:1,parentid:0,elderbrotherid:0,title:""},
+        {id:2,parentid:1,elderbrotherid:0,title:""},
+        {id:3,parentid:1,elderbrotherid:2, value:"Test Data",title:""}];
+    test("Get Current id=2", ()=>{expect(StateProvider.getLeaf(data,2)).toEqual({id:2,parentid:1,elderbrotherid:0,title:""})});
     test("Get Current id=4", ()=>{expect(StateProvider.getLeaf(data,4)).toEqual(null)});
 
+}
+
+
+function testSumOfLeafs()
+{
+    let data = [{id:1,parentid:0,elderbrotherid:0,title:""},
+        {id:2,parentid:1,elderbrotherid:0,title:"#1"},
+        {id:3,parentid:1,elderbrotherid:2,title:"this is #2 value"}];
+
+    test("get all children of id=1",()=>{expect(StateProvider.getAllChildren(data[0],data)).toEqual([data[1],data[2]])})
+    test("sum of id=1",()=>{expect(StateProvider.sumLabelsOfChildren(data[0], data, "")).toEqual(3)})
 }
 
 testNewId();
@@ -249,4 +260,5 @@ testChild();
 testMove();
 testEdit();
 testIntegrityCheck();
+testSumOfLeafs();
 

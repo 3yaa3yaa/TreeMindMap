@@ -1,0 +1,60 @@
+import React from "react";
+
+class Reserved
+{
+    constructor(keyword, stopword, behaviour)
+    {
+        this.keyword　=　keyword;
+        this.stopword　=　stopword;
+        this.behaviour　=　behaviour;
+    }
+
+}
+
+export default class ReservedList
+{
+    constructor(callback_sum, callback_count)
+    {
+        let arr=[];
+        this.callback_sum=callback_sum;
+        this.callback_count=callback_count;
+        arr.push(new Reserved('=count(',")", (node)=>{return this.getSumJSX(node)}))
+        arr.push(new Reserved('=sum(',")", (node)=>{return this.getSumJSX(node)}))
+        this.items=arr;
+    }
+
+    getSumJSX(text)
+    {
+        if(text===null || text===undefined){text=""};
+        return <div style={this.getTagStyle()}>{this.callback_sum(text)}</div>;
+    }
+
+    getCountJSX(text)
+    {
+        if(text===null || text===undefined){text=""};
+        return <div style={this.getTagStyle()}>{this.callback_count(text)}</div>;
+    }
+
+    getTagStyle()
+    {
+        return {
+            display:"inline",
+            textAlign: "justify",
+            verticalAlign:"middle",
+            fontWeight:"bold",
+            backgroundColor: "#FFDDFF",
+            fontsize:"8px",
+            paddingLeft: "10px",
+            paddingRight: "10px",
+            borderBottomLeftRadius:"20px",
+            borderTopLeftRadius:"20px",
+            borderBottomRightRadius:"20px",
+            borderTopRightRadius:"20px",
+            width: "50px",
+            height: "10px",
+            color: "#FF00FF"
+        }
+    }
+}
+
+
