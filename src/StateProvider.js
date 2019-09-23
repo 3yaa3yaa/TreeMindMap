@@ -200,7 +200,7 @@ class StateProvider
                 let grandchildren=StateProvider.getAllChildren(child, leafs);
                 if(grandchildren!=null)
                 {
-                    children=children.concat()
+                    children=children.concat(grandchildren)
                 }
             }
         }
@@ -219,16 +219,15 @@ class StateProvider
             if(label==="")
             {regexp= new RegExp('#([^ ]+)( |$)','g')}
             else
-            {regexp= new RegExp('#'+ label+':([^ ]+)( |$)','g')};
+            {regexp= new RegExp('#' + label+ ':([^ ]+)( |$)','g')};
 
             array=array.concat([...child.title.matchAll(regexp)].map(item=>{return item[1]}));
         }
 
         let reducer=(acc, cur)=>{
-            let val=parseFloat(cur);
-            if(!val.isNaN)
+            if(isFinite(cur))
             {
-                return acc+val;
+                return acc+parseFloat(cur);
             }
             else
             {
@@ -252,7 +251,7 @@ class StateProvider
                 else
                 {regexp= new RegExp('#'+ label+':([^ ]+)( |$)','g')};
 
-                array=array.concat([...child.title.matchAll(regexp)].map(item=>{return item[1]}));
+                array=array.concat([...child.title.matchAll(regexp)].map(item=>{return item[1]}).filter((item)=>{return isFinite(item)}));
             }
         }
         return array.length;
