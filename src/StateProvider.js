@@ -54,8 +54,8 @@ class StateProvider
             newleafs=newleafs.map((l)=>{
                 if(l.id==youngerbro.id)
                 {
-                    youngerbro.elderbrotherid=me.elderbrotherid;
-                    return youngerbro;
+                    l.elderbrotherid=me.elderbrotherid;
+                    return l;
                 }
                 else
                 {

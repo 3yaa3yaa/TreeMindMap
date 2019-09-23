@@ -46,13 +46,20 @@ class Leaf extends Component {
                     this.props.delete(this.props.leafdata.id)
                     break;
             case 38: //UP
-                e.preventDefault()
-                this.props.walk(StateProvider.whereToMove().UP);
+
+                if (e.shiftKey!=true)
+                {
+                    e.preventDefault()
+                    this.props.walk(StateProvider.whereToMove().UP);
+                }
                 break;
             case 40: //Down
-                e.preventDefault()
-                this.props.walk(StateProvider.whereToMove().DOWN);
-                break;
+                if (e.shiftKey!=true)
+                {
+                    e.preventDefault()
+                    this.props.walk(StateProvider.whereToMove().DOWN);
+                    break;
+                }
             // case 37 : //LEFT
             //     e.preventDefault()
             //     this.props.walk(StateProvider.whereToMove().LEVELUP);
