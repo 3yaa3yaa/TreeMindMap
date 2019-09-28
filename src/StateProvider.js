@@ -24,6 +24,11 @@ class StateProvider
         return { type: 'edit', leaf }
     }
 
+    static moveAction(from, to)
+    {
+        return { type: 'move', from, to }
+    }
+
     static walkAction(whereTo)
     {
         return { type: 'walk', whereTo }
@@ -36,7 +41,7 @@ class StateProvider
 
 
     // Reducer
-    static leafReducer(state = { root: null, id:"", focusId:"" }, action) {
+    static leafReducer(state = { root: new LeafData(0,"",[]), id:"", focusId:"" }, action) {
         let result;
         switch (action.type) {
             case 'delete':
@@ -46,21 +51,24 @@ class StateProvider
                 result= StateProvider.addRoot(state.root ,state.id,state.id);
                 break;
             case 'addSibling':
-                let youngerbrothers=StateProvider.getYoungerBrother(state.root,StateProvider.getLeaf(state.root,state.focusId)  );
-                if(youngerbrothers == null)
+                let youngerbrothers=state.root.getYoungerBrother(state.focusId);
+                if(youngerbrothers===null)
                     {result= StateProvider.addSibling(state.root ,action.id)}
                 else
                     {result = StateProvider.walk(state.root, state.focusId, StateProvider.whereToMove().DOWN)};
                 break;
             case 'addChild':
-                let children = StateProvider.getChildren(state.root, state.focusId);
-                if(children == null)
+                let children = state.root.getChildren(state.focusId);
+                if(children.length===0)
                     {result = StateProvider.addChild(state.root ,action.id)}
                 else
                     {result = StateProvider.walk(state.root, state.focusId, StateProvider.whereToMove().LEVELDOWN)};
                 break;
             case 'edit':
                 result= StateProvider.edit(state.root ,action.leaf,state.focusId);
+                break;
+            case 'move':
+                result= StateProvider.move(state.root, action.from, action.to ,state.focusId);
                 break;
             case 'walk':
                 result = StateProvider.walk(state.root, state.focusId, action.whereTo);
@@ -113,6 +121,21 @@ class StateProvider
         return { root: root , focusId: leaf.id}
     }
 
+    static move(root, focusId, from, to)
+    {
+        let current=root.getLeaf(from);
+        let currentParent = root.getParent(from);
+        let destination = root.getLeaf(to);
+        if(destination!=null && current!=null && currentParent!=null)
+        {
+            let newleaf=Object.assign({}, current);
+            destination.children.push(newleaf);
+            currentParent.children=currentParent.children.filter(child=>child.id!=from);
+        }
+        return { root: root , focusId: leaf.id}
+    }
+
+
     static delete(root, id, focusId)
     {
         if(root!=null && root.id!=id)
@@ -145,35 +168,28 @@ class StateProvider
 
     static walk(root, focusId, whereToMove)
     {
-        let current = this.getLeaf(root, focusId);
         let destination = StateProvider.whereToMove();
         let moveTo="";
         switch (whereToMove) {
             case destination.UP:
-                if(current.elderbrotherid!=0){moveTo=current.elderbrotherid}
-                else{moveTo=current.id};
+                let elderBrother=root.getElderBrother(focusId);
+                if(elderBrother!=null){moveTo=elderBrother.id}
+                else{moveTo=focusId};
                 break;
             case destination.DOWN:
-                let youngerbrother=StateProvider.getYoungerBrother(root,current);
-                if(youngerbrother!=null){moveTo=youngerbrother.id}
-                else{moveTo=current.id};
+                let youngerBrother=root.getYoungerBrother(focusId);
+                if(youngerBrother!=null){moveTo=youngerBrother.id}
+                else{moveTo=focusId};
                 break;
             case destination.LEVELUP:
-                let parent=StateProvider.getLeaf(root, current.parentid);
-                if(parent==null){moveTo=focusId;}
-                else {moveTo=parent.id;};
+                let parent=root.getParent(focusId);
+                if(parent!=null){moveTo=parent.id}
+                else {moveTo=focusId};
                 break;
             case destination.LEVELDOWN:
-                let children = StateProvider.getChildren(root,current.id);
-                if(children!=null)
-                {
-                    let youngestChild=children.filter((child=>child.elderbrotherid==0))[0];
-                    if(youngestChild!=null){moveTo=youngestChild.id};
-                }
-                else
-                {
-                    moveTo=current.id
-                }
+                let children = root.getChildren(focusid);
+                if(children.length>0){moveTo=children[0].id}
+                else{moveTo=focusId}
                 break;
             default:
                 moveTo=focusId;
@@ -181,25 +197,6 @@ class StateProvider
         }
         return { root: root , focusId: moveTo}
     }
-
-    static findLeaf(leafarray, id)
-    {
-        let out=[]
-        //alert('Filtering with '+ parentid)
-        if(leafarray.length>0)
-        {
-            leafarray.forEach((leaf)=>
-                {
-                    if(leaf.id==id)
-                    {
-                        out.push(leaf)
-                    }
-                }
-            )
-        }
-        return out
-    }
-
 
 
     // Map Redux state to component props
@@ -218,6 +215,7 @@ class StateProvider
             addSibling: (id) => dispatch(StateProvider.addSiblingAction(id)),
             addChild: (id) => dispatch(StateProvider.addChildAction(id)),
             edit: (leaf) => dispatch(StateProvider.editAction(leaf)),
+            move: (from, to) => dispatch(StateProvider.moveAction(from, to)),
             walk: (whereTo) => dispatch(StateProvider.walkAction(whereTo)),
             jump: (id) => dispatch(StateProvider.jumpAction(id))
         }
