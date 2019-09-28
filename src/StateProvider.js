@@ -187,7 +187,7 @@ class StateProvider
                 else {moveTo=focusId};
                 break;
             case destination.LEVELDOWN:
-                let children = root.getChildren(focusid);
+                let children = root.getChildren(focusId);
                 if(children.length>0){moveTo=children[0].id}
                 else{moveTo=focusId}
                 break;
