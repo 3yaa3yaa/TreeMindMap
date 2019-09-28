@@ -53,22 +53,7 @@ export default class LeafData{
 
     getSiblings(id)
     {
-        if(this.children.find(l => l.id===id) != undefined)
-        {
-            return this.children;
-        }
-        else
-        {
-            for(let l of this.children)
-            {
-                let brothers=l.getSiblings(id);
-                if(brothers.length>0)
-                {
-                    return child;
-                }
-            }
-        }
-        return [];
+        return this.getParent(id).children;
     }
 
     getElderBrother(id)
@@ -124,23 +109,45 @@ export default class LeafData{
 
 
 
-    getAllChildren( id)
+    getAllChildren(id)
     {
         let out=[];
-        let children = this.getChildren( id)
-        if(children!=null)
-        {
-            for(let child of children)
-            {
-                out.push(child);
-                let grandchildren=this.getAllChildren(child.id);
-                if(grandchildren.length>0)
-                {
-                    out=out.concat(grandchildren)
-                }
-            }
-        }
+        this._setChildrenInArray(id, out)
+        // let current = this.getLeaf(id)
+        // let children = current.getChildren(id)
+        // if(children.length>0)
+        // {
+        //     for(let child of children)
+        //     {
+        //         out.push(child);
+        //         let grandchildren=child.getAllChildren(child.id);
+        //         if(grandchildren.length>0)
+        //         {
+        //             out=out.concat(grandchildren)
+        //         }
+        //     }
+        // }
         return out;
+    }
+
+    _pushDataInArray(from, to)
+    {
+        for(let item of from)
+        {
+            to.push(item);
+        }
+    }
+
+    _setChildrenInArray(id, array)
+    {
+        let current = this.getLeaf(id)
+        let children = this.getChildren(id)
+        this._pushDataInArray(children, array)
+        //array=array.concat(children);
+        for(let child of children)
+        {
+            this._setChildrenInArray(child.id, array)
+        }
     }
 
     filterAndSortLeafs(leafs, parentid)
@@ -168,7 +175,7 @@ export default class LeafData{
         let children=this.getAllChildren(this.id)
         if(children.length>0)
         {
-            return children.sort((a,b)=>{return b-a})[0].id;
+            return children.sort((a,b)=>{return b.id-a.id})[0].id;
         }
         else
         {
