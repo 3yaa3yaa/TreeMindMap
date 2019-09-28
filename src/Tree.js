@@ -10,7 +10,7 @@ class Tree extends Component {
 
     constructor(props) {
         super(props);
-        props.addRoot()
+        props.addRoot();
     }
 
     _getLeaf(leaf)
@@ -18,11 +18,12 @@ class Tree extends Component {
         return <Leaf leafdata={leaf}
                      focusId={this.props.focusId}
                      edit={this.props.edit}
-                     sumOfChildren={(label)=>{return StateProvider.sumLabelsOfChildren(leaf, this.props.leafs,label)}}
-                     countOfChildren={(label)=>{return StateProvider.countLabelsOfChildren(leaf, this.props.leafs,label)}}
+                     sumOfChildren={(label)=>{return StateProvider.sumLabelsOfChildren(leaf, this.props.root,label)}}
+                     countOfChildren={(label)=>{return StateProvider.countLabelsOfChildren(leaf, this.props.root,label)}}
                      addChild={this.props.addChild}
                      delete={this.props.delete}
                      addSibling={this.props.addSibling}
+                     move={this.props.move}
                      walk={this.props.walk}
                      jump={this.props.jump}
                      />
@@ -30,13 +31,13 @@ class Tree extends Component {
 
     _getConnector(leaf)
     {
-        let arr = [<Connector mode={this._getMode(leaf,this.props.leafs)}/>]
+        let arr = [<Connector mode={this._getMode(this.props.root, leaf.id)}/>]
         return arr;
     }
 
     _getConnectorSub(originalleaf,rootleaf,result)
     {
-        StateProvider.filterAndSortLeafs(this.props.leafs,rootleaf.id).slice(1).forEach(
+        StateProvider.filterAndSortLeafs(this.props.root,rootleaf.id).slice(1).forEach(
             (leaf)=>{
                 result.push(<Connector mode={this._getVertical(originalleaf)}/>)
                 this._getConnectorSub(originalleaf,leaf,result)
@@ -45,7 +46,7 @@ class Tree extends Component {
 
     _getVertical(leaf)
     {
-        if(this._isLastRecord(leaf,this.props.leafs))
+        if(this._isLastRecord(leaf,this.props.root))
         {
             return ""
         }
@@ -73,34 +74,27 @@ class Tree extends Component {
                             </ul>
                         </li>
                         <li  key={leaf.id + "-leaf-children"} className="Tree-Branch" >
-                            {this._formatLeaf(StateProvider.filterAndSortLeafs(this.props.leafs, leaf.id ))}
+                            {this._formatLeaf(leaf.getChildren(leaf.id))}
                         </li>
                     </ul>
                 ))
-                //out.push(this._formatLeaf(this._filterLeafs(this.props.leafs, leaf.id )))
+                //out.push(this._formatLeaf(this._filterLeafs(this.props.root, leaf.id )))
             })
         }
         return <ul>{out}</ul>
     }
 
-    _isLastRecord(leaf,leafs)
-    {
-        let filtered = StateProvider.filterAndSortLeafs(leafs,leaf.parentid)
-        if(leaf.id==filtered[filtered.length-1].id || filtered.length==0)
-        {return true}
-        else
-        {return false}
-    }
 
-    _getMode(leaf,leafs)
+    _getMode(root, id)
     {
         let out=""
-        let filtered = StateProvider.filterAndSortLeafs(leafs,leaf.parentid)
-        if(leaf.parentid==0)
+        let parent=root.getParent(id);
+        if(parent===null)
         {out=""}
         else
         {
-            if(leaf.id==filtered[0].id)
+            let filtered=parent.children;
+            if(id==filtered[0].id)
             {
                 if (filtered.length==1)
                     {out="SINGLE"}
@@ -109,7 +103,7 @@ class Tree extends Component {
             }
             else
             {
-                if(leaf.id==filtered[filtered.length-1].id)
+                if(id==filtered[filtered.length-1].id)
                     {out = "BOTTOM"}
                 else
                     {out="MIDDLE"}
@@ -120,7 +114,7 @@ class Tree extends Component {
 
     _getTree()
     {
-        return this._formatLeaf(StateProvider.filterAndSortLeafs(this.props.leafs, 0 ))
+        return this._formatLeaf([this.props.root])
     }
 
 

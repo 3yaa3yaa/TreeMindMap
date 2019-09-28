@@ -71,15 +71,38 @@ export default class LeafData{
         return [];
     }
 
+    getElderBrother(id)
+    {
+        let brothers=this.getSiblings(id);
+        let elderbrother=null;
+        for(let brother of brothers)
+        {
+            if(brother.id===id){return elderbrother};
+            elderbrother=brother;
+        }
+        return null;
+    }
+
+    isLastRecord(id)
+    {
+        if(this.getYoungerBrother(id)===null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     getYoungerBrother(id)
     {
         let brothers=this.getSiblings(id);
         let wasMe=false;
-        for(let l of brothers)
+        for(let brother of brothers)
         {
-            if(wasMe){return this};
-            if(this.id===id){wasMe=true};
+            if(wasMe){return brother};
+            if(brother.id===id){wasMe=true};
         }
         return null;
     }
@@ -145,7 +168,7 @@ export default class LeafData{
         let children=this.getAllChildren(this.id)
         if(children.length>0)
         {
-            return children.sort((a,b)=>{return b-a})[0];
+            return children.sort((a,b)=>{return b-a})[0].id;
         }
         else
         {
