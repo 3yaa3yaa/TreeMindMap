@@ -103,7 +103,7 @@ class StateProvider
         let leaf=new LeafData(root.getNewId(), "", []);
         current.children=current.children.concat(leaf)
 
-        return { root: new LeafData(root.id, root.description, root.children, root.imgs), focusId: leaf.id }
+        return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color), focusId: leaf.id }
     }
 
     static addSibling(root, id)
@@ -111,7 +111,7 @@ class StateProvider
         let parent=root.getParent(id);
         let leaf=new LeafData(root.getNewId(), "", []);
         parent.children=parent.children.concat(leaf)
-        return { root: new LeafData(root.id, root.description, root.children, root.imgs), focusId: leaf.id }
+        return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color), focusId: leaf.id }
     }
 
     static edit(root, newleaf, focusId)
@@ -119,7 +119,8 @@ class StateProvider
         let leaf = root.getLeaf(newleaf.id);
         leaf.description=newleaf.description;
         leaf.imgs=newleaf.imgs;
-        return { root: new LeafData(root.id, root.description, root.children, root.imgs) , focusId: leaf.id}
+        leaf.color=newleaf.color;
+        return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color) , focusId: leaf.id}
     }
 
     static move(root, from, to, focusId)
@@ -129,11 +130,11 @@ class StateProvider
         let destination = root.getLeaf(to);
         if(destination!=null && current!=null && currentParent!=null)
         {
-            let newleaf= new LeafData(current.id,current.description, current.children, current.imgs);
+            let newleaf= new LeafData(current.id,current.description, current.children, current.imgs, current.color);
             destination.children=destination.children.concat(newleaf);
             currentParent.children=currentParent.children.filter(child=>child.id!=from);
         }
-        return { root: new LeafData(root.id, root.description, root.children, root.imgs) , focusId: focusId}
+        return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color) , focusId: focusId}
     }
 
 

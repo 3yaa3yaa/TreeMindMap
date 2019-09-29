@@ -1,10 +1,16 @@
 export default class LeafData{
-    constructor(id=0, description="", children=[], imgs=[])
+    constructor(id=0, description="", children=[], imgs=[],color="silver")
     {
         this.id=id;
         this.description=description;
         this.children=children;
         this.imgs=imgs;
+        this.color=color;
+    }
+
+    isLeafDataClass()
+    {
+        return true;
     }
     
     getLeaf(id)
