@@ -74,7 +74,7 @@ class Leaf extends Component {
     onChangeHandler(e)
     {
         let newleaf = Object.assign({},this.props.leafdata)
-        newleaf.title=e.target.value
+        newleaf.description=e.target.value
         this.props.edit(newleaf)
     }
 
@@ -119,8 +119,8 @@ class Leaf extends Component {
 
     _getLeafSize() {
         let widthtobeset = "50px"
-        if (typeof (this.props.leafdata.title) == "string") {
-            let lines = this.props.leafdata.title.split('\n')
+        if (typeof (this.props.leafdata.description) == "string") {
+            let lines = this.props.leafdata.description.split('\n')
             let reducer = (acc, curr) => {
                 if (acc < curr) {
                     return curr
@@ -180,7 +180,7 @@ class Leaf extends Component {
                 <div className="Leaf-Columns" >
                     <div className="Leaf-Row">
                         <div className="Leaf-Colomuns">
-                            <MarkdownTextBox value={this.props.leafdata.title}
+                            <MarkdownTextBox value={this.props.leafdata.description}
                                              reservedItems={this.reservedList.items}
                                              onChange={(e)=>this.onChangeHandler(e)}
                                              focus={this._getIsFocused()}
@@ -222,9 +222,7 @@ const dragSpec = {
         {
             if(dragged.id!=dropped.id)
             {
-                let newvalue = Object.assign({}, dragged);
-                newvalue.parentid=dropped.id;
-                component.props.edit(newvalue);
+                component.props.move(dragged.id, dropped.id);
             }
         }
     }
