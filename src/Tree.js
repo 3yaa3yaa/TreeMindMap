@@ -18,8 +18,8 @@ class Tree extends Component {
         return <Leaf leafdata={leaf}
                      focusId={this.props.focusId}
                      edit={this.props.edit}
-                     sumOfChildren={(label)=>{return StateProvider.sumLabelsOfChildren(leaf, this.props.root,label)}}
-                     countOfChildren={(label)=>{return StateProvider.countLabelsOfChildren(leaf, this.props.root,label)}}
+                     sumOfChildren={(label)=>{return this.props.root.sumLabelsOfChildren(leaf.id,label)}}
+                     countOfChildren={(label)=>{return this.props.root.countLabelsOfChildren(leaf.id, label)}}
                      addChild={this.props.addChild}
                      delete={this.props.delete}
                      addSibling={this.props.addSibling}
@@ -67,7 +67,7 @@ class Tree extends Component {
                             {this._getConnector(leaf)}
                         </li>
                         <li key={leaf.id + "-leaf"} className="Tree-Trunk">
-                            <ul className="Tree-Element">
+                            <ul  key={leaf.id + "-leaf-element"} className="Tree-Element">
                                 <li key={leaf.id + "-leaf-detail"} className="Tree-Trunk-Sub">
                                     {this._getLeaf(leaf)}
                                 </li>
@@ -84,10 +84,10 @@ class Tree extends Component {
         return <ul>{out}</ul>
     }
 
-
     _getMode(root, id)
     {
         let out=""
+        console.log(typeof(root) + ":"+ JSON.stringify(root))
         let parent=root.getParent(id);
         if(parent===null)
         {out=""}
@@ -97,16 +97,16 @@ class Tree extends Component {
             if(id==filtered[0].id)
             {
                 if (filtered.length==1)
-                    {out="SINGLE"}
+                {out="SINGLE"}
                 else
-                    {out = "TOP"}
+                {out = "TOP"}
             }
             else
             {
                 if(id==filtered[filtered.length-1].id)
-                    {out = "BOTTOM"}
+                {out = "BOTTOM"}
                 else
-                    {out="MIDDLE"}
+                {out="MIDDLE"}
             }
         }
         return out
