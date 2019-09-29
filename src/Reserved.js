@@ -2,11 +2,12 @@ import React from "react";
 
 class Reserved
 {
-    constructor(keyword, stopword, behaviour)
+    constructor(keyword, stopword, behaviour, description)
     {
         this.keyword　=　keyword;
         this.stopword　=　stopword;
         this.behaviour　=　behaviour;
+        this.description = description;
     }
 
 }
@@ -18,9 +19,9 @@ export default class ReservedList
         let arr=[];
         this.callback_sum=callback_sum;
         this.callback_count=callback_count;
-        arr.push(new Reserved('=count(',")", (node)=>{return this.getCountJSX(node)}))
-        arr.push(new Reserved('=sum(',")", (node)=>{return this.getSumJSX(node)}))
-        arr.push(new Reserved('=mean(',")", (node)=>{return this.getMeanJSX(node)}))
+        arr.push(new Reserved('=count(',")", (node)=>{return this.getCountJSX(node)},""))
+        arr.push(new Reserved('=sum(',")", (node)=>{return this.getSumJSX(node)},""))
+        arr.push(new Reserved('=mean(',")", (node)=>{return this.getMeanJSX(node)},""))
         this.items=arr;
     }
 

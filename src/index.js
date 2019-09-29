@@ -5,6 +5,7 @@ import Tree from './Tree';
 import StateProvider from './StateProvider';
 import { Provider, connect } from 'react-redux'
 import {compose,createStore} from "redux";
+import Deserializer from "./Deserializer";
 
 // Connected Component
 const App = connect(
@@ -12,30 +13,14 @@ const App = connect(
     StateProvider.mapDispatchToProps
 )(Tree)
 
-function convertIntialData(givenData)
-{
-    if (givenData==null)
-    {
-        return null;
-    }
-    else
-    {
-        if(typeof(givenData)=="string")
-        {
-            return JSON.parse(givenData)
-        }
-        else
-        {
-            return givenData
-        }
-    }
 
-}
 
 const Map=props=>{
     const { initialState, stateHandler } = props;
     let store;
-    let convertedInitialState=convertIntialData(initialState)
+    let deserializer=new Deserializer(initialState);
+    let convertedInitialState=deserializer.data;
+
     if(convertedInitialState == null)
     {
         store = createStore(StateProvider.leafReducer)
