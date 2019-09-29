@@ -87,7 +87,6 @@ class Tree extends Component {
     _getMode(root, id)
     {
         let out=""
-        console.log(typeof(root) + ":"+ JSON.stringify(root))
         let parent=root.getParent(id);
         if(parent===null)
         {out=""}
