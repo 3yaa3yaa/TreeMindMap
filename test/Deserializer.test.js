@@ -14,8 +14,8 @@ describe('A suite', function() {
         expected1.children.push(expected3);
 
         let deserialized= new Deserializer(test);
-        
-        expect(deserialized.data instanceof LeafData).toBe(true);
+
+        expect(deserialized.data.root instanceof LeafData).toBe(true);
         expect(deserialized.data.root).toEqual(expected0);
     })
 
