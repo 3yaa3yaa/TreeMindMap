@@ -1,13 +1,10 @@
 export default class LeafData{
-    constructor(id, description, children)
+    constructor(id=0, description="", children=[], imgs=[])
     {
-        this.id=0;
-        this.description="";
-        this.children=[];
-
         this.id=id;
         this.description=description;
         this.children=children;
+        this.imgs=imgs;
     }
     
     getLeaf(id)
@@ -113,20 +110,6 @@ export default class LeafData{
     {
         let out=[];
         this._setChildrenInArray(id, out)
-        // let current = this.getLeaf(id)
-        // let children = current.getChildren(id)
-        // if(children.length>0)
-        // {
-        //     for(let child of children)
-        //     {
-        //         out.push(child);
-        //         let grandchildren=child.getAllChildren(child.id);
-        //         if(grandchildren.length>0)
-        //         {
-        //             out=out.concat(grandchildren)
-        //         }
-        //     }
-        // }
         return out;
     }
 
@@ -182,8 +165,6 @@ export default class LeafData{
             return 0;
         }
     }
-
-
 
 
     sumLabelsOfChildren(id, label)

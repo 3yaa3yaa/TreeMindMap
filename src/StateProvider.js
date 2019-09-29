@@ -101,38 +101,39 @@ class StateProvider
     {
         let current=root.getLeaf(id);
         let leaf=new LeafData(root.getNewId(), "", []);
-        current.children.push(leaf)
+        current.children=current.children.concat(leaf)
 
-        return { root: root, focusId: leaf.id }
+        return { root: new LeafData(root.id, root.description, root.children, root.imgs), focusId: leaf.id }
     }
 
     static addSibling(root, id)
     {
         let parent=root.getParent(id);
         let leaf=new LeafData(root.getNewId(), "", []);
-        parent.children.push(leaf)
-        return { root: root, focusId: leaf.id }
+        parent.children=parent.children.concat(leaf)
+        return { root: new LeafData(root.id, root.description, root.children, root.imgs), focusId: leaf.id }
     }
 
     static edit(root, newleaf, focusId)
     {
         let leaf = root.getLeaf(newleaf.id);
         leaf.description=newleaf.description;
-        return { root: root , focusId: leaf.id}
+        leaf.imgs=newleaf.imgs;
+        return { root: new LeafData(root.id, root.description, root.children, root.imgs) , focusId: leaf.id}
     }
 
-    static move(root, focusId, from, to)
+    static move(root, from, to, focusId)
     {
         let current=root.getLeaf(from);
         let currentParent = root.getParent(from);
         let destination = root.getLeaf(to);
         if(destination!=null && current!=null && currentParent!=null)
         {
-            let newleaf=Object.assign({}, current);
-            destination.children.push(newleaf);
+            let newleaf= new LeafData(current.id,current.description, current.children, current.imgs);
+            destination.children=destination.children.concat(newleaf);
             currentParent.children=currentParent.children.filter(child=>child.id!=from);
         }
-        return { root: root , focusId: leaf.id}
+        return { root: new LeafData(root.id, root.description, root.children, root.imgs) , focusId: focusId}
     }
 
 
@@ -146,7 +147,7 @@ class StateProvider
         }
         else
         {
-            return {root: root, focusId: focusId}
+            return {root: new LeafData(root.id, root.description, root.children), focusId: focusId}
         }
     }
 
