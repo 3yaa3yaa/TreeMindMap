@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+//import ReactDOM from 'react-dom';
 import './index.css';
 import Tree from './Tree';
 import StateProvider from './StateProvider';
@@ -41,7 +41,7 @@ export const Map=props=>{
 
 }
 
-export function Render(initialState, stateHandler, elementId){
+export function Render(initialState, stateHandler, elementId,ReactDOM){
     ReactDOM.render(
         <Map initialState={initialState}
              stateHandler={stateHandler}/>,
