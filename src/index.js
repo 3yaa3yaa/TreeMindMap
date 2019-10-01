@@ -15,7 +15,7 @@ const App = connect(
 
 
 
-const Map=props=>{
+export const Map=props=>{
     const { initialState, stateHandler } = props;
     let store;
     let deserializer=new Deserializer(initialState);
@@ -41,7 +41,14 @@ const Map=props=>{
 
 }
 
-export default Map;
+export function Render(initialState, stateHandler, elementId){
+    ReactDOM.render(
+        <Map initialState={initialState}
+             stateHandler={stateHandler}/>,
+        document.getElementById(elementId)
+    )
+
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
