@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "jest",
-    "build": "webpack"
+    "build": "webpack --mode production --config webpack.config.js"
   },
   "jest": {
     "moduleNameMapper": {
