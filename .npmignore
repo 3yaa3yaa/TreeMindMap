@@ -2,7 +2,7 @@ src/
 test/
 .github/
 .idea/
-node_module/
+node_modules/
 
 # misc
 .DS_Store
