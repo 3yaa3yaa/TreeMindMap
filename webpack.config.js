@@ -32,7 +32,15 @@ module.exports = {
                         },
                     }
                 ]
-            }
+            },
+            {
+                test: /\.png$/,
+                include: path.resolve(__dirname, 'images'),
+                exclude: /(node_modules|bower_components|build)/,
+                use: {
+                    loaders: 'url-loader'
+                }
+            },
         ]
     },
     externals: {
