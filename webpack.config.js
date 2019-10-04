@@ -16,7 +16,7 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env']
+                        presets: ['@babel/preset-env'],
                     }
                 }
             },
@@ -32,7 +32,18 @@ module.exports = {
                         },
                     }
                 ]
-            }
+            },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                include: path.resolve(__dirname, 'src'),
+                exclude: /(node_modules|bower_components|build)/,
+                use: {
+                    loader: 'url-loader',
+                    options: {
+                        limit: 8192,
+                    },
+                },
+            },
         ]
     },
     externals: {

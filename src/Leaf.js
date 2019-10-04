@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './Leaf.css';
 import ImgViewer from './ImgViewer'
-import Menu from './Menu'
+//import Menu from './Menu'
+import ImageMenu from "./ImageMenu";
 import { DragSource, DropTarget } from 'react-dnd'
 import MarkdownTextBox from '@3yaa3yaa/markdowntextbox';
 import StateProvider from './StateProvider'
@@ -141,7 +142,7 @@ class Leaf extends Component {
         return out;
     }
 
-    _getBurgerVisibility()
+    _getMenuVisibility()
     {
         if(this._getIsFocused())
         {
@@ -190,11 +191,11 @@ class Leaf extends Component {
                     <div className="Leaf-Row"><ImgViewer leafdata={this.props.leafdata}/></div>
                 </div>
                 <div className="Leaf-Colomuns">
-                    <Menu leafdata={this.props.leafdata}
+                    <ImageMenu leafdata={this.props.leafdata}
                           edit={this.props.edit}
                           addChild={this.props.addChild}
                           addSibling={this.props.addSibling}
-                          style={this._getBurgerVisibility()}/>
+                          style={this._getMenuVisibility()}/>
                 </div>
             </div>
         </div>
