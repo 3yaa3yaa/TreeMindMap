@@ -146,11 +146,11 @@ class Leaf extends Component {
     {
         if(this._getIsFocused())
         {
-            return {visibility: "visible" }
+            return {display: "block" }
         }
         else
         {
-            return {visibility: "hidden"}
+            return {display: "none"}
         }
     }
 
