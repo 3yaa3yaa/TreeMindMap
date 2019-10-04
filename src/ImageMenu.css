@@ -1,0 +1,17 @@
+
+.ImageMenu {
+    width: 30px;
+}
+
+.ImageMenu-Item {
+    visibility: hidden;
+}
+
+.ImageMenu-Canvas{
+    display: none;
+}
+
+
+.ImageMenu-Img {
+    width:30px;
+}
