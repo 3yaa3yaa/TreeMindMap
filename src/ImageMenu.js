@@ -60,6 +60,18 @@ export default class ImageMenu extends Component {
         reader.readAsDataURL(file)
     }
 
+    downButtonStyle() {
+        if(this.props.leafdata.id===0)
+        {
+            return {display:"none"}
+        }
+        else
+        {
+            return {}
+        }
+    }
+
+
 
     render() {
         return <div className="ImageMenu" style={this.props.style}>
@@ -82,7 +94,7 @@ export default class ImageMenu extends Component {
             <input type='button' id={this.props.leafdata.id+"-menu-right"} className="ImageMenu-Item" value="Add"
                    onClick={(e) => {this.props.addChild(this.props.leafdata.id)}} />
 
-            <label for={this.props.leafdata.id+"-menu-down"}  className="ImageMenu-Label">
+            <label for={this.props.leafdata.id+"-menu-down"}  className="ImageMenu-Label" style={this.downButtonStyle()}>
                 <img className="ImageMenu-Img" src={downimg} alt="Add a sibling" />
             </label>
             <input type='button' id={this.props.leafdata.id+"-menu-down"} className="ImageMenu-Item"  value="Add"

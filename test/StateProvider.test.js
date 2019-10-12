@@ -18,6 +18,16 @@ describe('A suite', function() {
         expect(tested.root).toEqual(expected1);
     })
 
+    it('cannot add siblings below the root', function(){
+        let tested = StateProvider.addRoot(null, 0, 0)
+        tested=StateProvider.addSibling(tested.root,0);
+
+        let expected1=new LeafData(0);
+        expect(tested.root).toEqual(expected1);
+    })
+
+
+
 
 
 });

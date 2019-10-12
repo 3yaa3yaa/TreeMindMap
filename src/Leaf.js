@@ -174,11 +174,12 @@ class Leaf extends Component {
              onKeyDown={(e)=>this.keyDownHandler(e)}
              onMouseOver={(e)=>this.setState({hover:true})}
              onMouseLeave={(e)=>this.setState({hover:false})}
-             onClick={(e)=>{this.props.jump(this.props.leafdata.id)}}
              style={this._getLeafStyle()}
              ref={(e)=>{this.leafRef=e}} >
             <div className="Leaf-Row">
-                <div className="Leaf-Columns" >
+                <div className="Leaf-Columns"
+                     onClick={(e)=>{this.props.jump(this.props.leafdata.id)}}
+                >
                     <div className="Leaf-Row">
                         <div className="Leaf-Colomuns">
                             <MarkdownTextBox value={this.props.leafdata.description}
