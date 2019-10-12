@@ -2,9 +2,8 @@ language: node_js
 node_js:
   - "12.8.1"
 install:
-  - npm install
+  - npm install --dev
 script:
-  - cat webpack.config.js
   - npm run build
 branches:
   only:
