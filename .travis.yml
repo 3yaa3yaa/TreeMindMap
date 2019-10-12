@@ -2,8 +2,10 @@ language: node_js
 node_js:
   - "12.8.1"
 install:
-  - npm install --dev
+  - npm install
 script:
+  - npm install --dev
+  - ls -l ./node_modules
   - npm run build
 branches:
   only:
