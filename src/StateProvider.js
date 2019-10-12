@@ -109,9 +109,16 @@ class StateProvider
     static addSibling(root, id)
     {
         let parent=root.getParent(id);
-        let leaf=new LeafData(root.getNewId(), "", []);
-        parent.children=parent.children.concat(leaf)
-        return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color), focusId: leaf.id }
+        if(parent===null)
+        {
+            return { root: root, focusId: id }
+        }
+        else
+        {
+            let leaf=new LeafData(root.getNewId(), "", []);
+            parent.children=parent.children.concat(leaf)
+            return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color), focusId: leaf.id }
+        }
     }
 
     static edit(root, newleaf, focusId)
