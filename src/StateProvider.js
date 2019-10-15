@@ -1,4 +1,5 @@
 import LeafData from './LeafData'
+import Property from "./Property";
 
 class StateProvider
 {
@@ -41,37 +42,37 @@ class StateProvider
 
 
     // Reducer
-    static leafReducer(state = { root: new LeafData(0,"",[]), id:"", focusId:"" }, action) {
+    static leafReducer(state = { root: new LeafData(0,"",[]), property: new Property() }, action) {
         let result;
         switch (action.type) {
             case 'delete':
-                result= StateProvider.delete(state.root, action.id,state.focusId);
+                result= StateProvider.delete(state.root, action.id,state.property.focusId);
                 break;
             case 'addRoot':
-                result= StateProvider.addRoot(state.root ,state.id,state.id);
+                result= StateProvider.addRoot(state.root ,state.property.focusId,state.property.focusId);
                 break;
             case 'addSibling':
-                let youngerbrothers=state.root.getYoungerBrother(state.focusId);
+                let youngerbrothers=state.root.getYoungerBrother(state.property.focusId);
                 if(youngerbrothers===null)
                     {result= StateProvider.addSibling(state.root ,action.id)}
                 else
-                    {result = StateProvider.walk(state.root, state.focusId, StateProvider.whereToMove().DOWN)};
+                    {result = StateProvider.walk(state.root, state.property.focusId, StateProvider.whereToMove().DOWN)};
                 break;
             case 'addChild':
-                let children = state.root.getChildren(state.focusId);
+                let children = state.root.getChildren(state.property.focusId);
                 if(children.length===0)
                     {result = StateProvider.addChild(state.root ,action.id)}
                 else
-                    {result = StateProvider.walk(state.root, state.focusId, StateProvider.whereToMove().LEVELDOWN)};
+                    {result = StateProvider.walk(state.root, state.property.focusId, StateProvider.whereToMove().LEVELDOWN)};
                 break;
             case 'edit':
-                result= StateProvider.edit(state.root ,action.leaf,state.focusId);
+                result= StateProvider.edit(state.root ,action.leaf,state.property.focusId);
                 break;
             case 'move':
-                result= StateProvider.move(state.root, action.from, action.to ,state.focusId);
+                result= StateProvider.move(state.root, action.from, action.to ,state.property.focusId);
                 break;
             case 'walk':
-                result = StateProvider.walk(state.root, state.focusId, action.whereTo);
+                result = StateProvider.walk(state.root, state.property.focusId, action.whereTo);
                 break;
             case 'jump':
                 result = StateProvider.jump(state.root, action.id);
@@ -117,7 +118,7 @@ class StateProvider
         {
             let leaf=new LeafData(root.getNewId(), "", []);
             parent.children=parent.children.concat(leaf)
-            return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color), focusId: leaf.id }
+            return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color), property:new Property(leaf.id) }
         }
     }
 
@@ -127,7 +128,7 @@ class StateProvider
         leaf.description=newleaf.description;
         leaf.imgs=newleaf.imgs;
         leaf.color=newleaf.color;
-        return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color) , focusId: leaf.id}
+        return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color) , property:new Property(leaf.id)}
     }
 
     static move(root, from, to, focusId)
@@ -141,7 +142,7 @@ class StateProvider
             destination.children=destination.children.concat(newleaf);
             currentParent.children=currentParent.children.filter(child=>child.id!=from);
         }
-        return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color) , focusId: focusId}
+        return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color) , property:new Property(focusId)}
     }
 
 
@@ -155,7 +156,7 @@ class StateProvider
         }
         else
         {
-            return {root: new LeafData(root.id, root.description, root.children), focusId: focusId}
+            return {root: new LeafData(root.id, root.description, root.children), property:new Property(focusId)}
         }
     }
 
@@ -212,7 +213,7 @@ class StateProvider
     static mapStateToProps(state) {
         return {
             root: state.root,
-            focusId: state.focusId
+            property: state.property
         }
     }
 
