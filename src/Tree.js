@@ -13,10 +13,22 @@ class Tree extends Component {
         props.addRoot();
     }
 
+    _getFocusId()
+    {
+        if(this.props.property.isReadOnly)
+        {
+            return -1;
+        }
+        else
+        {
+            return this.props.property.focusId;
+        }
+    }
+
     _getLeaf(leaf)
     {
         return <Leaf leafdata={leaf}
-                     focusId={this.props.focusId}
+                     focusId={this._getFocusId()}
                      edit={this.props.edit}
                      sumOfChildren={(label)=>{return this.props.root.sumLabelsOfChildren(leaf.id,label)}}
                      countOfChildren={(label)=>{return this.props.root.countLabelsOfChildren(leaf.id, label)}}
