@@ -9,6 +9,22 @@ ul {
   list-style: none;
 }
 
+
+.Tree-Download-Button {
+  display:block;
+  width: 150px;
+  height:40px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  text-align: center;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
 .Tree-Trunk {
   position:relative;
   list-style: none;
