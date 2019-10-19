@@ -1,4 +1,5 @@
 import LeafData from './LeafData'
+import Property from "./Property";
 
 class StateProvider
 {
@@ -41,40 +42,42 @@ class StateProvider
 
 
     // Reducer
-    static leafReducer(state = { root: new LeafData(0,"",[]), id:"", focusId:"" }, action) {
+    static leafReducer(state = { root: new LeafData(), property: new Property() }, action) {
         let result;
+        if(state.property.isReadOnly){return state};
+
         switch (action.type) {
             case 'delete':
-                result= StateProvider.delete(state.root, action.id,state.focusId);
+                result= StateProvider.delete(state, action.id,state.property.focusId);
                 break;
             case 'addRoot':
-                result= StateProvider.addRoot(state.root ,state.id,state.id);
+                result= StateProvider.addRoot(state ,state.property.focusId,state.property.focusId);
                 break;
             case 'addSibling':
-                let youngerbrothers=state.root.getYoungerBrother(state.focusId);
+                let youngerbrothers=state.root.getYoungerBrother(state.property.focusId);
                 if(youngerbrothers===null)
-                    {result= StateProvider.addSibling(state.root ,action.id)}
+                    {result= StateProvider.addSibling(state ,action.id)}
                 else
-                    {result = StateProvider.walk(state.root, state.focusId, StateProvider.whereToMove().DOWN)};
+                    {result = StateProvider.walk(state, state.property.focusId, StateProvider.whereToMove().DOWN)};
                 break;
             case 'addChild':
-                let children = state.root.getChildren(state.focusId);
+                let children = state.root.getChildren(state.property.focusId);
                 if(children.length===0)
-                    {result = StateProvider.addChild(state.root ,action.id)}
+                    {result = StateProvider.addChild(state ,action.id)}
                 else
-                    {result = StateProvider.walk(state.root, state.focusId, StateProvider.whereToMove().LEVELDOWN)};
+                    {result = StateProvider.walk(state, state.property.focusId, StateProvider.whereToMove().LEVELDOWN)};
                 break;
             case 'edit':
-                result= StateProvider.edit(state.root ,action.leaf,state.focusId);
+                result= StateProvider.edit(state ,action.leaf,state.property.focusId);
                 break;
             case 'move':
-                result= StateProvider.move(state.root, action.from, action.to ,state.focusId);
+                result= StateProvider.move(state, action.from, action.to ,state.property.focusId);
                 break;
             case 'walk':
-                result = StateProvider.walk(state.root, state.focusId, action.whereTo);
+                result = StateProvider.walk(state, state.property.focusId, action.whereTo);
                 break;
             case 'jump':
-                result = StateProvider.jump(state.root, action.id);
+                result = StateProvider.jump(state, action.id);
                 break;
             default:
                 result= state;
@@ -84,78 +87,90 @@ class StateProvider
     }
 
     //Reducer implementation
-    static addRoot(root,id,focusId)
+    static addRoot(state,id,focusId)
     {
-        if (root!=null)
+        if (state.root!=null)
         {
-            return {root:root, focusId: 0}
+            return {root:state.root, property: state.property}
         }
         else
         {
             let leaf = new LeafData(0, "", []);
-            return { root: leaf, focusId: leaf.id}
+            let property = Property.getNewObject(state.property);
+            property.focusId=leaf.id;
+            return { root: leaf, property: property}
         }
     }
 
-    static addChild(root, id)
+    static addChild(state, id)
     {
-        let current=root.getLeaf(id);
-        let leaf=new LeafData(root.getNewId(), "", []);
-        current.children=current.children.concat(leaf)
+        let current=state.root.getLeaf(id);
+        let leaf=new LeafData(state.root.getNewId(), "", []);
+        current.children=current.children.concat(leaf);
 
-        return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color), focusId: leaf.id }
+        let property = Property.getNewObject(state.property);
+        property.focusId=leaf.id;
+
+        return { root: LeafData.getNewObject(state.root), property: property }
     }
 
-    static addSibling(root, id)
+    static addSibling(state, id)
     {
-        let parent=root.getParent(id);
+        let parent=state.root.getParent(id);
         if(parent===null)
         {
-            return { root: root, focusId: id }
+            return { root: state.root, property: state.property }
         }
         else
         {
-            let leaf=new LeafData(root.getNewId(), "", []);
-            parent.children=parent.children.concat(leaf)
-            return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color), focusId: leaf.id }
+            let leaf=new LeafData(state.root.getNewId());
+            parent.children=parent.children.concat(leaf);
+
+            let property = Property.getNewObject(state.property);
+            property.focusId=leaf.id;
+            return { root: LeafData.getNewObject(state.root), property:property }
         }
     }
 
-    static edit(root, newleaf, focusId)
+    static edit(state, newleaf, focusId)
     {
-        let leaf = root.getLeaf(newleaf.id);
+        let leaf = state.root.getLeaf(newleaf.id);
         leaf.description=newleaf.description;
         leaf.imgs=newleaf.imgs;
         leaf.color=newleaf.color;
-        return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color) , focusId: leaf.id}
+        return { root: LeafData.getNewObject(state.root) , property:state.property}
     }
 
-    static move(root, from, to, focusId)
+    static move(state, from, to, focusId)
     {
-        let current=root.getLeaf(from);
-        let currentParent = root.getParent(from);
-        let destination = root.getLeaf(to);
+        let current=state.root.getLeaf(from);
+        let currentParent = state.root.getParent(from);
+        let destination = state.root.getLeaf(to);
         if(destination!=null && current!=null && currentParent!=null)
         {
-            let newleaf= new LeafData(current.id,current.description, current.children, current.imgs, current.color);
+            let newleaf = LeafData.getNewObject(current);
             destination.children=destination.children.concat(newleaf);
             currentParent.children=currentParent.children.filter(child=>child.id!=from);
         }
-        return { root: new LeafData(root.id, root.description, root.children, root.imgs, root.color) , focusId: focusId}
+        return { root: LeafData.getNewObject(state.root) , property:state.property}
     }
 
 
-    static delete(root, id, focusId)
+    static delete(state, id, focusId)
     {
-        if(root!=null && root.id!=id)
+        if(state.root!=null && state.root.id!=id)
         {
-            let parent=root.getParent(id);
-            parent.children=parent.children.filter(child=>child.id!=id)
-            return {root: root, focusId: parent.id}
+            let parent=state.root.getParent(id);
+            parent.children=parent.children.filter(child=>child.id!=id);
+
+            let property = Property.getNewObject(state.property);
+            property.focusId=parent.id;
+
+            return {root: LeafData.getNewObject(state.root), property: property}
         }
         else
         {
-            return {root: new LeafData(root.id, root.description, root.children), focusId: focusId}
+            return {root: state.root , property:state.property}
         }
     }
 
@@ -170,33 +185,35 @@ class StateProvider
         }
     }
 
-    static jump(root, focusId)
+    static jump(state, focusId)
     {
-        return { root: root , focusId: focusId}
+        let property=Property.getNewObject(state.property)
+        property.focusId=focusId;
+        return { root: state.root , property: property}
     }
 
-    static walk(root, focusId, whereToMove)
+    static walk(state, focusId, whereToMove)
     {
         let destination = StateProvider.whereToMove();
         let moveTo="";
         switch (whereToMove) {
             case destination.UP:
-                let elderBrother=root.getElderBrother(focusId);
+                let elderBrother=state.root.getElderBrother(focusId);
                 if(elderBrother!=null){moveTo=elderBrother.id}
                 else{moveTo=focusId};
                 break;
             case destination.DOWN:
-                let youngerBrother=root.getYoungerBrother(focusId);
+                let youngerBrother=state.root.getYoungerBrother(focusId);
                 if(youngerBrother!=null){moveTo=youngerBrother.id}
                 else{moveTo=focusId};
                 break;
             case destination.LEVELUP:
-                let parent=root.getParent(focusId);
+                let parent=state.root.getParent(focusId);
                 if(parent!=null){moveTo=parent.id}
                 else {moveTo=focusId};
                 break;
             case destination.LEVELDOWN:
-                let children = root.getChildren(focusId);
+                let children = state.root.getChildren(focusId);
                 if(children.length>0){moveTo=children[0].id}
                 else{moveTo=focusId}
                 break;
@@ -204,7 +221,10 @@ class StateProvider
                 moveTo=focusId;
                 break;
         }
-        return { root: root , focusId: moveTo}
+        let property=Property.getNewObject(state.property)
+        property.focusId=moveTo;
+
+        return { root: state.root , property:property}
     }
 
 
@@ -212,7 +232,7 @@ class StateProvider
     static mapStateToProps(state) {
         return {
             root: state.root,
-            focusId: state.focusId
+            property: state.property
         }
     }
 
