@@ -8,6 +8,16 @@ export default class LeafData{
         this.color=color;
     }
 
+    static getNewObject(rawdata)
+    {
+        try{
+            return new LeafData(rawdata.id, rawdata.description, rawdata.children, rawdata.imgs, rawdata.color)
+        }catch(e)
+        {
+            console.error("failed to generate new leaf object :" + e.message)
+        }
+    }
+
     isLeafDataClass()
     {
         return true;
