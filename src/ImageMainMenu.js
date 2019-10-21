@@ -46,7 +46,10 @@ export default class ImageMenu extends Component {
             </label>
             <input type='button' id={id} className="ImageMainMenu-Item"
                    onClick={(e) => {
-                       domtoimage.toBlob(this.props.dom)
+                       domtoimage.toBlob(this.props.dom, {
+                           width:this.props.dom.scrollWidth ,
+                           height: this.props.dom.scrollHeight,
+                       })
                            .then(function (blob) {
                                saveAs(blob, 'treemindmap.png');
                            })}

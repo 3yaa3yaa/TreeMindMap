@@ -3,9 +3,28 @@ ul {
   padding-left: 0px;
 }
 
-.Tree-Block {
-  display: inline-block ;
+.Tree {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-top: 0px;
+}
+
+
+.Tree-Block-Menu {
+  display: block;
+  margin-top: 10px;
   vertical-align: top;
+  position: fixed;
+  z-index: 10;
+
+}
+.Tree-Block-Main {
+  display:block;
+  width: 100%;
+  margin-top: 4px;
+  vertical-align: top;
+  margin-left: 50px;
 }
 
 
