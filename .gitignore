@@ -25,5 +25,4 @@ yarn.lock
 package-lock.json
 
 # idea
-.idea/workspace.xml
-.idea/tasks.xml
+.idea
