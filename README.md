@@ -30,7 +30,7 @@ render(
   <Map
     initialState={initialdata.value}
     stateHandler={state => {
-      changeddata.set(state);
+      doSomething(state);
     }}
   />,
   document.getElementById('root')
@@ -45,8 +45,7 @@ const Render=require('treemindmap').Render;
 Render(
   container.data.value,
   (state) => {
-    container.data.set(JSON.stringify(state));
-    SaveFile(container.filepath.value, container.data.value);
+    doSomething(state);
   },
   'root', /* id of DOM */
   ReactDOM

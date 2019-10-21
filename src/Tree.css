@@ -24,7 +24,7 @@ ul {
   width: 100%;
   margin-top: 4px;
   vertical-align: top;
-  margin-left: 50px;
+  margin-left: 25px;
 }
 
 
@@ -40,7 +40,7 @@ ul {
   display: table-cell;
   vertical-align: top;
   height:5px;
-  /*min-width: 30px;*/
+  min-width: 30px;
 }
 
 .Tree-Trunk-Sub {
