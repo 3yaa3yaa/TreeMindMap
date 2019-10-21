@@ -132,13 +132,13 @@ class Tree extends Component {
 
     render() {
         return (
-            <div>
-                <div className="Tree-Block">
+            <div className="Tree">
+                <div className="Tree-Block-Menu">
                     <ImageMainMenu dom={this.treeRef.current}
                                                     changeMode={this.props.changeMode}
                                                     mode={this.props.property.isReadOnly}
                 /></div>
-                <div className="Tree-Block" ref={this.treeRef}>
+                <div className="Tree-Block-Main" ref={this.treeRef}>
                     {this._getTree()}
                 </div>
             </div>
