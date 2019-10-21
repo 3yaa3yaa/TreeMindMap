@@ -13,19 +13,18 @@ Sample page -- https://3yaa3yaa.github.io/TreeMindMap-Site/
 ![howto](https://github.com/3yaa3yaa/TreeMindMap/blob/master/howto.png)
 
 ## Projects that uses this component
-
 * https://github.com/3yaa3yaa/TreeMindMap-Site
-* https://github.com/3yaa3yaa/TreeMindMap-Electron
 
-## How to use this?
-Use "<Map />" tag with paramters "initialState" and "stateHandler".
+## How to use this component?
+Use "<Map />" with parameters "initialState" and "stateHandler".
 * "initialState" : The first state to be load in the mindmap 
 * "stateHandler" : This is triggered every time the state changed.
 
 For example, you can specify the values as below.
-https://github.com/3yaa3yaa/TreeMindMap-Electron/blob/master/app/index.js
+
+### ES6
 ```
-import Map from 'treemindmap'
+import { Map}  from 'treemindmap'
 ...
 render(
   <Map
@@ -37,3 +36,20 @@ render(
   document.getElementById('root')
 );
 ```
+
+### ES5
+```
+const ReactDOM = require('react-dom');
+const Render=require('treemindmap').Render;
+...
+Render(
+  container.data.value,
+  (state) => {
+    container.data.set(JSON.stringify(state));
+    SaveFile(container.filepath.value, container.data.value);
+  },
+  'root', /* id of DOM */
+  ReactDOM
+)
+```
+
