@@ -40,50 +40,63 @@ class StateProvider
         return { type: 'jump', id }
     }
 
+    static changeModeAction(mode)
+    {
+        return { type: 'changeMode', mode }
+    }
+
 
     // Reducer
     static leafReducer(state = { root: new LeafData(), property: new Property() }, action) {
         let result;
-        if(state.property.isReadOnly){return state};
-
-        switch (action.type) {
-            case 'delete':
-                result= StateProvider.delete(state, action.id,state.property.focusId);
-                break;
-            case 'addRoot':
-                result= StateProvider.addRoot(state ,state.property.focusId,state.property.focusId);
-                break;
-            case 'addSibling':
-                let youngerbrothers=state.root.getYoungerBrother(state.property.focusId);
-                if(youngerbrothers===null)
+        if(state.property.isReadOnly===Property.readOnlyLevel().canEdit || action.type==="changeMode")
+        {
+            switch (action.type) {
+                case 'delete':
+                    result= StateProvider.delete(state, action.id,state.property.focusId);
+                    break;
+                case 'addRoot':
+                    result= StateProvider.addRoot(state ,state.property.focusId,state.property.focusId);
+                    break;
+                case 'addSibling':
+                    let youngerbrothers=state.root.getYoungerBrother(state.property.focusId);
+                    if(youngerbrothers===null)
                     {result= StateProvider.addSibling(state ,action.id)}
-                else
+                    else
                     {result = StateProvider.walk(state, state.property.focusId, StateProvider.whereToMove().DOWN)};
-                break;
-            case 'addChild':
-                let children = state.root.getChildren(state.property.focusId);
-                if(children.length===0)
+                    break;
+                case 'addChild':
+                    let children = state.root.getChildren(state.property.focusId);
+                    if(children.length===0)
                     {result = StateProvider.addChild(state ,action.id)}
-                else
+                    else
                     {result = StateProvider.walk(state, state.property.focusId, StateProvider.whereToMove().LEVELDOWN)};
-                break;
-            case 'edit':
-                result= StateProvider.edit(state ,action.leaf,state.property.focusId);
-                break;
-            case 'move':
-                result= StateProvider.move(state, action.from, action.to ,state.property.focusId);
-                break;
-            case 'walk':
-                result = StateProvider.walk(state, state.property.focusId, action.whereTo);
-                break;
-            case 'jump':
-                result = StateProvider.jump(state, action.id);
-                break;
-            default:
-                result= state;
-                break;
+                    break;
+                case 'edit':
+                    result= StateProvider.edit(state ,action.leaf,state.property.focusId);
+                    break;
+                case 'move':
+                    result= StateProvider.move(state, action.from, action.to ,state.property.focusId);
+                    break;
+                case 'walk':
+                    result = StateProvider.walk(state, state.property.focusId, action.whereTo);
+                    break;
+                case 'jump':
+                    result = StateProvider.jump(state, action.id);
+                    break;
+                case 'changeMode':
+                    result = StateProvider.changeMode(state, action.mode);
+                    break;
+                default:
+                    result= state;
+                    break;
+            }
+            return result;
         }
-        return result;
+        else
+        {
+            return state;
+        }
     }
 
     //Reducer implementation
@@ -185,12 +198,6 @@ class StateProvider
         }
     }
 
-    static jump(state, focusId)
-    {
-        let property=Property.getNewObject(state.property)
-        property.focusId=focusId;
-        return { root: state.root , property: property}
-    }
 
     static walk(state, focusId, whereToMove)
     {
@@ -227,6 +234,19 @@ class StateProvider
         return { root: state.root , property:property}
     }
 
+    static jump(state, focusId)
+    {
+        let property=Property.getNewObject(state.property)
+        property.focusId=focusId;
+        return { root: state.root , property: property}
+    }
+
+    static changeMode(state, mode)
+    {
+        let property=Property.getNewObject(state.property)
+        property.isReadOnly=mode;
+        return { root: state.root , property: property}
+    }
 
     // Map Redux state to component props
     static mapStateToProps(state) {
@@ -246,7 +266,8 @@ class StateProvider
             edit: (leaf) => dispatch(StateProvider.editAction(leaf)),
             move: (from, to) => dispatch(StateProvider.moveAction(from, to)),
             walk: (whereTo) => dispatch(StateProvider.walkAction(whereTo)),
-            jump: (id) => dispatch(StateProvider.jumpAction(id))
+            jump: (id) => dispatch(StateProvider.jumpAction(id)),
+            changeMode: (mode) => dispatch(StateProvider.changeModeAction(mode))
         }
     }
 }

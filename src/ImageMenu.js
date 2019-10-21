@@ -88,13 +88,13 @@ export default class ImageMenu extends Component {
             <input type='color' id={this.props.leafdata.id+"-menu-palette"} className="ImageMenu-Item"
                    onChange={(e) => {this.colorPickHandler(e)}} />
 
-            <label for={this.props.leafdata.id+"-menu-right"} className="ImageMenu-Label">
+            <label htmlFor={this.props.leafdata.id+"-menu-right"} className="ImageMenu-Label">
                 <img className="ImageMenu-Img" src={rightimg} alt="Add a child" />
             </label>
             <input type='button' id={this.props.leafdata.id+"-menu-right"} className="ImageMenu-Item" value="Add"
                    onClick={(e) => {this.props.addChild(this.props.leafdata.id)}} />
 
-            <label for={this.props.leafdata.id+"-menu-down"}  className="ImageMenu-Label" style={this.downButtonStyle()}>
+            <label htmlFor={this.props.leafdata.id+"-menu-down"}  className="ImageMenu-Label" style={this.downButtonStyle()}>
                 <img className="ImageMenu-Img" src={downimg} alt="Add a sibling" />
             </label>
             <input type='button' id={this.props.leafdata.id+"-menu-down"} className="ImageMenu-Item"  value="Add"
