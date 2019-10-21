@@ -25,7 +25,7 @@ class Leaf extends Component {
     keyDownHandler(e) {
         switch (e.keyCode) {
             case 13: //Enter
-                if (e.shiftKey != true) {
+                if (e.shiftKey != true && this.props.leafdata.id!=0) {
                     e.preventDefault();
                     this.props.addSibling(this.props.leafdata.id);
                 }

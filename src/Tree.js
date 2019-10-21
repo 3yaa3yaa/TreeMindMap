@@ -5,8 +5,7 @@ import Connector from "./Connector"
 import StateProvider from "./StateProvider"
 import {DragDropContext} from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
-import domtoimage from 'dom-to-image';
-import { saveAs } from 'file-saver';
+import ImageMainMenu from "./ImageMainMenu";
 
 class Tree extends Component {
 
@@ -18,7 +17,7 @@ class Tree extends Component {
 
     _getFocusId()
     {
-        if(this.props.property.isReadOnly)
+        if(this.props.property.isReadOnly!="")
         {
             return -1;
         }
@@ -131,31 +130,15 @@ class Tree extends Component {
         return this._formatLeaf([this.props.root])
     }
 
-    _getDownloadButton()
-    {
-        if(this.props.property.isReadOnly)
-        {
-            return <div>
-                <button className="Tree-Download-Button" onClick={(e)=>{
-                    domtoimage.toBlob(this.treeRef.current)
-                        .then(function (blob) {
-                            saveAs(blob, 'treemindmap.png');
-                        })}}>
-                    Export as png
-                </button>
-            </div>;
-        }
-        else
-        {
-            return "";
-        }
-    }
-
     render() {
         return (
             <div>
-                {this._getDownloadButton()}
-                <div ref={this.treeRef}>
+                <div className="Tree-Block">
+                    <ImageMainMenu dom={this.treeRef.current}
+                                                    changeMode={this.props.changeMode}
+                                                    mode={this.props.property.isReadOnly}
+                /></div>
+                <div className="Tree-Block" ref={this.treeRef}>
                     {this._getTree()}
                 </div>
             </div>

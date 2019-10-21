@@ -1,0 +1,25 @@
+
+.ImageMainMenu {
+    margin-left: 10px;
+    margin-top:10px;
+}
+
+.ImageMainMenu-Item {
+    visibility: hidden;
+}
+
+.ImageMainMenu-button{
+}
+
+.ImageMainMenu-buttons{
+}
+
+.ImageMainMenu-Img {
+    display: inline-block;
+    width:40px;
+    border-radius: 5px;
+    border-style: solid;
+    background-color: lightgray;
+    border-color: silver;
+
+}
