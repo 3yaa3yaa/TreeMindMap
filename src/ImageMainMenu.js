@@ -4,8 +4,9 @@ import Property from "./Property";
 import backToEditImg from './images/backtoedit.png'
 import goPreviewImg from './images/gopreview.png'
 import exportImg from './images/export.png'
-import domtoimage from "dom-to-image";
 import {saveAs} from "file-saver";
+import html2canvas from 'html2canvas';
+
 
 export default class ImageMenu extends Component {
 
@@ -16,63 +17,60 @@ export default class ImageMenu extends Component {
     getBackButton()
     {
         const id="ImageMainMenu-Back";
-        return <div className="ImageMainMenu-button">
+        return <li className="ImageMainMenu-button">
                 <label htmlFor={id} className="ImageMenu-Label">
                     <img className="ImageMainMenu-Img" src={backToEditImg} alt="Back to Edit" />
                 </label>
                 <input type='button' id={id} className="ImageMainMenu-Item"
                        onClick={(e) => {this.props.changeMode(Property.readOnlyLevel().canEdit)}} />
-            </div>
+            </li>
     }
 
     getPreviewButton()
     {
         const id="ImageMainMenu-Preview";
-        return <div className="ImageMainMenu-button">
+        return <li className="ImageMainMenu-button">
             <label htmlFor={id} className="ImageMenu-Label">
                 <img className="ImageMainMenu-Img" src={goPreviewImg} alt="Preview/Export view" />
             </label>
             <input type='button' id={id} className="ImageMainMenu-Item"
                    onClick={(e) => {this.props.changeMode(Property.readOnlyLevel().softReadOnly)}} />
-        </div>
+        </li>
     }
 
     getExportButton()
     {
         const id="ImageMainMenu-Export";
-        return <div className="ImageMainMenu-button">
+        return <li className="ImageMainMenu-button">
             <label htmlFor={id} className="ImageMenu-Label">
                 <img className="ImageMainMenu-Img" src={exportImg} alt="Preview/Export view" />
             </label>
             <input type='button' id={id} className="ImageMainMenu-Item"
                    onClick={(e) => {
-                       domtoimage.toBlob(this.props.dom, {
-                           width:this.props.dom.scrollWidth ,
-                           height: this.props.dom.scrollHeight,
-                       })
-                           .then(function (blob) {
-                               saveAs(blob, 'treemindmap.png');
-                           })}
+                       html2canvas(this.props.dom).then(function(canvas) {
+                           canvas.toBlob((blob => {saveAs(blob,'treemindmap.png')}));
+                       });
+                       }
                    } />
-        </div>
+        </li>
     }
 
     getButtons()
     {
         switch (this.props.mode) {
             case Property.readOnlyLevel().canEdit:
-                return <div className="ImageMainMenu-buttons">
+                return <ul className="ImageMainMenu-buttons">
                     {this.getPreviewButton()}
-                </div>;
+                </ul>;
             case Property.readOnlyLevel().softReadOnly:
-                return <div className="ImageMainMenu-buttons">
+                return <ul className="ImageMainMenu-buttons">
                     {this.getBackButton()}
                     {this.getExportButton()}
-                </div>;
+                </ul>;
             case Property.readOnlyLevel().hardReadOnly:
-                return <div className="ImageMainMenu-buttons">
+                return <ul className="ImageMainMenu-buttons">
                     {this.getExportButton()}
-                </div>;
+                </ul>;
             default:
                 return "";
         }
