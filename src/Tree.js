@@ -70,6 +70,20 @@ class Tree extends Component {
         }
     }
 
+    _getConnectorDOM(leaf)
+    {
+        if(leaf.id!=0)
+        {
+            return <li key={leaf.id + "-connector"} className="Tree-Trunk">
+                {this._getConnector(leaf)}
+            </li>
+        }
+        else
+        {
+            return ""
+        }
+    }
+
     _formatLeaf(dataarr) {
         let out = []
         if(dataarr!=null)
@@ -77,9 +91,7 @@ class Tree extends Component {
             dataarr.forEach((leaf)=>{
                 out.push((
                     <ul key={leaf.id + "-block"} className="Tree-Element">
-                        <li key={leaf.id + "-connector"} className="Tree-Trunk">
-                            {this._getConnector(leaf)}
-                        </li>
+                        {this._getConnectorDOM(leaf)}
                         <li key={leaf.id + "-leaf"} className="Tree-Trunk">
                             <ul  key={leaf.id + "-leaf-element"} className="Tree-Element">
                                 <li key={leaf.id + "-leaf-detail"} className="Tree-Trunk-Sub">

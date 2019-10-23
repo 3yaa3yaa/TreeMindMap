@@ -1,26 +1,32 @@
 
 .ImageMainMenu {
     margin-left: 10px;
-    margin-top: 10px;
+    margin-top: 0px;
     margin-right: 10px;
 }
 
 .ImageMainMenu-Item {
     visibility: hidden;
+    height: 3px;
+    margin: 0px;
 }
 
 .ImageMainMenu-buttons{
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: column;
-    align-items: flex-start;
+    /*display: flex;*/
+    /*display: -webkit-flex;*/
+    /*flex-direction: column;*/
+    /*align-items: flex-start;*/
+    list-style: none;
 }
 
 
 .ImageMainMenu-button{
-    display: block;
     vertical-align: top;
+    height:40px;
+    list-style: none;
 }
+
+.html2canvas-container { width: 3000px !important; height: 3000px !important; }
 
 
 .ImageMainMenu-Img {
@@ -31,5 +37,5 @@
     border-style: solid;
     background-color: lightgray;
     border-color: silver;
-
+    vertical-align: top;
 }
