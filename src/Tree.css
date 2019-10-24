@@ -11,23 +11,6 @@ ul {
 }
 
 
-.Tree-Block-Menu {
-  display: block;
-  margin-top: 5px;
-  vertical-align: top;
-  /*position: fixed;*/
-  margin-right: 0px;
-  z-index: 10;
-
-}
-.Tree-Block-Main {
-  display:block;
-  width: fit-content;
-  margin-top: 4px;
-  vertical-align: top;
-  margin-left: 5px;
-}
-
 
 .Tree-Element {
   display: table ;

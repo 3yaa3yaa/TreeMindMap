@@ -1,26 +1,22 @@
 
-.ImageMainMenu {
+.PreviewMenu {
     margin-left: 10px;
     margin-top: 0px;
     margin-right: 10px;
 }
 
-.ImageMainMenu-Item {
+.PreviewMenu-Item {
     visibility: hidden;
     height: 3px;
     margin: 0px;
 }
 
-.ImageMainMenu-buttons{
-    /*display: flex;*/
-    /*display: -webkit-flex;*/
-    /*flex-direction: column;*/
-    /*align-items: flex-start;*/
+.PreviewMenu-buttons{
     list-style: none;
 }
 
 
-.ImageMainMenu-button{
+.PreviewMenu-button{
     vertical-align: top;
     height:40px;
     list-style: none;
@@ -29,7 +25,7 @@
 .html2canvas-container { width: 3000px !important; height: 3000px !important; }
 
 
-.ImageMainMenu-Img {
+.PreviewMenu-Img {
     display: block;
     width:30px;
     height: 30px;

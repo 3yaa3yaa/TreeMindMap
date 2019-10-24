@@ -45,6 +45,11 @@ class StateProvider
         return { type: 'changeMode', mode }
     }
 
+    static changePreviewModeAction(mode)
+    {
+        return { type: 'changePreviewMode', mode }
+    }
+
 
     // Reducer
     static leafReducer(state = { root: new LeafData(), property: new Property() }, action) {
@@ -86,6 +91,9 @@ class StateProvider
                     break;
                 case 'changeMode':
                     result = StateProvider.changeMode(state, action.mode);
+                    break;
+                case 'changePreviewMode':
+                    result = StateProvider.changePreviewMode(state, action.mode);
                     break;
                 default:
                     result= state;
@@ -248,6 +256,15 @@ class StateProvider
         return { root: state.root , property: property}
     }
 
+
+    static changePreviewMode(state, mode)
+    {
+        let property=Property.getNewObject(state.property)
+        property.previewMode=mode;
+        return { root: state.root , property: property}
+    }
+
+
     // Map Redux state to component props
     static mapStateToProps(state) {
         return {
@@ -267,7 +284,8 @@ class StateProvider
             move: (from, to) => dispatch(StateProvider.moveAction(from, to)),
             walk: (whereTo) => dispatch(StateProvider.walkAction(whereTo)),
             jump: (id) => dispatch(StateProvider.jumpAction(id)),
-            changeMode: (mode) => dispatch(StateProvider.changeModeAction(mode))
+            changeMode: (mode) => dispatch(StateProvider.changeModeAction(mode)),
+            changePreviewMode: (mode) => dispatch(StateProvider.changePreviewModeAction(mode))
         }
     }
 }
