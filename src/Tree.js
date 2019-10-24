@@ -5,19 +5,17 @@ import Connector from "./Connector"
 import StateProvider from "./StateProvider"
 import {DragDropContext} from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
-import ImageMainMenu from "./ImageMainMenu";
+import Property from "./Property";
 
 class Tree extends Component {
 
     constructor(props) {
         super(props);
-        props.addRoot();
-        this.treeRef = React.createRef();
     }
 
     _getFocusId()
     {
-        if(this.props.property.isReadOnly!="")
+        if(this.props.property.isReadOnly!=Property.readOnlyLevel().canEdit)
         {
             return -1;
         }
@@ -27,19 +25,32 @@ class Tree extends Component {
         }
     }
 
+    safeExec(callback)
+    {
+        if(typeof callback === 'function')
+        {
+            return callback
+        }
+        else
+        {
+            return ()=>{return ""}
+        }
+    }
+
     _getLeaf(leaf)
     {
         return <Leaf leafdata={leaf}
                      focusId={this._getFocusId()}
-                     edit={this.props.edit}
+                     edit={this.safeExec(this.props.edit)}
                      sumOfChildren={(label)=>{return this.props.root.sumLabelsOfChildren(leaf.id,label)}}
                      countOfChildren={(label)=>{return this.props.root.countLabelsOfChildren(leaf.id, label)}}
-                     addChild={this.props.addChild}
-                     delete={this.props.delete}
-                     addSibling={this.props.addSibling}
-                     move={this.props.move}
-                     walk={this.props.walk}
-                     jump={this.props.jump}
+                     addChild={this.safeExec(this.props.addChild)}
+                     delete={this.safeExec(this.props.delete)}
+                     addSibling={this.safeExec(this.props.addSibling)}
+                     move={this.safeExec(this.props.move)}
+                     walk={this.safeExec(this.props.walk)}
+                     jump={this.safeExec(this.props.jump)}
+                     changePreviewMode={this.safeExec(this.props.changePreviewMode)}
                      />
     }
 
@@ -70,19 +81,6 @@ class Tree extends Component {
         }
     }
 
-    _getConnectorDOM(leaf)
-    {
-        if(leaf.id!=0)
-        {
-            return <li key={leaf.id + "-connector"} className="Tree-Trunk">
-                {this._getConnector(leaf)}
-            </li>
-        }
-        else
-        {
-            return ""
-        }
-    }
 
     _formatLeaf(dataarr) {
         let out = []
@@ -91,7 +89,9 @@ class Tree extends Component {
             dataarr.forEach((leaf)=>{
                 out.push((
                     <ul key={leaf.id + "-block"} className="Tree-Element">
-                        {this._getConnectorDOM(leaf)}
+                        <li key={leaf.id + "-connector"} className="Tree-Trunk">
+                            {this._getConnector(leaf)}
+                        </li>
                         <li key={leaf.id + "-leaf"} className="Tree-Trunk">
                             <ul  key={leaf.id + "-leaf-element"} className="Tree-Element">
                                 <li key={leaf.id + "-leaf-detail"} className="Tree-Trunk-Sub">
@@ -104,7 +104,6 @@ class Tree extends Component {
                         </li>
                     </ul>
                 ))
-                //out.push(this._formatLeaf(this._filterLeafs(this.props.root, leaf.id )))
             })
         }
         return <ul>{out}</ul>
@@ -144,15 +143,8 @@ class Tree extends Component {
 
     render() {
         return (
-            <div className="Tree">
-                <div className="Tree-Block-Menu">
-                    <ImageMainMenu dom={this.treeRef.current}
-                                                    changeMode={this.props.changeMode}
-                                                    mode={this.props.property.isReadOnly}
-                /></div>
-                <div className="Tree-Block-Main" ref={this.treeRef}>
-                    {this._getTree()}
-                </div>
+            <div className="Tree" >
+                {this._getTree()}
             </div>
         );
     }

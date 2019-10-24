@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './Leaf.css';
 import ImgViewer from './ImgViewer'
-//import Menu from './Menu'
 import ImageMenu from "./ImageMenu";
 import { DragSource, DropTarget } from 'react-dnd'
 import MarkdownTextBox from '@3yaa3yaa/markdowntextbox';
@@ -196,6 +195,7 @@ class Leaf extends Component {
                           edit={this.props.edit}
                           addChild={this.props.addChild}
                           addSibling={this.props.addSibling}
+                          changePreviewMode={this.props.changePreviewMode}
                           style={this._getMenuVisibility()}/>
                 </div>
             </div>

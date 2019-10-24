@@ -1,0 +1,21 @@
+
+
+.PreviewTable {
+    display: table;
+    width:auto;
+    background-color: whitesmoke;
+}
+
+
+.PreviewTable-Header {
+    display: table-caption;
+}
+
+.PreviewTable-Row {
+    display: table-row;
+}
+
+.PreviewTable-Cell {
+    display: table-cell;
+}
+
