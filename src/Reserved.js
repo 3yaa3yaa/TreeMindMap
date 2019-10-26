@@ -19,9 +19,9 @@ export default class ReservedList
         let arr=[];
         this.callback_sum=callback_sum;
         this.callback_count=callback_count;
-        arr.push(new Reserved('=count(',")", (node)=>{return this.getCountJSX(node)},""))
-        arr.push(new Reserved('=sum(',")", (node)=>{return this.getSumJSX(node)},""))
-        arr.push(new Reserved('=mean(',")", (node)=>{return this.getMeanJSX(node)},""))
+        arr.push(new Reserved('=count(',")", (node)=>{return this.getCountJSX(node)},"label"))
+        arr.push(new Reserved('=sum(',")", (node)=>{return this.getSumJSX(node)},"label"))
+        arr.push(new Reserved('=mean(',")", (node)=>{return this.getMeanJSX(node)},"label"))
         this.items=arr;
     }
 

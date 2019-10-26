@@ -73,8 +73,6 @@ export default class ImageMenu extends Component {
         }
     }
 
-
-
     render() {
         return <div className="ImageMenu" style={this.props.style}>
             <label htmlFor={this.props.leafdata.id+"-menu-preview"}  className="ImageMenu-Label">
