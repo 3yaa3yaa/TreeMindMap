@@ -54,7 +54,7 @@ class StateProvider
     // Reducer
     static leafReducer(state = { root: new LeafData(), property: new Property() }, action) {
         let result;
-        if(state.property.isReadOnly===Property.readOnlyLevel().canEdit || action.type==="changeMode")
+        if(state.property.isReadOnly===Property.readOnlyLevel().canEdit || action.type==="changeMode" || action.type==="changePreviewMode")
         {
             switch (action.type) {
                 case 'delete':
@@ -261,6 +261,15 @@ class StateProvider
     {
         let property=Property.getNewObject(state.property)
         property.previewMode=mode;
+
+        if(mode!=Property.previewMode().none)
+        {
+            property.isReadOnly=Property.readOnlyLevel().softReadOnly;
+        }
+        else
+        {
+            property.isReadOnly=Property.readOnlyLevel().canEdit;
+        }
         return { root: state.root , property: property}
     }
 

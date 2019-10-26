@@ -3,12 +3,16 @@
 .PreviewTable {
     display: table;
     width:auto;
-    background-color: whitesmoke;
+    border-style: solid;
+    border-width: 0.3px;
+    border-color: darkslategray;
+    margin-top: 15px;
 }
 
 
 .PreviewTable-Header {
-    display: table-caption;
+    display: table-header-group;
+    font-weight: bold;
 }
 
 .PreviewTable-Row {
@@ -17,5 +21,11 @@
 
 .PreviewTable-Cell {
     display: table-cell;
+    vertical-align: top;
+    text-align: center;
+    padding: 3px;
+    border-style: solid;
+    border-width: 0.3px;
+    border-color: darkslategray;
 }
 

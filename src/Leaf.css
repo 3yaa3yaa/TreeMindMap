@@ -9,7 +9,7 @@
   position: static;
   display: table-cell;
   margin:0px;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 .Leaf-Command {

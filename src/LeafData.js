@@ -182,58 +182,77 @@ export default class LeafData{
         }
     }
 
-
-    sumLabelsOfChildren(id, label)
+    labelExists(label)
     {
-        let children=this.getAllChildren( id)
-        let array=[];
-        if(children===null){return array};
-
-        for(let child of children)
+        let regexp= new RegExp('#' + label+ '(:| |$)','g');
+        if(regexp.test(this.description))
         {
-            let regexp;
-            if(label==="")
-            {regexp= new RegExp('#([^ ]+)( |$)','g')}
-            else
-            {regexp= new RegExp('#' + label+ ':([^ ]+)( |$)','g')};
-
-            array=array.concat([...child.description.matchAll(regexp)].map(item=>{return item[1]}));
+            return true;
         }
+        else
+        {
+            return false;
+        }
+    }
 
+    getLabelValue(label)
+    {
+        let regexp;
+        if(label==="")
+        {
+            regexp= new RegExp('#([^ ]+)( |$)','g')
+        }
+        else
+        {
+            regexp= new RegExp('#' + label+ ':([^ ]+)( |$)','g')
+        };
+        return [...this.description.matchAll(regexp)].map(el=>{return el[1]});
+    }
+
+    getLabelFieldsOfChildren()
+    {
+        let items=[this];
+        items=items.concat(this.getAllChildren(this.id));
+        let array=[];
+        if(items===null){return array};
+        for(let item of items)
+        {
+            let regexp = new RegExp('#([^ ]+)( |$)','g');
+            array=array.concat([...item.description.matchAll(regexp)].map(el=>{return el[1]}));
+        }
+        array=array.map(el=>{return el.replace(/:.*/,'')}); //Remove Value
+        array=array.filter(el=>!isFinite(el))   //Remove Numbers
+        array=array.filter((x, i, self) => self.indexOf(x) === i); //Remove Duplicates
+        return array;
+    }
+
+    getNumericValuesOfChildren(label="")
+    {
+        let items=[this];
+        items=items.concat(this.getAllChildren(this.id));
+        let array=[];
+        if(items===null){return array};
+        for(let item of items)
+        {
+            array=array.concat(item.getLabelValue(label));
+        }
+        return array.filter(el=>isFinite(el));
+    }
+
+
+    sumLabelsOfChildren(label)
+    {
+        let array=this.getNumericValuesOfChildren(label);
         let reducer=(acc, cur)=>{
-            if(isFinite(cur))
-            {
-                return acc+parseFloat(cur);
-            }
-            else
-            {
-                return acc+0;
-            }
+            return acc+parseFloat(cur);
         };
         return array.reduce(reducer,0);
     }
 
-     countLabelsOfChildren(id, label)
+     countLabelsOfChildren(label)
     {
-        let children=this.getAllChildren(id)
-        let array=[];
-        if(children!=null)
-        {
-            for(let child of children)
-            {
-                let regexp;
-                if(label==="")
-                {regexp= new RegExp('#([^ ]+)( |$)','g')}
-                else
-                {regexp= new RegExp('#'+ label+':([^ ]+)( |$)','g')};
-
-                array=array.concat([...child.description.matchAll(regexp)].map(item=>{return item[1]}).filter((item)=>{return isFinite(item)}));
-            }
-        }
+        let array=this.getNumericValuesOfChildren(label);
         return array.length;
     }
-
-
-
 
 }
