@@ -54,6 +54,7 @@ export default class ReservedList
             borderBottomRightRadius:"20px",
             borderTopRightRadius:"20px",
             width: "fit-content",
+            marginBottom:"2px",
             // height: "10px",
             color: "#FF00FF"
         }

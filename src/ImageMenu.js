@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './ImageMenu.css';
 import previewimg from './images/gopreview.png'
+import tableimg from './images/gotable.png'
 import downimg from './images/down.png'
 import rightimg from './images/right.png'
 import cameraimg from './images/camera.png'
@@ -85,7 +86,7 @@ export default class ImageMenu extends Component {
 
 
             <label htmlFor={this.props.leafdata.id+"-menu-table"}  className="ImageMenu-Label">
-                <img className="ImageMenu-Img" src={previewimg} alt="Go Preview" />
+                <img className="ImageMenu-Img" src={tableimg} alt="Go Table" />
             </label>
             <input type='button' id={this.props.leafdata.id+"-menu-table"} className="ImageMenu-Item"  value="Add"
                    onClick={(e) => {this.props.changePreviewMode(Property.previewMode().Table)}} />
