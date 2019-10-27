@@ -26,40 +26,42 @@ export default class ImageMenu extends Component {
         this.props.edit(newleaf)
     }
 
-    fileChangeHander(e)
+    fileChangeHandler(e)
     {
         //e.preventDefault()
         let file = e.target.files[0]
-        let reader = new FileReader()
-        reader.onloadend = () => {
-            let img=new Image()
-            img.onload=()=>{
-                let w= 200
-                let ratio= w /img.width
-                let h=img.height*ratio
-                this.setState( {imgcanvas:
-                        <ImgCanvas className="ImageMenu-Canvas"
-                                   width={w}
-                                   height={h}
-                                   setImage={(ctx,canvas)=>{
-                                       ctx.drawImage(img,0,0,w,h);
-                                       let newleaf=this.props.leafdata
-                                       let imagedata=canvas.toDataURL("image/jpeg")
-                                       if (newleaf.imgs==null)
-                                       {newleaf.imgs = [imagedata]}
-                                       else
-                                       {newleaf.imgs.push([imagedata])}
-                                       this.props.edit(newleaf)
-                                   }
-                                   }
-                        >
-                        </ImgCanvas>})
-                this.setState({imgcanvas:""})
-            }
-            img.src=reader.result
+        if(file!=undefined){
+            let reader = new FileReader()
+            reader.onloadend = () => {
+                let img=new Image()
+                img.onload=()=>{
+                    let w= 200
+                    let ratio= w /img.width
+                    let h=img.height*ratio
+                    this.setState( {imgcanvas:
+                            <ImgCanvas className="ImageMenu-Canvas"
+                                       width={w}
+                                       height={h}
+                                       setImage={(ctx,canvas)=>{
+                                           ctx.drawImage(img,0,0,w,h);
+                                           let newleaf=this.props.leafdata
+                                           let imagedata=canvas.toDataURL("image/jpeg")
+                                           if (newleaf.imgs==null)
+                                           {newleaf.imgs = [imagedata]}
+                                           else
+                                           {newleaf.imgs.push([imagedata])}
+                                           this.props.edit(newleaf)
+                                       }
+                                       }
+                            >
+                            </ImgCanvas>})
+                    this.setState({imgcanvas:""})
+                }
+                img.src=reader.result
 
+            }
+            reader.readAsDataURL(file)
         }
-        reader.readAsDataURL(file)
     }
 
     downButtonStyle() {
@@ -93,7 +95,7 @@ export default class ImageMenu extends Component {
                 <img className="ImageMenu-Img" src={cameraimg} alt="Add pictures" />
             </label>
             <input type='file' id={this.props.leafdata.id+"-menu-camera"} className="ImageMenu-Item"
-                   onChange={(e) => {this.fileChangeHander(e)}} />
+                   onChange={(e) => {this.fileChangeHandler(e)}} />
             {this.state.imgcanvas}
 
             <label htmlFor={this.props.leafdata.id + "-menu-palette"} className="ImageMenu-Label">

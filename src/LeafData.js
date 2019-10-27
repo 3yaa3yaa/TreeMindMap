@@ -184,7 +184,7 @@ export default class LeafData{
 
     labelExists(label)
     {
-        let regexp= new RegExp('#' + label+ '(:| |$)','g');
+        let regexp= new RegExp('#' + label+ '(:|\r\n|\n|\r| |$)','g');
         if(regexp.test(this.description))
         {
             return true;
@@ -195,16 +195,16 @@ export default class LeafData{
         }
     }
 
-    getLabelValue(label)
+    getLabelValues(label)
     {
         let regexp;
         if(label==="")
         {
-            regexp= new RegExp('#([^ ]+)( |$)','g')
+            regexp= new RegExp('#([^ ]+?)(\r\n|\n|\r| |$)','g')
         }
         else
         {
-            regexp= new RegExp('#' + label+ ':([^ ]+)( |$)','g')
+            regexp= new RegExp('#' + label+ ':([^ ]+?)(\r\n|\n|\r| |$)','g')
         };
         return [...this.description.matchAll(regexp)].map(el=>{return el[1]});
     }
@@ -217,7 +217,7 @@ export default class LeafData{
         if(items===null){return array};
         for(let item of items)
         {
-            let regexp = new RegExp('#([^ ]+)( |$)','g');
+            let regexp = new RegExp('#([^ ]+?)(\r\n|\n|\r| |$)','g');
             array=array.concat([...item.description.matchAll(regexp)].map(el=>{return el[1]}));
         }
         array=array.map(el=>{return el.replace(/:.*/,'')}); //Remove Value
@@ -234,7 +234,7 @@ export default class LeafData{
         if(items===null){return array};
         for(let item of items)
         {
-            array=array.concat(item.getLabelValue(label));
+            array=array.concat(item.getLabelValues(label));
         }
         return array.filter(el=>isFinite(el));
     }

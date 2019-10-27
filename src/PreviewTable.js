@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Property from "./Property";
-import MarkdownTextBox from '@3yaa3yaa/markdowntextbox';
+import { MarkdownTextBox } from '@3yaa3yaa/markdowntextbox';
 import './PreviewTable.css'
 import ImgViewer from "./ImgViewer";
 
@@ -14,11 +14,19 @@ export default class PreviewTable extends Component {
 
     getHeader()
     {
-        let array = ["Content","images"];
+        let array = ["Content","Images"];
         array= array.concat(this.fields);
         array = array.map(el=>{return <div className="PreviewTable-Cell">{el}</div>})
 
         return <div className="PreviewTable-Header">{array}</div>;
+    }
+
+    removeLabelAndFunction(text)
+    {
+        let out=text;
+        out=out.replace(/#[^ ]+?(\n|\r|\r\n| |$)/g,'');
+        out=out.replace(/=[^ ]+?(\n|\r|\r\n| |$)/g,'');
+        return out;
     }
 
     getContent()
@@ -26,14 +34,15 @@ export default class PreviewTable extends Component {
         let array = [this.leafdata];
         array=array.concat(this.leafdata.getAllChildren(this.leafdata.id));
         return array.map((item)=>{
-            let cells=[<MarkdownTextBox value={item.description} focus={false}/>];
+            let cells=[<MarkdownTextBox value={this.removeLabelAndFunction(item.description)}
+                                        focus={false} />];
             cells.push(<ImgViewer leafdata={item} />)
             for(let field of this.fields)
             {
                 let val="";
                 if(item.labelExists(field))
                 {
-                    let tmp = item.getLabelValue(field);
+                    let tmp = item.getLabelValues(field);
                     if(tmp.length>0)
                     {
                         val = tmp;
@@ -45,7 +54,7 @@ export default class PreviewTable extends Component {
                 }
                 else
                 {
-                     val = '\u274c';
+                     val = '';
                 }
                 cells.push(val);
             }

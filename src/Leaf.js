@@ -3,7 +3,7 @@ import './Leaf.css';
 import ImgViewer from './ImgViewer'
 import ImageMenu from "./ImageMenu";
 import { DragSource, DropTarget } from 'react-dnd'
-import MarkdownTextBox from '@3yaa3yaa/markdowntextbox';
+import { MarkdownTextBox } from '@3yaa3yaa/markdowntextbox';
 import StateProvider from './StateProvider';
 import ReservedList from "./Reserved";
 
@@ -186,7 +186,7 @@ class Leaf extends Component {
                                              reservedItems={this.reservedList.items}
                                              onChange={(e)=>this.onChangeHandler(e)}
                                              focus={this._getIsFocused()}
-                                             textAreaStyle={{height:"220px"}}
+                                             textAreaStyle={{height:"220px",fontFamily:"sans-serif", fontSize:"100%"}}
                                               />
                         </div>
                     </div>
