@@ -172,13 +172,13 @@ describe('A suite', function() {
 
         expect(data0.getLabelFieldsOfChildren()).toEqual(["test1","test2","test3"]);
 
-        expect(data0.getLabelValue("test1")).toEqual(["10"]);
-        expect(data0.getLabelValue("test2")).toEqual(["100"]);
-        expect(data3.getLabelValue("test1")).toEqual(["10.5"]);
-        expect(data3.getLabelValue("test2")).toEqual(["100.5"]);
-        expect(data4.getLabelValue("test1")).toEqual([]);
-        expect(data4.getLabelValue("test2")).toEqual([]);
-        expect(data4.getLabelValue("test3")).toEqual([]);
+        expect(data0.getLabelValues("test1")).toEqual(["10"]);
+        expect(data0.getLabelValues("test2")).toEqual(["100"]);
+        expect(data3.getLabelValues("test1")).toEqual(["10.5"]);
+        expect(data3.getLabelValues("test2")).toEqual(["100.5"]);
+        expect(data4.getLabelValues("test1")).toEqual([]);
+        expect(data4.getLabelValues("test2")).toEqual([]);
+        expect(data4.getLabelValues("test3")).toEqual([]);
 
 
         expect(data0.labelExists("test1")).toEqual(true);
@@ -200,7 +200,39 @@ describe('A suite', function() {
     })
 
 
+    it('should calculate multiple tags correctly', function(){
+        let data0= new LeafData(0,"#10\n#10",[]);
+        let data1= new LeafData(1,"#abc #10\n#10",[]);
+        let data2= new LeafData(2,"#abc #10 #def\n#10",[]);
+        let data3= new LeafData(3,"#abc #10.5\n#10",[]);
 
+        data0.children.push(data1);
+        data1.children.push(data2);
+        data2.children.push(data3);
+
+        expect(data0.sumLabelsOfChildren()).toEqual(80.5);
+        expect(data1.sumLabelsOfChildren()).toEqual(60.5);
+        expect(data2.sumLabelsOfChildren()).toEqual(40.5);
+        expect(data3.sumLabelsOfChildren()).toEqual(20.5);
+
+        expect(data0.countLabelsOfChildren()).toEqual(8);
+        expect(data1.countLabelsOfChildren()).toEqual(6);
+        expect(data2.countLabelsOfChildren()).toEqual(4);
+        expect(data3.countLabelsOfChildren()).toEqual(2);
+
+
+        expect(data0.getLabelFieldsOfChildren()).toEqual(["abc","def"]);
+    })
+
+    it('should calculate multiple tags correctly simple version', function(){
+        let data0= new LeafData(0,"#10\n#10",[]);
+
+
+        expect(data0.getLabelValues("")).toEqual(["10","10"]);
+
+        expect(data0.sumLabelsOfChildren()).toEqual(20);
+        expect(data0.countLabelsOfChildren()).toEqual(2);
+    })
 
 
 
