@@ -5,7 +5,7 @@ import Tree from './Tree'
 import PreviewMenu from "./PreviewMenu";
 import PreviewTable from "./PreviewTable";
 import html2canvas from "html2canvas";
-import {saveAs} from "file-saver";
+import { saveAs } from "file-saver";
 
 class PreviewPanel extends Component {
 
