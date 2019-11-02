@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import './ImageMenu.css';
+import previewimg from './images/gopreview.png'
+import tableimg from './images/gotable.png'
 import downimg from './images/down.png'
 import rightimg from './images/right.png'
 import cameraimg from './images/camera.png'
 import paletteimg from './images/palette.png'
 import ImgCanvas from "./ImgCanvas";
+import Property from "./Property";
 
 export default class ImageMenu extends Component {
 
@@ -24,40 +27,42 @@ export default class ImageMenu extends Component {
         this.props.edit(newleaf)
     }
 
-    fileChangeHander(e)
+    fileChangeHandler(e)
     {
         //e.preventDefault()
         let file = e.target.files[0]
-        let reader = new FileReader()
-        reader.onloadend = () => {
-            let img=new Image()
-            img.onload=()=>{
-                let w= 200
-                let ratio= w /img.width
-                let h=img.height*ratio
-                this.setState( {imgcanvas:
-                        <ImgCanvas className="ImageMenu-Canvas"
-                                   width={w}
-                                   height={h}
-                                   setImage={(ctx,canvas)=>{
-                                       ctx.drawImage(img,0,0,w,h);
-                                       let newleaf=this.props.leafdata
-                                       let imagedata=canvas.toDataURL("image/jpeg")
-                                       if (newleaf.imgs==null)
-                                       {newleaf.imgs = [imagedata]}
-                                       else
-                                       {newleaf.imgs.push([imagedata])}
-                                       this.props.edit(newleaf)
-                                   }
-                                   }
-                        >
-                        </ImgCanvas>})
-                this.setState({imgcanvas:""})
-            }
-            img.src=reader.result
+        if(file!=undefined){
+            let reader = new FileReader()
+            reader.onloadend = () => {
+                let img=new Image()
+                img.onload=()=>{
+                    let w= 200
+                    let ratio= w /img.width
+                    let h=img.height*ratio
+                    this.setState( {imgcanvas:
+                            <ImgCanvas className="ImageMenu-Canvas"
+                                       width={w}
+                                       height={h}
+                                       setImage={(ctx,canvas)=>{
+                                           ctx.drawImage(img,0,0,w,h);
+                                           let newleaf=this.props.leafdata
+                                           let imagedata=canvas.toDataURL("image/jpeg")
+                                           if (newleaf.imgs==null)
+                                           {newleaf.imgs = [imagedata]}
+                                           else
+                                           {newleaf.imgs.push([imagedata])}
+                                           this.props.edit(newleaf)
+                                       }
+                                       }
+                            >
+                            </ImgCanvas>})
+                    this.setState({imgcanvas:""})
+                }
+                img.src=reader.result
 
+            }
+            reader.readAsDataURL(file)
         }
-        reader.readAsDataURL(file)
     }
 
     downButtonStyle() {
@@ -71,15 +76,27 @@ export default class ImageMenu extends Component {
         }
     }
 
-
-
     render() {
         return <div className="ImageMenu" style={this.props.style}>
+            <label htmlFor={this.props.leafdata.id+"-menu-preview"}  className="ImageMenu-Label">
+                <img className="ImageMenu-Img" src={previewimg} alt="Go Preview" />
+            </label>
+            <input type='button' id={this.props.leafdata.id+"-menu-preview"} className="ImageMenu-Item"  value="Add"
+                   onClick={(e) => {this.props.changePreviewMode(Property.previewMode().Tree)}} />
+
+
+            <label htmlFor={this.props.leafdata.id+"-menu-table"}  className="ImageMenu-Label">
+                <img className="ImageMenu-Img" src={tableimg} alt="Go Table" />
+            </label>
+            <input type='button' id={this.props.leafdata.id+"-menu-table"} className="ImageMenu-Item"  value="Add"
+                   onClick={(e) => {this.props.changePreviewMode(Property.previewMode().Table)}} />
+
+
             <label htmlFor={this.props.leafdata.id + "-menu-camera"} className="ImageMenu-Label">
                 <img className="ImageMenu-Img" src={cameraimg} alt="Add pictures" />
             </label>
             <input type='file' id={this.props.leafdata.id+"-menu-camera"} className="ImageMenu-Item"
-                   onChange={(e) => {this.fileChangeHander(e)}} />
+                   onChange={(e) => {this.fileChangeHandler(e)}} />
             {this.state.imgcanvas}
 
             <label htmlFor={this.props.leafdata.id + "-menu-palette"} className="ImageMenu-Label">

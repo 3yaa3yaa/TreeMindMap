@@ -1,19 +1,17 @@
 import React from 'react';
 //import ReactDOM from 'react-dom';
 import './index.css';
-import Tree from './Tree';
 import StateProvider from './StateProvider';
 import { Provider, connect } from 'react-redux'
 import {compose,createStore} from "redux";
 import Deserializer from "./Deserializer";
+import MainWindow from "./MainWindow";
 
 // Connected Component
 const App = connect(
     StateProvider.mapStateToProps,
     StateProvider.mapDispatchToProps
-)(Tree)
-
-
+)(MainWindow)
 
 export const Map=props=>{
     const { initialState, stateHandler } = props;

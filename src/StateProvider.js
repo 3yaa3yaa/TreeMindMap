@@ -45,58 +45,74 @@ class StateProvider
         return { type: 'changeMode', mode }
     }
 
+    static changePreviewModeAction(mode)
+    {
+        return { type: 'changePreviewMode', mode }
+    }
+
 
     // Reducer
     static leafReducer(state = { root: new LeafData(), property: new Property() }, action) {
-        let result;
-        if(state.property.isReadOnly===Property.readOnlyLevel().canEdit || action.type==="changeMode")
-        {
-            switch (action.type) {
-                case 'delete':
-                    result= StateProvider.delete(state, action.id,state.property.focusId);
-                    break;
-                case 'addRoot':
-                    result= StateProvider.addRoot(state ,state.property.focusId,state.property.focusId);
-                    break;
-                case 'addSibling':
-                    let youngerbrothers=state.root.getYoungerBrother(state.property.focusId);
-                    if(youngerbrothers===null)
-                    {result= StateProvider.addSibling(state ,action.id)}
-                    else
-                    {result = StateProvider.walk(state, state.property.focusId, StateProvider.whereToMove().DOWN)};
-                    break;
-                case 'addChild':
-                    let children = state.root.getChildren(state.property.focusId);
-                    if(children.length===0)
-                    {result = StateProvider.addChild(state ,action.id)}
-                    else
-                    {result = StateProvider.walk(state, state.property.focusId, StateProvider.whereToMove().LEVELDOWN)};
-                    break;
-                case 'edit':
-                    result= StateProvider.edit(state ,action.leaf,state.property.focusId);
-                    break;
-                case 'move':
-                    result= StateProvider.move(state, action.from, action.to ,state.property.focusId);
-                    break;
-                case 'walk':
-                    result = StateProvider.walk(state, state.property.focusId, action.whereTo);
-                    break;
-                case 'jump':
-                    result = StateProvider.jump(state, action.id);
-                    break;
-                case 'changeMode':
-                    result = StateProvider.changeMode(state, action.mode);
-                    break;
-                default:
-                    result= state;
-                    break;
+        try{
+            let result;
+            if(state.property.isReadOnly===Property.readOnlyLevel().canEdit || action.type==="changeMode" || action.type==="changePreviewMode")
+            {
+                switch (action.type) {
+                    case 'delete':
+                        result= StateProvider.delete(state, action.id,state.property.focusId);
+                        break;
+                    case 'addRoot':
+                        result= StateProvider.addRoot(state ,state.property.focusId,state.property.focusId);
+                        break;
+                    case 'addSibling':
+                        let youngerbrothers=state.root.getYoungerBrother(state.property.focusId);
+                        if(youngerbrothers===null)
+                        {result= StateProvider.addSibling(state ,action.id)}
+                        else
+                        {result = StateProvider.walk(state, state.property.focusId, StateProvider.whereToMove().DOWN)};
+                        break;
+                    case 'addChild':
+                        let children = state.root.getChildren(state.property.focusId);
+                        if(children.length===0)
+                        {result = StateProvider.addChild(state ,action.id)}
+                        else
+                        {result = StateProvider.walk(state, state.property.focusId, StateProvider.whereToMove().LEVELDOWN)};
+                        break;
+                    case 'edit':
+                        result= StateProvider.edit(state ,action.leaf,state.property.focusId);
+                        break;
+                    case 'move':
+                        result= StateProvider.move(state, action.from, action.to ,state.property.focusId);
+                        break;
+                    case 'walk':
+                        result = StateProvider.walk(state, state.property.focusId, action.whereTo);
+                        break;
+                    case 'jump':
+                        result = StateProvider.jump(state, action.id);
+                        break;
+                    case 'changeMode':
+                        result = StateProvider.changeMode(state, action.mode);
+                        break;
+                    case 'changePreviewMode':
+                        result = StateProvider.changePreviewMode(state, action.mode);
+                        break;
+                    default:
+                        result= state;
+                        break;
+                }
+                return result;
             }
-            return result;
-        }
-        else
+            else
+            {
+                return state;
+            }
+
+        }catch(e)
         {
+            console.error("Failed to update state: "+ e.message)
             return state;
         }
+
     }
 
     //Reducer implementation
@@ -248,6 +264,24 @@ class StateProvider
         return { root: state.root , property: property}
     }
 
+
+    static changePreviewMode(state, mode)
+    {
+        let property=Property.getNewObject(state.property)
+        property.previewMode=mode;
+
+        if(mode!=Property.previewMode().none)
+        {
+            property.isReadOnly=Property.readOnlyLevel().softReadOnly;
+        }
+        else
+        {
+            property.isReadOnly=Property.readOnlyLevel().canEdit;
+        }
+        return { root: state.root , property: property}
+    }
+
+
     // Map Redux state to component props
     static mapStateToProps(state) {
         return {
@@ -267,7 +301,8 @@ class StateProvider
             move: (from, to) => dispatch(StateProvider.moveAction(from, to)),
             walk: (whereTo) => dispatch(StateProvider.walkAction(whereTo)),
             jump: (id) => dispatch(StateProvider.jumpAction(id)),
-            changeMode: (mode) => dispatch(StateProvider.changeModeAction(mode))
+            changeMode: (mode) => dispatch(StateProvider.changeModeAction(mode)),
+            changePreviewMode: (mode) => dispatch(StateProvider.changePreviewModeAction(mode))
         }
     }
 }

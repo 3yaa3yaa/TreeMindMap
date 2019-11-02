@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import './Leaf.css';
 import ImgViewer from './ImgViewer'
-//import Menu from './Menu'
 import ImageMenu from "./ImageMenu";
 import { DragSource, DropTarget } from 'react-dnd'
-import MarkdownTextBox from '@3yaa3yaa/markdowntextbox';
-import StateProvider from './StateProvider'
+import { MarkdownTextBox } from '@3yaa3yaa/markdowntextbox';
+import StateProvider from './StateProvider';
 import ReservedList from "./Reserved";
 
 class Leaf extends Component {
@@ -14,7 +13,8 @@ class Leaf extends Component {
         super(props);
         this.leafTextAreaRef=React.createRef()
         this.leafRef=React.createRef()
-        this.reservedList = new ReservedList(this.props.sumOfChildren, this.props.countOfChildren);
+        this.reservedList = new ReservedList((label)=>{return this.props.leafdata.sumLabelsOfChildren(label)}
+                                            , (label)=>{return this.props.leafdata.countLabelsOfChildren(label)});
     }
 
     componentDidMount()
@@ -186,6 +186,7 @@ class Leaf extends Component {
                                              reservedItems={this.reservedList.items}
                                              onChange={(e)=>this.onChangeHandler(e)}
                                              focus={this._getIsFocused()}
+                                             textAreaStyle={{height:"220px",fontFamily:"sans-serif", fontSize:"100%"}}
                                               />
                         </div>
                     </div>
@@ -196,6 +197,7 @@ class Leaf extends Component {
                           edit={this.props.edit}
                           addChild={this.props.addChild}
                           addSibling={this.props.addSibling}
+                          changePreviewMode={this.props.changePreviewMode}
                           style={this._getMenuVisibility()}/>
                 </div>
             </div>
