@@ -1,8 +1,11 @@
 export default class Property{
-    constructor(focusId=0, isReadOnly=Property.readOnlyLevel().canEdit)
+    constructor(focusId=0,
+                isReadOnly=Property.readOnlyLevel().canEdit,
+                previewMode=Property.previewMode().none)
     {
         this.focusId=focusId;
         this.isReadOnly=isReadOnly;
+        this.previewMode=previewMode;
     }
 
     static readOnlyLevel()
@@ -14,12 +17,23 @@ export default class Property{
         }
     }
 
+    static previewMode()
+    {
+        return {
+            none:0,
+            Tree:1,
+            Table:2
+        }
+    }
+
+
     static getNewObject(rawdata)
     {
         try{
-            return new Property(rawdata.focusId, rawdata.isReadOnly)
+            return new Property(rawdata.focusId, rawdata.isReadOnly, rawdata.previewMode)
         }catch(e)
         {
+            return new Property();
             console.error("failed to generate new property object :" + e.message)
         }
     }

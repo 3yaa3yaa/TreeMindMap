@@ -5,19 +5,17 @@ import Connector from "./Connector"
 import StateProvider from "./StateProvider"
 import {DragDropContext} from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
-import ImageMainMenu from "./ImageMainMenu";
+import Property from "./Property";
 
 class Tree extends Component {
 
     constructor(props) {
         super(props);
-        props.addRoot();
-        this.treeRef = React.createRef();
     }
 
     _getFocusId()
     {
-        if(this.props.property.isReadOnly!="")
+        if(this.props.property.isReadOnly!=Property.readOnlyLevel().canEdit)
         {
             return -1;
         }
@@ -27,19 +25,30 @@ class Tree extends Component {
         }
     }
 
+    safeExec(callback)
+    {
+        if(typeof callback === 'function')
+        {
+            return callback
+        }
+        else
+        {
+            return ()=>{return ""}
+        }
+    }
+
     _getLeaf(leaf)
     {
         return <Leaf leafdata={leaf}
                      focusId={this._getFocusId()}
-                     edit={this.props.edit}
-                     sumOfChildren={(label)=>{return this.props.root.sumLabelsOfChildren(leaf.id,label)}}
-                     countOfChildren={(label)=>{return this.props.root.countLabelsOfChildren(leaf.id, label)}}
-                     addChild={this.props.addChild}
-                     delete={this.props.delete}
-                     addSibling={this.props.addSibling}
-                     move={this.props.move}
-                     walk={this.props.walk}
-                     jump={this.props.jump}
+                     edit={this.safeExec(this.props.edit)}
+                     addChild={this.safeExec(this.props.addChild)}
+                     delete={this.safeExec(this.props.delete)}
+                     addSibling={this.safeExec(this.props.addSibling)}
+                     move={this.safeExec(this.props.move)}
+                     walk={this.safeExec(this.props.walk)}
+                     jump={this.safeExec(this.props.jump)}
+                     changePreviewMode={this.safeExec(this.props.changePreviewMode)}
                      />
     }
 
@@ -70,6 +79,7 @@ class Tree extends Component {
         }
     }
 
+
     _formatLeaf(dataarr) {
         let out = []
         if(dataarr!=null)
@@ -92,7 +102,6 @@ class Tree extends Component {
                         </li>
                     </ul>
                 ))
-                //out.push(this._formatLeaf(this._filterLeafs(this.props.root, leaf.id )))
             })
         }
         return <ul>{out}</ul>
@@ -132,15 +141,8 @@ class Tree extends Component {
 
     render() {
         return (
-            <div className="Tree">
-                <div className="Tree-Block-Menu">
-                    <ImageMainMenu dom={this.treeRef.current}
-                                                    changeMode={this.props.changeMode}
-                                                    mode={this.props.property.isReadOnly}
-                /></div>
-                <div className="Tree-Block-Main" ref={this.treeRef}>
-                    {this._getTree()}
-                </div>
+            <div className="Tree" >
+                {this._getTree()}
             </div>
         );
     }

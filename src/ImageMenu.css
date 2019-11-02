@@ -1,11 +1,19 @@
 
 .ImageMenu {
+    display: block;
     width: 30px;
 }
 
+.ImageMenu-Label{
+    vertical-align: top;
+}
+
 .ImageMenu-Item {
+    vertical-align: top;
+    height: 1px;
     visibility: hidden;
 }
+
 
 .ImageMenu-Canvas{
     display: none;
