@@ -4,6 +4,7 @@ import Property from "./Property";
 import backToEditImg from './images/backtoedit.png'
 import goPreviewImg from './images/gopreview.png'
 import exportImg from './images/export.png'
+import tableimg from './images/gotable.png'
 
 
 export default class PreviewMenu extends Component {
@@ -12,76 +13,46 @@ export default class PreviewMenu extends Component {
         super(props);
         this.export=this.props.export;
         this.changePreviewMode=this.props.changePreviewMode;
-        console.log(JSON.stringify(this.dom))
     }
 
-    getBackButton()
+    getCommandButton(previewMode, buttonimg, text, onClick)
     {
-        const id="PreviewMenu-Back";
+        const id="PreviewMenu-" + text;
         return <li className="PreviewMenu-button">
-                <label htmlFor={id} className="ImageMenu-Label">
-                    <img className="PreviewMenu-Img" src={backToEditImg} alt="Back to Edit" />
-                </label>
-                <input type='button' id={id} className="PreviewMenu-Item"
-                       onClick={(e) => {this.changePreviewMode(Property.previewMode().none)}} />
-            </li>
-    }
-
-    // getPreviewButton()
-    // {
-    //     const id="PreviewMenu-Preview";
-    //     return <li className="PreviewMenu-button">
-    //         <label htmlFor={id} className="ImageMenu-Label">
-    //             <img className="PreviewMenu-Img" src={goPreviewImg} alt="Preview/Export view" />
-    //         </label>
-    //         <input type='button' id={id} className="PreviewMenu-Item"
-    //                onClick={(e) => {this.props.changeMode(Property.readOnlyLevel().softReadOnly)}} />
-    //     </li>
-    // }
-
-    getExportButton()
-    {
-        const id="PreviewMenu-Export";
-        return <li className="PreviewMenu-button">
-            <label htmlFor={id} className="ImageMenu-Label">
-                <img className="PreviewMenu-Img" src={exportImg} alt="Preview/Export view" />
+            <label htmlFor={id} className="ImageMenu-Label" style={this.getCommandLabelStyle(previewMode)}>
+                <img className="PreviewMenu-Img" src={buttonimg} alt="Preview/Export view" />
+                <div className="PreviewMenu-ButtonLabel">{text}</div>
             </label>
             <input type='button' id={id} className="PreviewMenu-Item"
-                   onClick={() => {
-                       this.export();
-                       }
-                   } />
+                   onClick={(e) => {onClick(e)}} />
         </li>
+    }
+
+    getCommandLabelStyle(previewMode)
+    {
+        if(previewMode===this.props.previewMode)
+        {
+            return {fontWeight:"bold"}
+        }
     }
 
     getButtons()
     {
         return <ul className="PreviewMenu-buttons">
-            {this.getBackButton()}
-            {this.getExportButton()}
+            {this.getCommandButton(Property.previewMode().none, backToEditImg,"Back"
+                , () => {this.changePreviewMode(Property.previewMode().none)})}
+            {this.getCommandButton(Property.previewMode().Tree, goPreviewImg,"Preview"
+                , () => {this.changePreviewMode(Property.previewMode().Tree)})}
+            {this.getCommandButton(Property.previewMode().Sentence, goPreviewImg,"Composition"
+                , () => {this.changePreviewMode(Property.previewMode().Sentence)})}
+            {this.getCommandButton(Property.previewMode().Table, tableimg,"Labels"
+                , () => {this.changePreviewMode(Property.previewMode().Table)})}
+            {this.getCommandButton(Property.previewMode().List, tableimg,"List"
+                , () => {this.changePreviewMode(Property.previewMode().List)})}
+            {this.getCommandButton(Property.previewMode().none, exportImg,"Export"
+                , () => {this.export()})}
         </ul>;
     }
-
-    // getButtons()
-    // {
-    //     switch (this.props.mode) {
-    //         case Property.readOnlyLevel().canEdit:
-    //             return <ul className="PreviewMenu-buttons">
-    //                 {this.getPreviewButton()}
-    //             </ul>;
-    //         case Property.readOnlyLevel().softReadOnly:
-    //             return <ul className="PreviewMenu-buttons">
-    //                 {this.getBackButton()}
-    //                 {this.getExportButton()}
-    //             </ul>;
-    //         case Property.readOnlyLevel().hardReadOnly:
-    //             return <ul className="PreviewMenu-buttons">
-    //                 {this.getExportButton()}
-    //             </ul>;
-    //         default:
-    //             return "";
-    //     }
-    // }
 
     render() {
         return <div className="PreviewMenu">

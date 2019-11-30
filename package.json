@@ -1,6 +1,6 @@
 {
   "name": "treemindmap",
-  "version": "1.4.5",
+  "version": "1.5.0",
   "description": "",
   "main": "build/bundle.js",
   "repository": {
@@ -21,7 +21,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@3yaa3yaa/markdowntextbox": "0.1.17",
+    "@3yaa3yaa/markdowntextbox": "0.2.2",
     "html2canvas": "^1.0.0-rc.5",
     "file-saver": "^2.0.2",
     "react": "^16.10.2",

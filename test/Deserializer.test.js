@@ -3,6 +3,7 @@ import LeafData from "../src/LeafData";
 
 describe('A suite', function() {
 
+
     it('should deserialize properly', function(){
         let test ="{\"root\":{\"id\":0,\"description\":\"\",\"children\":[{\"id\":1,\"description\":\"\",\"children\":[{\"id\":2,\"description\":\"\",\"children\":[],\"imgs\":[],\"color\":\"silver\"},{\"id\":3,\"description\":\"\",\"children\":[],\"imgs\":[],\"color\":\"silver\"}],\"imgs\":[],\"color\":\"silver\"}],\"imgs\":[],\"color\":\"silver\"},\"focusId\":3}"
         let expected0=new LeafData(0);
