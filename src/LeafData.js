@@ -121,32 +121,22 @@ export default class LeafData{
     }
 
 
-
-    getAllChildren(id)
+    getAllChildren()
     {
         let out=[];
-        this._setChildrenInArray(id, out)
+        this._setChildrenInArray(this.id, out)
         return out;
     }
 
-    _pushDataInArray(from, to)
-    {
-        for(let item of from)
-        {
-            to.push(item);
-        }
-    }
 
-    _setChildrenInArray(id, array)
+    _setChildrenInArray(id, out)
     {
-        let current = this.getLeaf(id)
-        let children = this.getChildren(id)
-        this._pushDataInArray(children, array)
-        //array=array.concat(children);
-        for(let child of children)
+        let current = this.getLeaf(id);
+        if(id!=this.id)
         {
-            this._setChildrenInArray(child.id, array)
+            out.push(current);
         }
+        current.children.forEach((child)=>{this._setChildrenInArray(child.id, out)});
     }
 
     filterAndSortLeafs(leafs, parentid)
@@ -171,7 +161,7 @@ export default class LeafData{
 
     getLatestId()
     {
-        let children=this.getAllChildren(this.id)
+        let children=this.getAllChildren()
         if(children.length>0)
         {
             return children.sort((a,b)=>{return b.id-a.id})[0].id;
@@ -212,7 +202,7 @@ export default class LeafData{
     getLabelFieldsOfChildren()
     {
         let items=[this];
-        items=items.concat(this.getAllChildren(this.id));
+        items=items.concat(this.getAllChildren());
         let array=[];
         if(items===null){return array};
         for(let item of items)
@@ -228,16 +218,22 @@ export default class LeafData{
 
     getNumericValuesOfChildren(label="")
     {
+        return this.getChildrenValues(label).filter(el=>isFinite(el));
+    }
+
+    getChildrenValues(label="")
+    {
         let items=[this];
-        items=items.concat(this.getAllChildren(this.id));
+        items=items.concat(this.getAllChildren());
         let array=[];
         if(items===null){return array};
         for(let item of items)
         {
             array=array.concat(item.getLabelValues(label));
         }
-        return array.filter(el=>isFinite(el));
+        return array;
     }
+
 
 
     sumLabelsOfChildren(label)

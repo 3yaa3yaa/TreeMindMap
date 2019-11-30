@@ -26,7 +26,7 @@
 
 
 .PreviewMenu-Img {
-    display: block;
+    display: inline-block;
     width:30px;
     height: 30px;
     border-radius: 5px;
@@ -34,4 +34,12 @@
     background-color: lightgray;
     /*border-color: silver;*/
     vertical-align: top;
+}
+
+.PreviewMenu-ButtonLabel {
+    display: inline-block;
+    color: gray;
+    padding-top: 3px;
+    padding-left: 5px;
+    vertical-align: center;
 }

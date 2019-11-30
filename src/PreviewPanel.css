@@ -2,17 +2,20 @@
 
 .PreviewPanel {
     display:flex;
-    width:auto;
+    width:100%;
     min-width: 500px;
     height:auto;
     min-width: 400px;
     border-radius:10px;
     filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.6));
+    overflow: auto;
 }
 
 .PreviewPanel-Menu {
     display: block;
     margin-top: 5px;
+    width: 175px;
+    min-width: 175px;
     vertical-align: top;
     /*position: fixed;*/
     margin-right: 0px;
