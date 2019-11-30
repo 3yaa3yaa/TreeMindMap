@@ -23,9 +23,13 @@ class MainWindow extends Component {
     _getTreeStyle() {
         if (this.props.property.previewMode != Property.previewMode().none) {
             return {filter: "blur(10px)",
-                    opacity: "0.7"}
+                    opacity: "0.7",
+                    position: "fixed",
+                    overflow:"hidden"}
         }
     }
+
+
 
     render() {
         return <div className="MainWindow">
@@ -33,6 +37,7 @@ class MainWindow extends Component {
                 {this._getPreviewScreen()}
             </div>
             <div className="MainWindow-Content"
+                 ref={(e)=>{this.mainContentRef=e}}
                  style={this._getTreeStyle()}>
                 <Tree
                     root={this.props.root}

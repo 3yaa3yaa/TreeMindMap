@@ -20,6 +20,18 @@
 }
 
 
+.ImageMenu-Label {
+    display: block;
+}
 .ImageMenu-Img {
+    display: inline-block;
     width:30px;
+}
+
+.ImageMenu-ButtonLabel {
+    display: inline-block;
+    color: whitesmoke;
+    padding-top: 0px;
+    padding-left: 3px;
+    vertical-align: top;
 }

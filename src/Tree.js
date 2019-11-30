@@ -139,6 +139,7 @@ class Tree extends Component {
         return this._formatLeaf([this.props.root])
     }
 
+
     render() {
         return (
             <div className="Tree" >
