@@ -14,7 +14,7 @@ export default class PreviewTable extends Component {
 
     getHeader()
     {
-        let array = ["Content","Images"];
+        let array = ["Content"];
         array= array.concat(this.fields);
         array = array.map(el=>{return <div className="PreviewTable-Cell">{el}</div>})
 
@@ -31,31 +31,35 @@ export default class PreviewTable extends Component {
 
     getContent()
     {
-        let array = [this.leafdata];
-        array=array.concat(this.leafdata.getAllChildren(this.leafdata.id));
-        return array.map((item)=>{
-            let cells=[<MarkdownTextBox value={this.removeLabelAndFunction(item.description)}
+        let array = this.leafdata.children;
+        return array.map((child)=>{
+            let cells=[<MarkdownTextBox value={this.removeLabelAndFunction(child.description)}
                                         focus={false} />];
-            cells.push(<ImgViewer leafdata={item} />)
             for(let field of this.fields)
             {
                 let val="";
-                if(item.labelExists(field))
-                {
-                    let tmp = item.getLabelValues(field);
-                    if(tmp.length>0)
+                let grandchildren=child.getAllChildren();
+                grandchildren.forEach((item)=>{
+                    if(item.labelExists(field))
                     {
-                        val = tmp;
+                        let tmp = item.getLabelValues(field);
+                        if(tmp.length>0)
+                        {
+                            if(val==="")
+                            {
+                                val = tmp;
+                            }
+                            else
+                            {
+                                val = val + '\n' + tmp;
+                            }
+                        }
+                        else
+                        {
+                            val = '\u2705';
+                        }
                     }
-                    else
-                    {
-                        val = '\u2705';
-                    }
-                }
-                else
-                {
-                     val = '';
-                }
+                })
                 cells.push(val);
             }
             cells=cells.map(el=>{return <div className="PreviewTable-Cell">{el}</div>});

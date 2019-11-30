@@ -186,7 +186,8 @@ class Leaf extends Component {
                                              reservedItems={this.reservedList.items}
                                              onChange={(e)=>this.onChangeHandler(e)}
                                              focus={this._getIsFocused()}
-                                             textAreaStyle={{height:"220px",fontFamily:"sans-serif", fontSize:"100%"}}
+                                             descriptionStyle={{minWidth: "100px", maxWidth: "200px"}}
+                                             textAreaStyle={{height:"170px",fontFamily:"sans-serif", fontSize:"100%"}}
                                               />
                         </div>
                     </div>
@@ -252,8 +253,6 @@ function collectDrop(connect, monitor) {
         isOver: monitor.isOver()
     }
 }
-
-
 
 Leaf=DropTarget("leaf", dropSpec, collectDrop)(Leaf)
 Leaf=DragSource("leaf", dragSpec, collectDrag)(Leaf)

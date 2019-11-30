@@ -22,7 +22,9 @@ export default class Property{
         return {
             none:0,
             Tree:1,
-            Table:2
+            List:2,
+            Table:3,
+            Sentence:4
         }
     }
 

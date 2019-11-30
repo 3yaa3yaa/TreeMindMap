@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './ImageMenu.css';
-import previewimg from './images/gopreview.png'
-import tableimg from './images/gotable.png'
+import previewimg from './images/gopreviewwhite.png'
 import downimg from './images/down.png'
 import rightimg from './images/right.png'
 import cameraimg from './images/camera.png'
@@ -78,41 +77,34 @@ export default class ImageMenu extends Component {
 
     render() {
         return <div className="ImageMenu" style={this.props.style}>
-            <label htmlFor={this.props.leafdata.id+"-menu-preview"}  className="ImageMenu-Label">
+            <label  className="ImageMenu-label" htmlFor={this.props.leafdata.id+"-menu-preview"}  className="ImageMenu-Label">
                 <img className="ImageMenu-Img" src={previewimg} alt="Go Preview" />
             </label>
-            <input type='button' id={this.props.leafdata.id+"-menu-preview"} className="ImageMenu-Item"  value="Add"
+            <input type='button' id={this.props.leafdata.id+"-menu-preview"} className="ImageMenu-Item"  value="preview"
                    onClick={(e) => {this.props.changePreviewMode(Property.previewMode().Tree)}} />
 
 
-            <label htmlFor={this.props.leafdata.id+"-menu-table"}  className="ImageMenu-Label">
-                <img className="ImageMenu-Img" src={tableimg} alt="Go Table" />
-            </label>
-            <input type='button' id={this.props.leafdata.id+"-menu-table"} className="ImageMenu-Item"  value="Add"
-                   onClick={(e) => {this.props.changePreviewMode(Property.previewMode().Table)}} />
-
-
-            <label htmlFor={this.props.leafdata.id + "-menu-camera"} className="ImageMenu-Label">
+            <label  className="ImageMenu-label" htmlFor={this.props.leafdata.id + "-menu-camera"} className="ImageMenu-Label">
                 <img className="ImageMenu-Img" src={cameraimg} alt="Add pictures" />
             </label>
             <input type='file' id={this.props.leafdata.id+"-menu-camera"} className="ImageMenu-Item"
                    onChange={(e) => {this.fileChangeHandler(e)}} />
             {this.state.imgcanvas}
 
-            <label htmlFor={this.props.leafdata.id + "-menu-palette"} className="ImageMenu-Label">
+            <label  className="ImageMenu-label" htmlFor={this.props.leafdata.id + "-menu-palette"} className="ImageMenu-Label">
                 <img className="ImageMenu-Img" src={paletteimg} alt="Choose color" />
             </label>
             <input type='color' id={this.props.leafdata.id+"-menu-palette"} className="ImageMenu-Item"
                    onChange={(e) => {this.colorPickHandler(e)}} />
 
-            <label htmlFor={this.props.leafdata.id+"-menu-right"} className="ImageMenu-Label">
-                <img className="ImageMenu-Img" src={rightimg} alt="Add a child" />
+            <label  className="ImageMenu-label" htmlFor={this.props.leafdata.id+"-menu-right"} className="ImageMenu-Label">
+                <img className="ImageMenu-Img" src={rightimg} alt="Add child" />
             </label>
             <input type='button' id={this.props.leafdata.id+"-menu-right"} className="ImageMenu-Item" value="Add"
                    onClick={(e) => {this.props.addChild(this.props.leafdata.id)}} />
 
-            <label htmlFor={this.props.leafdata.id+"-menu-down"}  className="ImageMenu-Label" style={this.downButtonStyle()}>
-                <img className="ImageMenu-Img" src={downimg} alt="Add a sibling" />
+            <label  className="ImageMenu-label"  htmlFor={this.props.leafdata.id+"-menu-down"}  className="ImageMenu-Label" style={this.downButtonStyle()}>
+                <img className="ImageMenu-Img" src={downimg} alt="Add" />
             </label>
             <input type='button' id={this.props.leafdata.id+"-menu-down"} className="ImageMenu-Item"  value="Add"
                    onClick={(e) => {this.props.addSibling(this.props.leafdata.id)}} />
