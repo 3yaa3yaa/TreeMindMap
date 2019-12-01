@@ -9,7 +9,7 @@ class Burger extends Component {
 
     render() {
     return (
-        <div id="humberger" style={this.props.style}>
+        <div id="hamburger" style={this.props.style}>
             <div></div>
             <div></div>
             <div></div>

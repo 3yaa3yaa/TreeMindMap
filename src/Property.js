@@ -23,7 +23,7 @@ export default class Property{
             none:0,
             Tree:1,
             List:2,
-            Table:3,
+            Label:3,
             Sentence:4
         }
     }
