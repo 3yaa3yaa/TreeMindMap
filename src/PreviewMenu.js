@@ -45,8 +45,8 @@ export default class PreviewMenu extends Component {
                 , () => {this.changePreviewMode(Property.previewMode().Tree)})}
             {this.getCommandButton(Property.previewMode().Sentence, goPreviewImg,"Composition"
                 , () => {this.changePreviewMode(Property.previewMode().Sentence)})}
-            {this.getCommandButton(Property.previewMode().Table, tableimg,"Labels"
-                , () => {this.changePreviewMode(Property.previewMode().Table)})}
+            {this.getCommandButton(Property.previewMode().Label, tableimg,"Labels"
+                , () => {this.changePreviewMode(Property.previewMode().Label)})}
             {this.getCommandButton(Property.previewMode().List, tableimg,"List"
                 , () => {this.changePreviewMode(Property.previewMode().List)})}
             {this.getCommandButton(Property.previewMode().none, exportImg,"Export"

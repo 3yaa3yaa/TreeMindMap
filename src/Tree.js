@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Tree.css';
-import Leaf from "./Leaf"
+import DnDLeaf from "./DnDLeaf";
 import Connector from "./Connector"
 import StateProvider from "./StateProvider"
 import {DragDropContext} from "react-dnd";
@@ -39,7 +39,7 @@ class Tree extends Component {
 
     _getLeaf(leaf)
     {
-        return <Leaf leafdata={leaf}
+        return <DnDLeaf leafdata={leaf}
                      focusId={this._getFocusId()}
                      edit={this.safeExec(this.props.edit)}
                      addChild={this.safeExec(this.props.addChild)}
