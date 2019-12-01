@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Property from "./Property";
-import { MarkdownTextBox } from '@3yaa3yaa/markdowntextbox';
+import {MarkdownTextBox} from "@3yaa3yaa/markdowntextbox"
 import './PreviewTable.css'
 import ImgViewer from "./ImgViewer";
 
