@@ -9,7 +9,7 @@ class ImgViewer extends Component {
 
     _generateImgs(imgs)
     {
-        return imgs.map((img)=><div><img className="ImgViewer-img" src={img} /></div>  )
+        return imgs.map((img)=><div><img className="ImgViewer-img" src={img} style={this.props.ImgStyle}/></div>  )
     }
 
 

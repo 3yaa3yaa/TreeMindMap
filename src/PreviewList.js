@@ -36,7 +36,7 @@ export default class PreviewList extends Component {
         return array.map((item)=>{
             let cells=[<MarkdownTextBox value={this.removeLabelAndFunction(item.description)}
                                         focus={false} />];
-            cells.push(<ImgViewer leafdata={item} />)
+            cells.push(<ImgViewer leafdata={item}  ImgStyle={{width:'300px'}}/>)
             for(let field of this.fields)
             {
                 let val="";
