@@ -3,9 +3,8 @@ import './Leaf.css';
 import ImgViewer from './ImgViewer'
 import ImageMenu from "./ImageMenu";
 import { DragSource, DropTarget } from 'react-dnd'
-import { MarkdownTextBox } from '@3yaa3yaa/markdowntextbox';
+import MarkDownTextBoxWrapper from "./MarkDownTextBoxWrapper";
 import StateProvider from './StateProvider';
-import ReservedList from "./Reserved";
 
 class Leaf extends Component {
 
@@ -13,8 +12,6 @@ class Leaf extends Component {
         super(props);
         this.leafTextAreaRef=React.createRef()
         this.leafRef=React.createRef()
-        this.reservedList = new ReservedList((label)=>{return this.props.leafdata.sumLabelsOfChildren(label)}
-                                            , (label)=>{return this.props.leafdata.countLabelsOfChildren(label)});
     }
 
     componentDidMount()
@@ -182,8 +179,7 @@ class Leaf extends Component {
                 >
                     <div className="Leaf-Row">
                         <div className="Leaf-Colomuns">
-                            <MarkdownTextBox value={this.props.leafdata.description}
-                                             reservedItems={this.reservedList.items}
+                            <MarkDownTextBoxWrapper leafdata={this.props.leafdata}
                                              onChange={(e)=>this.onChangeHandler(e)}
                                              focus={this._getIsFocused()}
                                              descriptionStyle={{minWidth: "100px", maxWidth: "200px"}}
@@ -191,7 +187,7 @@ class Leaf extends Component {
                                               />
                         </div>
                     </div>
-                    <div className="Leaf-Row"><ImgViewer leafdata={this.props.leafdata}/></div>
+                    <div className="Leaf-Row"><ImgViewer leafdata={this.props.leafdata} ImgStyle={{width:'200px'}}/></div>
                 </div>
                 <div className="Leaf-Colomuns">
                     <ImageMenu leafdata={this.props.leafdata}
