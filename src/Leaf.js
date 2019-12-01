@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './Leaf.css';
 import ImgViewer from './ImgViewer'
 import ImageMenu from "./ImageMenu";
-import { DragSource, DropTarget } from 'react-dnd'
 import MarkDownTextBoxWrapper from "./MarkDownTextBoxWrapper";
 import StateProvider from './StateProvider';
 
@@ -12,12 +11,10 @@ class Leaf extends Component {
         super(props);
         this.leafTextAreaRef=React.createRef()
         this.leafRef=React.createRef()
+        this.state={flag:true}
+
     }
 
-    componentDidMount()
-    {
-        //this.leafTextAreaRef.focus()
-    }
 
     keyDownHandler(e) {
         switch (e.keyCode) {
@@ -58,14 +55,6 @@ class Leaf extends Component {
                     this.props.walk(StateProvider.whereToMove().DOWN);
                     break;
                 }
-            // case 37 : //LEFT
-            //     e.preventDefault()
-            //     this.props.walk(StateProvider.whereToMove().LEVELUP);
-            //     break;
-            // case 39: //RIGHT
-            //     e.preventDefault()
-            //     this.props.walk(StateProvider.whereToMove().LEVELDOWN);
-            //     break;
         }
     }
 
@@ -76,25 +65,9 @@ class Leaf extends Component {
         this.props.edit(newleaf)
     }
 
-
-    _getTextAreaStyle()
+    stateChange()
     {
-        let leafsize=this._getLeafSize()
-
-        return {
-            textAlign: "left",
-            backgroundColor: "transparent",
-            border: "none",
-            width: leafsize.width,
-            height: leafsize.height,
-            margin: "1px",
-            padding: "0px",
-            minWidth: "50px",
-            verticalAlign: "middle",
-            color: "white",
-            webkitUserSelect : "auto",
-            //webkitOverflowScrolling: "touch"
-        }
+        this.setState({flag: this.state.flag===false})
     }
 
     _getLeafStyle()
@@ -113,30 +86,6 @@ class Leaf extends Component {
             borderRadius:"10px",
             resize: "both"
             }
-    }
-
-    _getLeafSize() {
-        let widthtobeset = "50px"
-        if (typeof (this.props.leafdata.description) == "string") {
-            let lines = this.props.leafdata.description.split('\n')
-            let reducer = (acc, curr) => {
-                if (acc < curr) {
-                    return curr
-                } else {
-                    return acc
-                }
-            };
-            let maxwidth = lines.map((line) => line.length).reduce(reducer, 5)
-            widthtobeset = (Math.floor(maxwidth / 5) * 75)
-            if (widthtobeset > 200) {
-                widthtobeset = 200
-            }
-            widthtobeset = widthtobeset + "px"
-        }
-        let out= {
-            width: widthtobeset
-        }
-        return out;
     }
 
     _getMenuVisibility()
@@ -169,8 +118,6 @@ class Leaf extends Component {
     return (
         <div className="Leaf"
              onKeyDown={(e)=>this.keyDownHandler(e)}
-             onMouseOver={(e)=>this.setState({hover:true})}
-             onMouseLeave={(e)=>this.setState({hover:false})}
              style={this._getLeafStyle()}
              ref={(e)=>{this.leafRef=e}} >
             <div className="Leaf-Row">
@@ -191,7 +138,7 @@ class Leaf extends Component {
                 </div>
                 <div className="Leaf-Colomuns">
                     <ImageMenu leafdata={this.props.leafdata}
-                          edit={this.props.edit}
+                          edit={(leaf)=>{this.props.edit(leaf);this.stateChange();}}
                           addChild={this.props.addChild}
                           addSibling={this.props.addSibling}
                           changePreviewMode={this.props.changePreviewMode}
@@ -204,53 +151,10 @@ class Leaf extends Component {
     }
 
     render() {
-        //const { isDragging,dragSource, text, connectDropTarget, isOver, children } = this.props;
-        const { connectDragSource, connectDropTarget } = this.props;
         return (
-             connectDropTarget(connectDragSource(
                  this._getDOM()
-             ))
         );
     }
 }
-
-const dragSpec = {
-    beginDrag: (props) => { return props.leafdata },
-    endDrag: (props,monitor,component)=>{
-        let dragged=monitor.getItem()
-        let dropped=monitor.getDropResult()
-        if(dropped!=null)
-        {
-            if(dragged.id!=dropped.id)
-            {
-                component.props.move(dragged.id, dropped.id);
-            }
-        }
-    }
-}
-
-const dropSpec = {
-    drop: (props, monitor, component)=> {
-        return props.leafdata;
-    }
-}
-
-
-function collectDrag(connect, monitor) {
-    return {
-        connectDragSource: connect.dragSource(),
-        isDragging: monitor.isDragging()
-    }
-}
-
-function collectDrop(connect, monitor) {
-    return {
-        connectDropTarget: connect.dropTarget(),
-        isOver: monitor.isOver()
-    }
-}
-
-Leaf=DropTarget("leaf", dropSpec, collectDrop)(Leaf)
-Leaf=DragSource("leaf", dragSpec, collectDrag)(Leaf)
 
 export default Leaf ;

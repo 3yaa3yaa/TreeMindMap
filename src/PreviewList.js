@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Property from "./Property";
 import { MarkdownTextBox } from '@3yaa3yaa/markdowntextbox';
-import './PreviewList.css'
 import ImgViewer from "./ImgViewer";
 
 export default class PreviewList extends Component {
@@ -16,9 +15,9 @@ export default class PreviewList extends Component {
     {
         let array = ["Content","Images"];
         array= array.concat(this.fields);
-        array = array.map(el=>{return <div className="PreviewList-Cell">{el}</div>})
+        array = array.map(el=>{return <div style={this.GetPreviewListCellStyle()}>{el}</div>})
 
-        return <div className="PreviewList-Header">{array}</div>;
+        return <div style={this.GetPreviewListHeaderStyle()}>{array}</div>;
     }
 
     removeLabelAndFunction(text)
@@ -58,12 +57,44 @@ export default class PreviewList extends Component {
                 }
                 cells.push(val);
             }
-            cells=cells.map(el=>{return <div className="PreviewList-Cell">{el}</div>});
-            return <div className="PreviewList-Row">{cells}</div>});
+            cells=cells.map(el=>{return <div style={this.GetPreviewListCellStyle()}>{el}</div>});
+            return <div style={this.GetPreviewListRowStyle()}>{cells}</div>});
     }
 
+    GetPreviewListStyle() {
+        return {display: "table",
+        width:"auto",
+        borderStyle: "solid",
+        borderWidth: "0.3px",
+        borderColor: "darkslategray",
+        marginTop: "15px",
+        marginRight:"15px"}
+    }
+
+
+    GetPreviewListHeaderStyle() {
+        return {display: "table-header-group",
+        fontWeight: "bold"}
+    }
+
+    GetPreviewListRowStyle() {
+        return {display: "table-row"}
+    }
+
+    GetPreviewListCellStyle() {
+        return {display: "table-cell",
+                verticalAlign: "top",
+                textAlign: "left",
+                maxWidth:"600px",
+                padding: "3px",
+                borderStyle: "solid",
+                borderWidth: "0.3px",
+                borderColor: "darkslategray"}
+    }
+
+
     render() {
-        return <div className="PreviewList">
+        return <div style={this.GetPreviewListStyle()}>
             {this.getHeader()}
             {this.getContent()}
                </div>

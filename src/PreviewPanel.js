@@ -3,7 +3,7 @@ import './PreviewPanel.css';
 import Property from "./Property";
 import Tree from './Tree'
 import PreviewMenu from "./PreviewMenu";
-import PreviewTable from "./PreviewTable";
+import PreviewLabels from "./PreviewLabels";
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
 import PreviewSentence from "./PreviewSentence";
@@ -28,8 +28,8 @@ class PreviewPanel extends Component {
                 return <Tree root={this.leafdata} property={props}/>;
             case Property.previewMode().List:
                 return <PreviewList leafdata={this.leafdata} />;
-            case Property.previewMode().Table:
-                return <PreviewTable leafdata={this.leafdata} />;
+            case Property.previewMode().Label:
+                return <PreviewLabels leafdata={this.leafdata} />;
             case Property.previewMode().Sentence:
                 return <PreviewSentence leafdata={this.leafdata} />;
             default:
@@ -41,6 +41,8 @@ class PreviewPanel extends Component {
     {
         switch (this.props.previewMode) {
             case Property.previewMode().Sentence:
+            case Property.previewMode().Label:
+            case Property.previewMode().List:
                 let blob=new Blob([this.previewRef.current.innerHTML], {type: "text/plain;charset=utf-8"})
                 saveAs(blob,"treemindmap.html");
                 break;
