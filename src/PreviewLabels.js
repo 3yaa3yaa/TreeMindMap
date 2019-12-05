@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Property from "./Property";
-import {MarkdownTextBox} from "@3yaa3yaa/markdowntextbox"
 import './PreviewLabels.css'
 import ReadOnlyLeaf from "./ReadOnlyLeaf";
+import InstructionMessage from "./InstructionMessage";
+import Property from "./Property";
+
 
 export default class PreviewLabels extends Component {
 
@@ -34,7 +35,7 @@ export default class PreviewLabels extends Component {
         }
         else
         {
-            return <div>No Labels! Let's try adding #label on your Mind Map!</div>
+            return <InstructionMessage previewMode={Property.previewMode().Label} />
         }
     }
 

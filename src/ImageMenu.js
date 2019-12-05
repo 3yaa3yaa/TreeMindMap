@@ -35,7 +35,7 @@ export default class ImageMenu extends Component {
             reader.onloadend = () => {
                 let img=new Image()
                 img.onload=()=>{
-                    let w= 600
+                    let w= 1024
                     let ratio= w /img.width
                     let h=img.height*ratio
                     this.setState( {imgcanvas:

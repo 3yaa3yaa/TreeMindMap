@@ -1,6 +1,6 @@
 {
   "name": "treemindmap",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "",
   "main": "build/bundle.js",
   "repository": {
@@ -28,7 +28,6 @@
     "react-dnd": "^7.4.5",
     "react-dnd-html5-backend": "^7.4.5",
     "react-dom": "^16.12.0",
-    "react-onclickoutside": "^6.8.0",
     "react-redux": "^6.0.1",
     "redux": "~4.0.4",
     "webpack": "^4.12.0",
@@ -44,6 +43,8 @@
     "babel-jest": "24.9.0",
     "babel-loader": "^8.0.0",
     "css-loader": "^1.0.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^5.16.0",
     "file-loader": "^4.2.0",
     "jest": "^24.8.0",
