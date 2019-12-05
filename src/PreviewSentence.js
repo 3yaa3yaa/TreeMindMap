@@ -35,7 +35,7 @@ export default class PreviewSentence extends Component {
         }
         if(leafdata.imgs.length>0)
         {
-            out.push(<ImgViewer key={key}  leafdata={leafdata}   ImgStyle={{width:'500px'}}/>);
+            out.push(<ImgViewer leafdata={leafdata}   ImgStyle={{width:'500px'}}/>);
         }
         leafdata.children.forEach((child)=>this.fillContents(child, depth+1, out))
     }
