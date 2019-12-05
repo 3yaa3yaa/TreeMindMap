@@ -9,34 +9,34 @@ export default class ReservedList
         let arr=[];
         this.callback_sum=callback_sum;
         this.callback_count=callback_count;
-        arr.push(new Reserved('#',[" ","\n","\r\n","\r"], (node)=>{return this.getTagJSX(node)},"label(:value)"))
-        arr.push(new Reserved('=count(',[")"], (node)=>{return this.getCountJSX(node)},"label"))
-        arr.push(new Reserved('=sum(',[")"], (node)=>{return this.getSumJSX(node)},"label"))
-        arr.push(new Reserved('=mean(',[")"], (node)=>{return this.getMeanJSX(node)},"label"))
+        arr.push(new Reserved('#',[" ","\n","\r\n","\r"], (node, key)=>{return this.getTagJSX(node, key)},"label(:value)"))
+        arr.push(new Reserved('=count(',[")"], (node, key)=>{return this.getCountJSX(node, key)},"label"))
+        arr.push(new Reserved('=sum(',[")"], (node, key)=>{return this.getSumJSX(node, key)},"label"))
+        arr.push(new Reserved('=mean(',[")"], (node, key)=>{return this.getMeanJSX(node, key)},"label"))
         this.items=arr;
     }
 
-    getMeanJSX(text){
+    getMeanJSX(text, key){
         if(text===null || text===undefined){text=""};
-        return <div style={this.getBoldTagStyle()}>{this.callback_sum(text)/this.callback_count(text)}</div>;
+        return <div key={key} style={this.getBoldTagStyle()}>{this.callback_sum(text)/this.callback_count(text)}</div>;
     }
 
-    getSumJSX(text)
+    getSumJSX(text, key)
     {
         if(text===null || text===undefined){text=""};
-        return <div style={this.getBoldTagStyle()}>{this.callback_sum(text)}</div>;
+        return <div key={key} style={this.getBoldTagStyle()}>{this.callback_sum(text)}</div>;
     }
 
-    getCountJSX(text)
+    getCountJSX(text, key)
     {
         if(text===null || text===undefined){text=""};
-        return <div style={this.getBoldTagStyle()}>{this.callback_count(text)}</div>;
+        return <div key={key} style={this.getBoldTagStyle()}>{this.callback_count(text)}</div>;
     }
 
 
-    getTagJSX(text)
+    getTagJSX(text, key)
     {
-        return <div style={this.getTagStyle()}>{text}</div>;
+        return <div key={key} style={this.getTagStyle()}>{text}</div>;
     }
 
     getTagStyle()

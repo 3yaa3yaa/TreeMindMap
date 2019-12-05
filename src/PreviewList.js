@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Property from "./Property";
 import { MarkdownTextBox } from '@3yaa3yaa/markdowntextbox';
 import ImgViewer from "./ImgViewer";
+import InstructionMessage from "./InstructionMessage";
 
 export default class PreviewList extends Component {
 
@@ -92,12 +93,24 @@ export default class PreviewList extends Component {
                 borderColor: "darkslategray"}
     }
 
+    getContentOrInstruction()
+    {
+        if(this.leafdata.isNullObject())
+        {
+            return <InstructionMessage />
+        }
+        else
+        {
+            return <div style={this.GetPreviewListStyle()}>
+                {this.getHeader()}
+                {this.getContent()}
+            </div>
+        }
+    }
+
 
     render() {
-        return <div style={this.GetPreviewListStyle()}>
-            {this.getHeader()}
-            {this.getContent()}
-               </div>
+        return this.getContentOrInstruction()
     }
 }
 

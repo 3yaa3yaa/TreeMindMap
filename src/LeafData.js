@@ -43,6 +43,18 @@ export default class LeafData{
         return null;
     }
 
+    isNullObject()
+    {
+        if(this.children.length===0 && this.description==="" && this.imgs.length===0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     getParent(id)
     {
         if(this.children.find(l => l.id===id) != undefined)
