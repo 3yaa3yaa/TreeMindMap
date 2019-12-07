@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './ImageMenu.css';
-import previewimg from './images/gopreviewwhite.png'
-import downimg from './images/down.png'
-import rightimg from './images/right.png'
-import cameraimg from './images/camera.png'
-import paletteimg from './images/palette.png'
+import previewimg from './images/gopreviewwhite.png';
+import downimg from './images/down.png';
+import rightimg from './images/right.png';
+import cameraimg from './images/camera.png';
+import paletteimg from './images/palette.png';
 import ImgCanvas from "./ImgCanvas";
 import Property from "./Property";
 

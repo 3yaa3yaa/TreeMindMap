@@ -263,4 +263,9 @@ export default class LeafData{
         return array.length;
     }
 
+    meanLabelsOfChildren(label)
+    {
+        return Math.round((this.sumLabelsOfChildren(label)/this.countLabelsOfChildren(label)) * 10) / 10 // 出力：123.5
+    }
+
 }
