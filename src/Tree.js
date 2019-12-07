@@ -43,7 +43,7 @@ class Tree extends Component {
                      focusId={this._getFocusId()}
                      edit={this.safeExec(this.props.edit)}
                      addChild={this.safeExec(this.props.addChild)}
-                     delete={this.safeExec(this.props.delete)}
+                        delete={this.safeExec(this.props.delete)}
                      addSibling={this.safeExec(this.props.addSibling)}
                      move={this.safeExec(this.props.move)}
                      walk={this.safeExec(this.props.walk)}
@@ -80,31 +80,32 @@ class Tree extends Component {
     }
 
 
+
     _formatLeaf(dataarr) {
         let out = []
         if(dataarr!=null)
         {
             dataarr.forEach((leaf)=>{
                 out.push((
-                    <ul key={leaf.id + "-block"} className="Tree-Element">
-                        <li key={leaf.id + "-connector"} className="Tree-Trunk">
+                    <ul key={leaf.id + "-block"} className="Tree-Element" style={{margin:"0px"}}>
+                        <li key={leaf.id + "-connector"} className="Tree-Trunk"  style={{margin:"0px"}}>
                             {this._getConnector(leaf)}
                         </li>
-                        <li key={leaf.id + "-leaf"} className="Tree-Trunk">
-                            <ul  key={leaf.id + "-leaf-element"} className="Tree-Element">
-                                <li key={leaf.id + "-leaf-detail"} className="Tree-Trunk-Sub">
+                        <li key={leaf.id + "-leaf"} className="Tree-Trunk" style={{margin:"0px"}}>
+                            <ul key={leaf.id + "-leaf-element"} className="Tree-Element" style={{margin:"0px"}}>
+                                <li key={leaf.id + "-leaf-detail"} className="Tree-Trunk-Sub" style={{margin:"0px"}}>
                                     {this._getLeaf(leaf)}
                                 </li>
                             </ul>
                         </li>
-                        <li  key={leaf.id + "-leaf-children"} className="Tree-Branch" >
+                        <li key={leaf.id + "-leaf-children"} className="Tree-Branch"  style={{margin:"0px"}}>
                             {this._formatLeaf(leaf.getChildren(leaf.id))}
                         </li>
                     </ul>
                 ))
             })
         }
-        return <ul>{out}</ul>
+        return <ul style={{margin:"0px"}}>{out}</ul>
     }
 
     _getMode(root, id)

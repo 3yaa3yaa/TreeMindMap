@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Property from "./Property";
 import MarkDownTextBoxWrapper from "./MarkDownTextBoxWrapper";
-import './PreviewSentence.css'
 import ImgViewer from "./ImgViewer";
+import InstructionMessage from "./InstructionMessage";
+import LeafData from "./LeafData";
 
 export default class PreviewSentence extends Component {
 
@@ -14,9 +15,16 @@ export default class PreviewSentence extends Component {
 
     getContent()
     {
-        let out=[];
-        this.fillContents(this.leafdata,1, out);
-        return out;
+        if(this.leafdata.isNullObject())
+        {
+            return <InstructionMessage />
+        }
+        else
+        {
+            let out=[];
+            this.fillContents(this.leafdata,1, out);
+            return out;
+        }
     }
 
     fillContents(leafdata, depth, out)
@@ -61,12 +69,12 @@ export default class PreviewSentence extends Component {
 
     getTag(depth,leafdata)
     {
-        let outputdata= Object.assign({}, leafdata);
+        let outputdata = LeafData.getNewObject(leafdata);
         outputdata.description=this.removeHeader(leafdata.description)
         if(outputdata.children.length>0 && depth<7) {
             outputdata.description = 'h' + depth + '.' + outputdata.description;
         }
-        return <p><MarkDownTextBoxWrapper leafdata={outputdata}/></p>;
+        return <div key={leafdata.id} className="PreviewSentence-Paragraph" style={{display:"block", marginBottom:"5px"}}><MarkDownTextBoxWrapper leafdata={outputdata}/></div>;
 
     }
 

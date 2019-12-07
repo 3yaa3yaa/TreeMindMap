@@ -4,8 +4,9 @@ import Property from "./Property";
 import backToEditImg from './images/backtoedit.png'
 import goPreviewImg from './images/gopreview.png'
 import exportImg from './images/export.png'
-import tableimg from './images/gotable.png'
-
+import tableImg from './images/gotable.png'
+import documentImg from './images/document.png'
+import labelimg from "./images/label.png"
 
 export default class PreviewMenu extends Component {
 
@@ -20,7 +21,7 @@ export default class PreviewMenu extends Component {
         const id="PreviewMenu-" + text;
         return <li className="PreviewMenu-button">
             <label htmlFor={id} className="ImageMenu-Label" style={this.getCommandLabelStyle(previewMode)}>
-                <img className="PreviewMenu-Img" src={buttonimg} alt="Preview/Export view" />
+                <img className="PreviewMenu-Img" src={buttonimg} />
                 <div className="PreviewMenu-ButtonLabel">{text}</div>
             </label>
             <input type='button' id={id} className="PreviewMenu-Item"
@@ -43,11 +44,11 @@ export default class PreviewMenu extends Component {
                 , () => {this.changePreviewMode(Property.previewMode().none)})}
             {this.getCommandButton(Property.previewMode().Tree, goPreviewImg,"Preview"
                 , () => {this.changePreviewMode(Property.previewMode().Tree)})}
-            {this.getCommandButton(Property.previewMode().Sentence, goPreviewImg,"Composition"
+            {this.getCommandButton(Property.previewMode().Sentence, documentImg,"Composition"
                 , () => {this.changePreviewMode(Property.previewMode().Sentence)})}
-            {this.getCommandButton(Property.previewMode().Label, tableimg,"Labels"
+            {this.getCommandButton(Property.previewMode().Label, labelimg,"Labels"
                 , () => {this.changePreviewMode(Property.previewMode().Label)})}
-            {this.getCommandButton(Property.previewMode().List, tableimg,"List"
+            {this.getCommandButton(Property.previewMode().List, tableImg,"List"
                 , () => {this.changePreviewMode(Property.previewMode().List)})}
             {this.getCommandButton(Property.previewMode().none, exportImg,"Export"
                 , () => {this.export()})}

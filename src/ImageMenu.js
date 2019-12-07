@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './ImageMenu.css';
-import previewimg from './images/gopreviewwhite.png'
-import downimg from './images/down.png'
-import rightimg from './images/right.png'
-import cameraimg from './images/camera.png'
-import paletteimg from './images/palette.png'
+import previewimg from './images/gopreviewwhite.png';
+import downimg from './images/down.png';
+import rightimg from './images/right.png';
+import cameraimg from './images/camera.png';
+import paletteimg from './images/palette.png';
 import ImgCanvas from "./ImgCanvas";
 import Property from "./Property";
 
@@ -35,7 +35,7 @@ export default class ImageMenu extends Component {
             reader.onloadend = () => {
                 let img=new Image()
                 img.onload=()=>{
-                    let w= 600
+                    let w= 1024
                     let ratio= w /img.width
                     let h=img.height*ratio
                     this.setState( {imgcanvas:
