@@ -37,7 +37,7 @@ export default class PreviewLabels extends Component {
         if(this.fields.length>0)
         {
             return this.fields.map((field, fieldid)=>{
-                let items=this.leafdata.getAllChildren().map((child, itemid)=>{
+                let items=this.leafdata.getAllFamilyMembers().map((child, itemid)=>{
                     if(child.labelExists(field))
                     {
                         return <div key={`val-${fieldid}-${itemid}`}

@@ -132,6 +132,13 @@ export default class LeafData{
         }
     }
 
+    getAllFamilyMembers()
+    {
+        let out=[this];
+        out=out.concat(this.getAllChildren());
+        return out;
+    }
+
 
     getAllChildren()
     {

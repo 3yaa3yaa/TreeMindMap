@@ -6,7 +6,7 @@ import goPreviewImg from './images/gopreview.png'
 import exportImg from './images/export.png'
 import tableImg from './images/gotable.png'
 import documentImg from './images/document.png'
-
+import labelimg from "./images/label.png"
 
 export default class PreviewMenu extends Component {
 
@@ -46,7 +46,7 @@ export default class PreviewMenu extends Component {
                 , () => {this.changePreviewMode(Property.previewMode().Tree)})}
             {this.getCommandButton(Property.previewMode().Sentence, documentImg,"Composition"
                 , () => {this.changePreviewMode(Property.previewMode().Sentence)})}
-            {this.getCommandButton(Property.previewMode().Label, tableImg,"Labels"
+            {this.getCommandButton(Property.previewMode().Label, labelimg,"Labels"
                 , () => {this.changePreviewMode(Property.previewMode().Label)})}
             {this.getCommandButton(Property.previewMode().List, tableImg,"List"
                 , () => {this.changePreviewMode(Property.previewMode().List)})}
