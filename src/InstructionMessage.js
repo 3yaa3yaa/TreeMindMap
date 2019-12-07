@@ -34,7 +34,7 @@ export default class InstructionMessage extends Component {
 
 
     render() {
-        return <div style={{marginTop:"5px", width:"600px"}}>
+        return <div testkey="hasnodata" style={{marginTop:"5px", width:"600px"}}>
             <div style={{fontSize:"10em", align:"center", position:"block"}}>{this.getRandomImage()}</div>
             {this.getContent()}
         </div>
