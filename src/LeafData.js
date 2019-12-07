@@ -43,6 +43,18 @@ export default class LeafData{
         return null;
     }
 
+    isNullObject()
+    {
+        if(this.children.length===0 && this.description==="" && this.imgs.length===0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     getParent(id)
     {
         if(this.children.find(l => l.id===id) != undefined)
@@ -118,6 +130,13 @@ export default class LeafData{
         {
             return l.children;
         }
+    }
+
+    getAllFamilyMembers()
+    {
+        let out=[this];
+        out=out.concat(this.getAllChildren());
+        return out;
     }
 
 
@@ -249,6 +268,11 @@ export default class LeafData{
     {
         let array=this.getNumericValuesOfChildren(label);
         return array.length;
+    }
+
+    meanLabelsOfChildren(label)
+    {
+        return Math.round((this.sumLabelsOfChildren(label)/this.countLabelsOfChildren(label)) * 10) / 10 // 出力：123.5
     }
 
 }

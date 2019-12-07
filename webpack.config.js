@@ -38,7 +38,7 @@ module.exports = {
                 use: {
                     loader: 'url-loader',
                     options: {
-                        limit: 8192,
+                        limit: 10000,
                     },
                 },
             },

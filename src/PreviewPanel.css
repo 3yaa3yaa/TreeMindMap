@@ -1,7 +1,7 @@
 
 
 .PreviewPanel {
-    display:flex;
+    display:table-row;
     width:100%;
     min-width: 500px;
     height:auto;
@@ -12,7 +12,7 @@
 }
 
 .PreviewPanel-Menu {
-    display: block;
+    display: table-cell;
     margin-top: 5px;
     width: 175px;
     min-width: 175px;
@@ -21,7 +21,7 @@
     margin-right: 0px;
 }
 .PreviewPanel-Main {
-    display:block;
+    display:table-cell;
     width: fit-content;
     margin-top: 4px;
     vertical-align: top;

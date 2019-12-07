@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Property from "./Property";
 import { MarkdownTextBox } from '@3yaa3yaa/markdowntextbox';
 import ImgViewer from "./ImgViewer";
+import InstructionMessage from "./InstructionMessage";
 
 export default class PreviewList extends Component {
 
@@ -15,7 +16,7 @@ export default class PreviewList extends Component {
     {
         let array = ["Content","Images"];
         array= array.concat(this.fields);
-        array = array.map(el=>{return <div style={this.GetPreviewListCellStyle()}>{el}</div>})
+        array = array.map((el,index)=>{return <div key={`header-${index}`} style={this.GetPreviewListCellStyle()}>{el}</div>})
 
         return <div style={this.GetPreviewListHeaderStyle()}>{array}</div>;
     }
@@ -32,7 +33,7 @@ export default class PreviewList extends Component {
     {
         let array = [this.leafdata];
         array=array.concat(this.leafdata.getAllChildren(this.leafdata.id));
-        return array.map((item)=>{
+        return array.map((item,rownum)=>{
             let cells=[<MarkdownTextBox value={this.removeLabelAndFunction(item.description)}
                                         focus={false} />];
             cells.push(<ImgViewer leafdata={item}  ImgStyle={{width:'300px'}}/>)
@@ -57,8 +58,12 @@ export default class PreviewList extends Component {
                 }
                 cells.push(val);
             }
-            cells=cells.map(el=>{return <div style={this.GetPreviewListCellStyle()}>{el}</div>});
-            return <div style={this.GetPreviewListRowStyle()}>{cells}</div>});
+
+            cells=cells.map((el,colnum)=>{return <div key={`val-${rownum}-${colnum}`}
+                                                              testkey={"val-"+ rownum + "-"+ colnum}
+                                                              style={this.GetPreviewListCellStyle()
+                                                                    }>{el}</div>});
+            return <div key={`val-${rownum}`} style={this.GetPreviewListRowStyle()}>{cells}</div>});
     }
 
     GetPreviewListStyle() {
@@ -92,12 +97,24 @@ export default class PreviewList extends Component {
                 borderColor: "darkslategray"}
     }
 
+    getContentOrInstruction()
+    {
+        if(this.leafdata.isNullObject())
+        {
+            return <InstructionMessage />
+        }
+        else
+        {
+            return <div style={this.GetPreviewListStyle()}>
+                {this.getHeader()}
+                {this.getContent()}
+            </div>
+        }
+    }
+
 
     render() {
-        return <div style={this.GetPreviewListStyle()}>
-            {this.getHeader()}
-            {this.getContent()}
-               </div>
+        return this.getContentOrInstruction()
     }
 }
 
