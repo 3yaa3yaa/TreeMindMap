@@ -74,13 +74,15 @@ export default class PreviewSentence extends Component {
         if(outputdata.children.length>0 && depth<7) {
             outputdata.description = 'h' + depth + '.' + outputdata.description;
         }
-        return <div key={leafdata.id} className="PreviewSentence-Paragraph" style={{display:"block", marginBottom:"5px"}}><MarkDownTextBoxWrapper leafdata={outputdata}/></div>;
+        return <div key={leafdata.id} className="PreviewSentence-Paragraph" style={{display:"block", marginBottom:"5px"}}>
+            <MarkDownTextBoxWrapper leafdata={outputdata}/>
+        </div>;
 
     }
 
 
     render() {
-        return <div className="PreviewSentence">
+        return <div className="PreviewSentence" style={{width:"1000px"}} >
             {this.getContent()}
                </div>
     }
