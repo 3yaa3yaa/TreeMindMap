@@ -9,11 +9,9 @@ This is a NPM component of mind map tool written in React.
 https://www.npmjs.com/package/treemindmap
 
 ## What's it look like?
-Sample page -- https://3yaa3yaa.github.io/TreeMindMap-Site/
+Sample page -- https://treemindmap.netlify.com/
 ![howto](https://github.com/3yaa3yaa/TreeMindMap/blob/master/howto.png)
 
-## Projects that uses this component
-* https://github.com/3yaa3yaa/TreeMindMap-Site
 
 ## How to use this component?
 Use "<Map />" with parameters "initialState" and "stateHandler".
