@@ -235,5 +235,23 @@ describe('A suite', function() {
     })
 
 
+    it('should know it has code block', function(){
+        let data0= new LeafData(0,"```\ntest\n```",[]);
+        let data1= new LeafData(0,"```\ntest\n",[]);
+        let data2= new LeafData(0,"test",[]);
+        let data3= new LeafData(0,"```\ntest\n``",[]);
+        let data4= new LeafData(0,"```\ntest``\ntest\n```",[]);
+        let data5= new LeafData(0,"test\n```\ntest``\ntest\n```\ntest",[]);
+
+
+        expect(data0.codeExists()).toEqual(true);
+        expect(data1.codeExists()).toEqual(false);
+        expect(data2.codeExists()).toEqual(false);
+        expect(data3.codeExists()).toEqual(false);
+        expect(data4.codeExists()).toEqual(true);
+        expect(data5.codeExists()).toEqual(true);
+    })
+
+
 
 });
