@@ -204,6 +204,20 @@ export default class LeafData{
         }
     }
 
+    codeExists()
+    {
+        let regexp=/```([\n\r]|.)*```/;
+        if(regexp.test(this.description))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
     getLabelValues(label)
     {
         let regexp;

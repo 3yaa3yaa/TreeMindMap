@@ -112,6 +112,20 @@ class Leaf extends Component {
         }
     }
 
+    _getDescriptionStyle()
+    {
+        return {minWidth: "100px", maxWidth: "200px"};
+
+        // if(this.props.leafdata.codeExists())
+        // {
+        //     return {minWidth: "600px", maxWidth: "600px"}; //seems not working on markdowntextbox
+        // }
+        // else
+        // {
+        //     return {minWidth: "100px", maxWidth: "200px"};
+        // }
+    }
+
 
 
     _getDOM(){
@@ -129,7 +143,7 @@ class Leaf extends Component {
                             <MarkDownTextBoxWrapper leafdata={this.props.leafdata}
                                              onChange={(e)=>this.onChangeHandler(e)}
                                              focus={this._getIsFocused()}
-                                             descriptionStyle={{minWidth: "100px", maxWidth: "200px"}}
+                                             descriptionStyle={this._getDescriptionStyle()}
                                              textAreaStyle={{height:"170px",fontFamily:"sans-serif", fontSize:"100%"}}
                                               />
                         </div>
