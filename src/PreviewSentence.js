@@ -82,7 +82,7 @@ export default class PreviewSentence extends Component {
 
 
     render() {
-        return <div className="PreviewSentence" style={{width:"1000px"}} >
+        return <div className="PreviewSentence" style={{marginTop:"10px"}} >
             {this.getContent()}
                </div>
     }

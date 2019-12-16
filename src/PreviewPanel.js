@@ -54,6 +54,18 @@ class PreviewPanel extends Component {
         }
     }
 
+    getPreviewMainStyle()
+    {
+        switch (this.props.previewMode) {
+            case Property.previewMode().Sentence:
+            case Property.previewMode().Label:
+            case Property.previewMode().List:
+                return {width:"100%"};
+            default:
+                return {width:"fit-content"};
+        }
+    }
+
 
     render() {
         return <div className="PreviewPanel">
@@ -63,7 +75,7 @@ class PreviewPanel extends Component {
                                      previewMode={this.props.previewMode}
                         />
                     </div>
-                    <div className="PreviewPanel-Main" ref={this.previewRef}>
+                    <div className="PreviewPanel-Main" style={this.getPreviewMainStyle()} ref={this.previewRef}>
                         {this.getContent()}
                     </div>
                 </div>
