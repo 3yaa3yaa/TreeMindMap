@@ -58,7 +58,7 @@ class Leaf extends Component {
         }
     }
 
-    onChangeHandler(e)
+    onBlurHandler(e)
     {
         let newleaf = Object.assign({},this.props.leafdata)
         newleaf.description=e.target.value
@@ -141,7 +141,7 @@ class Leaf extends Component {
                     <div className="Leaf-Row">
                         <div className="Leaf-Colomuns">
                             <MarkDownTextBoxWrapper leafdata={this.props.leafdata}
-                                             onChange={(e)=>this.onChangeHandler(e)}
+                                             onBlur={(e)=>this.onBlurHandler(e)}
                                              focus={this._getIsFocused()}
                                              descriptionStyle={this._getDescriptionStyle()}
                                              textAreaStyle={{height:"170px",fontFamily:"sans-serif", fontSize:"100%"}}
