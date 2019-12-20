@@ -6,6 +6,10 @@ import "./Connector.css"
 // const canvasHeight = 30
 
 class Connector extends Component {
+
+    constructor(props) {
+        super(props);
+    }
     componentDidMount() {
     }
 
@@ -27,7 +31,7 @@ class Connector extends Component {
     _getSingleConnector()
     {
         return (
-            <div className="Connector-Table" style={this._getTableStyle()}>
+            <div key={this.props.leafid} className="Connector-Table" style={this._getTableStyle()}>
                 <div className="Connector-Row-top">
                     <div className="Connector-Single-TopLeft">&nbsp;</div>
                     <div className="Connector-Single-TopRight">&nbsp;</div>
@@ -43,7 +47,7 @@ class Connector extends Component {
     _getVerticalConnector()
     {
         return (
-            <div className="Connector-Table" style={this._getTableStyle()}>
+            <div key={this.props.leafid} className="Connector-Table" style={this._getTableStyle()}>
                 <div className="Connector-Row-top">
                     <div className="Connector-Vertical-TopLeft">&nbsp;</div>
                     <div className="Connector-Vertical-TopRight">&nbsp;</div>
@@ -59,7 +63,7 @@ class Connector extends Component {
     _getTopConnector()
     {
         return (
-        <div className="Connector-Table" style={this._getTableStyle()}>
+        <div key={this.props.leafid} className="Connector-Table" style={this._getTableStyle()}>
             <div className="Connector-Row-top">
                 <div className="Connector-Top-TopLeft">&nbsp;</div>
                 <div className="Connector-Top-TopRight">&nbsp;</div>
@@ -75,7 +79,7 @@ class Connector extends Component {
     _getMiddleConnector()
     {
         return (
-            <div className="Connector-Table" style={this._getTableStyle()}>
+            <div  key={this.props.leafid} className="Connector-Table" style={this._getTableStyle()}>
                 <div className="Connector-Row-top">
                     <div className="Connector-Middle-TopLeft">&nbsp;</div>
                     <div className="Connector-Middle-TopRight">&nbsp;</div>
@@ -92,7 +96,7 @@ class Connector extends Component {
     _getBottomConnector()
     {
         return (
-            <div className="Connector-Table" style={this._getTableStyle()}>
+            <div key={this.props.leafid} className="Connector-Table" style={this._getTableStyle()}>
                 <div className="Connector-Row-top">
                     <div className="Connector-Bottom-TopLeft">&nbsp;</div>
                     <div className="Connector-Bottom-TopRight">&nbsp;</div>
@@ -118,7 +122,7 @@ class Connector extends Component {
             case "BOTTOM":
                 return this._getBottomConnector()
             default:
-                return <div>&nbsp;</div>
+                return <div key={this.props.leafid}>&nbsp;</div>
         }
     }
 }
