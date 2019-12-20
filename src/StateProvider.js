@@ -167,7 +167,7 @@ class StateProvider
         leaf.description=newleaf.description;
         leaf.imgs=newleaf.imgs;
         leaf.color=newleaf.color;
-        return { root: LeafData.getNewObject(state.root) , property:state.property}
+        return { root: state.root , property:state.property}
     }
 
     static move(state, from, to, focusId)
@@ -181,7 +181,7 @@ class StateProvider
             destination.children=destination.children.concat(newleaf);
             currentParent.children=currentParent.children.filter(child=>child.id!=from);
         }
-        return { root: LeafData.getNewObject(state.root) , property:state.property}
+        return { root: state.root , property:state.property}
     }
 
 
