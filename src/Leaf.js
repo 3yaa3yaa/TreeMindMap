@@ -4,6 +4,7 @@ import ImgViewer from './ImgViewer'
 import ImageMenu from "./ImageMenu";
 import MarkDownTextBoxWrapper from "./MarkDownTextBoxWrapper";
 import StateProvider from './StateProvider';
+import LeafData from "./LeafData";
 
 class Leaf extends Component {
 
@@ -12,7 +13,15 @@ class Leaf extends Component {
         this.leafTextAreaRef=React.createRef()
         this.leafRef=React.createRef()
         this.state={flag:true}
+        this.textValueBuffer="";
 
+    }
+
+    edit()
+    {
+        let newleaf= LeafData.getNewObject(this.props.leafdata);
+        newleaf.description= this.textValueBuffer;
+        this.props.edit(newleaf);
     }
 
 
@@ -51,18 +60,19 @@ class Leaf extends Component {
             case 40: //Down
                 if (e.shiftKey!=true)
                 {
-                    e.preventDefault()
+                    e.preventDefault();
                     this.props.walk(StateProvider.whereToMove().DOWN);
                     break;
                 }
         }
     }
 
-    onBlurHandler(e)
+    leafUpdateHandler(e)
     {
-        let newleaf = Object.assign({},this.props.leafdata)
-        newleaf.description=e.target.value
-        this.props.edit(newleaf)
+        // let newleaf = Object.assign({},this.props.leafdata)
+        // newleaf.description=e.target.value
+        // this.props.edit(newleaf)
+        this.textValueBuffer=e.target.value;
     }
 
     stateChange()
@@ -141,7 +151,8 @@ class Leaf extends Component {
                     <div className="Leaf-Row">
                         <div className="Leaf-Colomuns">
                             <MarkDownTextBoxWrapper leafdata={this.props.leafdata}
-                                             onBlur={(e)=>this.onBlurHandler(e)}
+                                             onChange={(e)=>this.leafUpdateHandler(e)}
+                                             onBlur={()=>this.edit()}
                                              focus={this._getIsFocused()}
                                              descriptionStyle={this._getDescriptionStyle()}
                                              textAreaStyle={{height:"170px",fontFamily:"sans-serif", fontSize:"100%"}}

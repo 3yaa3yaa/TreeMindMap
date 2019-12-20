@@ -17,6 +17,7 @@ export default class MarkDownTextBoxWrapper extends Component {
             <MarkdownTextBox value={this.props.leafdata.description}
                              reservedItems={this.reservedList.items}
                              onChange={this.props.onChange}
+                             onBlur={this.props.onBlur}
                              focus={this.props.focus}
                              descriptionStyle={this.props.descriptionStyle}
                              textAreaStyle={this.props.textAreaStyle}
