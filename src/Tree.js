@@ -54,18 +54,19 @@ class Tree extends Component {
 
     _getConnector(leaf)
     {
-        let arr = [<Connector mode={this._getMode(this.props.root, leaf.id)}/>]
-        return arr;
+        // let arr = [<Connector leafid={leaf.id} mode={this._getMode(this.props.root, leaf.id)}/>]
+        // return arr;
+        return <Connector leafid={leaf.id} mode={this._getMode(this.props.root, leaf.id)}/>;
     }
-
-    _getConnectorSub(originalleaf,rootleaf,result)
-    {
-        StateProvider.filterAndSortLeafs(this.props.root,rootleaf.id).slice(1).forEach(
-            (leaf)=>{
-                result.push(<Connector mode={this._getVertical(originalleaf)}/>)
-                this._getConnectorSub(originalleaf,leaf,result)
-            })
-    }
+    //
+    // _getConnectorSub(originalleaf,rootleaf,result)
+    // {
+    //     StateProvider.filterAndSortLeafs(this.props.root,rootleaf.id).slice(1).forEach(
+    //         (leaf)=>{
+    //             result.push(<Connector mode={this._getVertical(originalleaf)}/>)
+    //             this._getConnectorSub(originalleaf,leaf,result)
+    //         })
+    // }
 
     _getVertical(leaf)
     {
