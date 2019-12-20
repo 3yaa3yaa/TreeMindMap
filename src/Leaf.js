@@ -73,6 +73,7 @@ class Leaf extends Component {
         // newleaf.description=e.target.value
         // this.props.edit(newleaf)
         this.textValueBuffer=e.target.value;
+        this.edit()
     }
 
     stateChange()
@@ -152,7 +153,6 @@ class Leaf extends Component {
                         <div className="Leaf-Colomuns">
                             <MarkDownTextBoxWrapper leafdata={this.props.leafdata}
                                              onChange={(e)=>this.leafUpdateHandler(e)}
-                                             onBlur={()=>this.edit()}
                                              focus={this._getIsFocused()}
                                              descriptionStyle={this._getDescriptionStyle()}
                                              textAreaStyle={{height:"170px",fontFamily:"sans-serif", fontSize:"100%"}}
