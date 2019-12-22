@@ -45,33 +45,18 @@ export default class PreviewSentence extends Component {
         return text.replace(/h[1-7]\./g,'');
     }
 
-    divideMessage(text)
-    {
-        let arr=[];
-        let tmp="";
-        this.removeHeader(text).split('\n').forEach((line,index)=>{
-            if(index===0)
-            {
-                arr.push(line);
-            }
-            if(index===1)
-            {
-                arr.push(line);
-            }
-            if(index>1)
-            {
-                arr[1]=arr[1]+"\n"+line;
-
-            }
-        });
-        return arr;
+    firstlineHasSpecialCharacter(text) {
+        let re = /^[^\n]*(```|#|\=sum|\=count|\=mean)/g;
+        return re.test(text);
     }
+
+
 
     getTag(depth,leafdata)
     {
         let outputdata = LeafData.getNewObject(leafdata);
         outputdata.description=this.removeHeader(leafdata.description)
-        if(outputdata.children.length>0 && depth<7) {
+        if(outputdata.children.length>0 && depth<7 && !this.firstlineHasSpecialCharacter(outputdata.description)) {
             outputdata.description = 'h' + depth + '.' + outputdata.description;
         }
         return <div key={leafdata.id} className="PreviewSentence-Paragraph" style={{display:"block", marginBottom:"5px"}}>

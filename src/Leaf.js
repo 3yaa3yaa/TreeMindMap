@@ -12,7 +12,7 @@ class Leaf extends Component {
         super(props);
         this.leafTextAreaRef=React.createRef()
         this.leafRef=React.createRef()
-        this.state={flag:true}
+        this.state={flag:true};
         this.textValueBuffer="";
 
     }
