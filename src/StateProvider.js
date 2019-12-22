@@ -181,7 +181,7 @@ class StateProvider
             destination.children=destination.children.concat(newleaf);
             currentParent.children=currentParent.children.filter(child=>child.id!=from);
         }
-        return { root: state.root , property:state.property}
+        return { root: LeafData.getNewObject(state.root) , property:state.property}
     }
 
 
