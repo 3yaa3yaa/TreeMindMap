@@ -37,22 +37,25 @@ describe('A suite', function() {
     it('should calculate numbers properly', function(){
         let data0= new LeafData(0,"first level:\n=sum()",[]);
         let data1= new LeafData(1,"second level:\n=count()",[]);
-        let data2= new LeafData(2,"third level:\n#10.5",[]);
-        let data3= new LeafData(3,"fourth level:\n#20.5",[]);
-        let data4= new LeafData(4,"fifth level:\n#30.5",[]);
+        let data2= new LeafData(2,"third level:\n=mean()",[]);
+        let data3= new LeafData(3,"fourth level:\n#10.5",[]);
+        let data4= new LeafData(4,"fifth level:\n#20.5",[]);
+        let data5= new LeafData(5,"sixth level:\n#30.5",[]);
 
         data0.children.push(data1);
         data1.children.push(data2);
         data2.children.push(data3);
         data3.children.push(data4);
+        data4.children.push(data5);
 
         const wrapper=mount(<PreviewSentence leafdata={data0}/>);
         //console.log(wrapper.debug());
         expect(wrapper.find('.PreviewSentence-Paragraph .description').at(0).text()).toEqual(expect.stringContaining("61.5"));
         expect(wrapper.find('.PreviewSentence-Paragraph .description').at(1).text()).toEqual(expect.stringContaining("3"));
-        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(2).text()).toEqual(expect.stringContaining("10.5"));
-        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(3).text()).toEqual(expect.stringContaining("20.5"));
-        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(4).text()).toEqual(expect.stringContaining("30.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(2).text()).toEqual(expect.stringContaining("20.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(3).text()).toEqual(expect.stringContaining("10.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(4).text()).toEqual(expect.stringContaining("20.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(5).text()).toEqual(expect.stringContaining("30.5"));
     });
 
 
@@ -60,22 +63,125 @@ describe('A suite', function() {
     it('should calculate labels properly', function(){
         let data0= new LeafData(0,"first level:\n=sum(label)",[]);
         let data1= new LeafData(1,"second level:\n=count(label)",[]);
-        let data2= new LeafData(2,"third level:\n#label:10.5",[]);
-        let data3= new LeafData(3,"fourth level:\n#label:20.5",[]);
-        let data4= new LeafData(4,"fifth level:\n#label:30.5",[]);
+        let data2= new LeafData(2,"third level:\n=mean(label)",[]);
+        let data3= new LeafData(3,"fourth level:\n#label:10.5",[]);
+        let data4= new LeafData(4,"fifth level:\n#label:20.5",[]);
+        let data5= new LeafData(5,"sixth level:\n#label:30.5",[]);
 
         data0.children.push(data1);
         data1.children.push(data2);
         data2.children.push(data3);
         data3.children.push(data4);
+        data4.children.push(data5);
 
         const wrapper=mount(<PreviewSentence leafdata={data0}/>);
         //console.log(wrapper.debug());
         expect(wrapper.find('.PreviewSentence-Paragraph .description').at(0).text()).toEqual(expect.stringContaining("61.5"));
         expect(wrapper.find('.PreviewSentence-Paragraph .description').at(1).text()).toEqual(expect.stringContaining("3"));
-        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(2).text()).toEqual(expect.stringContaining("10.5"));
-        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(3).text()).toEqual(expect.stringContaining("20.5"));
-        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(4).text()).toEqual(expect.stringContaining("30.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(2).text()).toEqual(expect.stringContaining("20.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(3).text()).toEqual(expect.stringContaining("10.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(4).text()).toEqual(expect.stringContaining("20.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(5).text()).toEqual(expect.stringContaining("30.5"));
+    });
+
+
+    it('should calculate numbers on first level properly', function(){
+        let data0= new LeafData(0,"=sum()",[]);
+        let data1= new LeafData(1,"=count()",[]);
+        let data2= new LeafData(2,"=mean()",[]);
+        let data3= new LeafData(3,"#10.5",[]);
+        let data4= new LeafData(4,"#20.5",[]);
+        let data5= new LeafData(5,"#30.5",[]);
+
+        data0.children.push(data1);
+        data1.children.push(data2);
+        data2.children.push(data3);
+        data3.children.push(data4);
+        data4.children.push(data5);
+
+        const wrapper=mount(<PreviewSentence leafdata={data0}/>);
+        //console.log(wrapper.debug());
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(0).text()).toEqual(expect.stringContaining("61.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(1).text()).toEqual(expect.stringContaining("3"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(2).text()).toEqual(expect.stringContaining("20.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(3).text()).toEqual(expect.stringContaining("10.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(4).text()).toEqual(expect.stringContaining("20.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(5).text()).toEqual(expect.stringContaining("30.5"));
+    });
+
+
+    it('should calculate numbers on first level properly', function(){
+        let data0= new LeafData(0,"=sum(label)",[]);
+        let data1= new LeafData(1,"=count(label)",[]);
+        let data2= new LeafData(2,"=mean(label)",[]);
+        let data3= new LeafData(3,"#label:10.5",[]);
+        let data4= new LeafData(4,"#label:20.5",[]);
+        let data5= new LeafData(5,"#label:30.5",[]);
+
+        data0.children.push(data1);
+        data1.children.push(data2);
+        data2.children.push(data3);
+        data3.children.push(data4);
+        data4.children.push(data5);
+
+        const wrapper=mount(<PreviewSentence leafdata={data0}/>);
+        //console.log(wrapper.debug());
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(0).text()).toEqual(expect.stringContaining("61.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(1).text()).toEqual(expect.stringContaining("3"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(2).text()).toEqual(expect.stringContaining("20.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(3).text()).toEqual(expect.stringContaining("10.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(4).text()).toEqual(expect.stringContaining("20.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(5).text()).toEqual(expect.stringContaining("30.5"));
+    });
+
+
+    it('should calculate numbers on first level properly', function(){
+        let data0= new LeafData(0,"test=sum()",[]);
+        let data1= new LeafData(1,"test=count()",[]);
+        let data2= new LeafData(2,"test=mean()",[]);
+        let data3= new LeafData(3,"test#10.5",[]);
+        let data4= new LeafData(4,"test#20.5",[]);
+        let data5= new LeafData(5,"test#30.5",[]);
+
+        data0.children.push(data1);
+        data1.children.push(data2);
+        data2.children.push(data3);
+        data3.children.push(data4);
+        data4.children.push(data5);
+
+        const wrapper=mount(<PreviewSentence leafdata={data0}/>);
+        //console.log(wrapper.debug());
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(0).text()).toEqual(expect.stringContaining("61.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(1).text()).toEqual(expect.stringContaining("3"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(2).text()).toEqual(expect.stringContaining("20.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(3).text()).toEqual(expect.stringContaining("10.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(4).text()).toEqual(expect.stringContaining("20.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(5).text()).toEqual(expect.stringContaining("30.5"));
+    });
+
+
+    it('should calculate numbers on first level properly', function(){
+        let data0= new LeafData(0,"test=sum(label)",[]);
+        let data1= new LeafData(1,"test=count(label)",[]);
+        let data2= new LeafData(2,"test=mean(label)",[]);
+        let data3= new LeafData(3,"test#label:10.5",[]);
+        let data4= new LeafData(4,"test#label:20.5",[]);
+        let data5= new LeafData(5,"test#label:30.5",[]);
+
+        data0.children.push(data1);
+        data1.children.push(data2);
+        data2.children.push(data3);
+        data3.children.push(data4);
+        data4.children.push(data5);
+
+        const wrapper=mount(<PreviewSentence leafdata={data0}/>);
+        //console.log(wrapper.debug());
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(0).text()).toEqual(expect.stringContaining("61.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(1).text()).toEqual(expect.stringContaining("3"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(2).text()).toEqual(expect.stringContaining("20.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(3).text()).toEqual(expect.stringContaining("10.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(4).text()).toEqual(expect.stringContaining("20.5"));
+        expect(wrapper.find('.PreviewSentence-Paragraph .description').at(5).text()).toEqual(expect.stringContaining("30.5"));
     });
 
 });
