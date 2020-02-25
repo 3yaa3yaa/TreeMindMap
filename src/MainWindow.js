@@ -10,7 +10,11 @@ class MainWindow extends Component {
         super(props);
         this.mainRef = React.createRef();
         this.mainContentRef = React.createRef();
-        this.state={height:"0px"};
+        this.height='0px';
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        this.height=this.mainContentRef.clientHeight;
     }
 
     _getPreviewScreen()
@@ -35,7 +39,8 @@ class MainWindow extends Component {
 
     _getMainStyle()
     {
-        return {height: this.mainContentRef.clientHeight};
+        // return {height: this.mainContentRef.clientHeight};
+        return {height: this.height};
     }
 
 
