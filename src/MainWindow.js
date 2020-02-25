@@ -13,10 +13,6 @@ class MainWindow extends Component {
         this.state={height:"0px"};
     }
 
-    componentDidUpdate(prevProps) {
-        this.setState({height:this.mainContentRef.clientHeight});
-    }
-
     _getPreviewScreen()
     {
         if(this.props.property.previewMode!=Property.previewMode().none)
@@ -39,9 +35,8 @@ class MainWindow extends Component {
 
     _getMainStyle()
     {
-        return {height: this.state.height};
+        return {height: this.mainContentRef.clientHeight};
     }
-
 
 
     render() {
