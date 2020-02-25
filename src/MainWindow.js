@@ -8,7 +8,15 @@ class MainWindow extends Component {
 
     constructor(props) {
         super(props);
+        this.mainRef = React.createRef();
+        this.mainContentRef = React.createRef();
+        this.state={height:"0px"};
     }
+
+    componentDidUpdate(prevProps) {
+        this.setState({height:this.mainContentRef.clientHeight});
+    }
+
     _getPreviewScreen()
     {
         if(this.props.property.previewMode!=Property.previewMode().none)
@@ -29,32 +37,37 @@ class MainWindow extends Component {
         }
     }
 
+    _getMainStyle()
+    {
+        return {height: this.state.height};
+    }
+
 
 
     render() {
-        return <div className="MainWindow">
-            <div className="MainWindow-Preview">
-                {this._getPreviewScreen()}
-            </div>
-            <div className="MainWindow-Content"
-                 ref={(e)=>{this.mainContentRef=e}}
-                 style={this._getTreeStyle()}>
-                <Tree
-                    root={this.props.root}
-                    property={this.props.property}
-                    delete={this.props.delete}
-                    addRoot={this.props.addRoot}
-                    addSibling={this.props.addSibling}
-                    addChild={this.props.addChild}
-                    edit={this.props.edit}
-                    move={this.props.move}
-                    walk={this.props.walk}
-                    jump={this.props.jump}
-                    changeMode={this.props.changeMode}
-                    changePreviewMode={this.props.changePreviewMode}
-                />
-            </div>
-        </div>
+        return <div className="MainWindow" style={this._getMainStyle()}>
+                    <div className="MainWindow-Preview">
+                        {this._getPreviewScreen()}
+                    </div>
+                    <div className="MainWindow-Content"
+                         ref={(e)=>{this.mainContentRef=e}}
+                         style={this._getTreeStyle()}>
+                        <Tree
+                            root={this.props.root}
+                            property={this.props.property}
+                            delete={this.props.delete}
+                            addRoot={this.props.addRoot}
+                            addSibling={this.props.addSibling}
+                            addChild={this.props.addChild}
+                            edit={this.props.edit}
+                            move={this.props.move}
+                            walk={this.props.walk}
+                            jump={this.props.jump}
+                            changeMode={this.props.changeMode}
+                            changePreviewMode={this.props.changePreviewMode}
+                        />
+                    </div>
+                </div>
     }
 }
 
