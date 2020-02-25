@@ -177,9 +177,12 @@ class StateProvider
         let destination = state.root.getLeaf(to);
         if(destination!=null && current!=null && currentParent!=null)
         {
-            let newleaf = LeafData.getNewObject(current);
-            destination.children=destination.children.concat(newleaf);
-            currentParent.children=currentParent.children.filter(child=>child.id!=from);
+            if(currentParent.id!=destination.id)
+            {
+                let newleaf = LeafData.getNewObject(current);
+                destination.children=destination.children.concat(newleaf);
+                currentParent.children=currentParent.children.filter(child=>child.id!=from);
+            }
         }
         return { root: LeafData.getNewObject(state.root) , property:state.property}
     }
