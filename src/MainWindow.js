@@ -13,9 +13,9 @@ class MainWindow extends Component {
         this.height='0px';
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        this.height=this.mainContentRef.clientHeight;
-    }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     this.height=this.mainContentRef.clientHeight;
+    // }
 
     _getPreviewScreen()
     {

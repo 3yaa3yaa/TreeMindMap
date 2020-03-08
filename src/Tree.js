@@ -3,7 +3,7 @@ import './Tree.css';
 import DnDLeaf from "./DnDLeaf";
 import Connector from "./Connector"
 import StateProvider from "./StateProvider"
-import {DragDropContext} from "react-dnd";
+import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import Property from "./Property";
 
@@ -144,12 +144,14 @@ class Tree extends Component {
 
     render() {
         return (
-            <div className="Tree" >
-                {this._getTree()}
-            </div>
+            <DndProvider backend={HTML5Backend}>
+                <div className="Tree" >
+                    {this._getTree()}
+                </div>
+            </DndProvider>
         );
     }
 }
 
-Tree=DragDropContext(HTML5Backend)(Tree)
+//Tree=DragDropContext(HTML5Backend)(Tree)
 export default Tree;
