@@ -4,7 +4,7 @@ import DnDLeaf from "./DnDLeaf";
 import Connector from "./Connector"
 import StateProvider from "./StateProvider"
 import { DndProvider } from "react-dnd";
-import HTML5Backend from "react-dnd-html5-backend";
+import {HTML5Backend} from "react-dnd-html5-backend";
 import Property from "./Property";
 
 class Tree extends Component {
