@@ -22,11 +22,11 @@ For example, you can specify the values as below.
 
 ### ES6
 ```
-import { Map}  from 'treemindmap'
+import {Map} from 'treemindmap'
 ...
 render(
   <Map
-    initialState={initialdata.value}
+    initialState={initialdata}
     stateHandler={state => {
       doSomething(state);
     }}
@@ -41,7 +41,7 @@ const ReactDOM = require('react-dom');
 const Render=require('treemindmap').Render;
 ...
 Render(
-  container.data.value,
+  initialdata,
   (state) => {
     doSomething(state);
   },
