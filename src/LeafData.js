@@ -15,6 +15,7 @@ export default class LeafData{
         }catch(e)
         {
             console.error("failed to generate new leaf object :" + e.message)
+
         }
     }
 
