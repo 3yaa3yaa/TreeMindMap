@@ -12,6 +12,6 @@ deploy:
   provider: npm
   email: ycuobu@gmail.com
   skip_cleanup: true
-  tag: beta
+#  tag: beta
   api_key:
     secure: vqZ2j2aiVKOoKc0M2fiiy8tQyASGu49+/9elinH1Wgdspjj9gsltPaGAkAGAGcR6v9AzA+KtjO3NwQ4VWToAPo35vp1yMRTGK5FQPXTZYcJJKoUUOEQkNz0KcFArk0h/vOU9DyJ16hR+1dPIyiiyeAZ/PYidSImPR17cbBVRoNbEiQVimJtYiGy4ImGbnG/654I1utsukbJ37Ekt1vTlFNdIXoXDCw3mcYi+aW/yrDTZE9ng0m/onoKnWm3pe2rxXfF+K/CKInmLv1toJzOyRCk9fG1vEUSf6gmM4RXYfMpBTGYTPks9z788BO+nfpG/SQ7hCoJaIUECIrFTru+Cs8igXIl7tsmIrcMqDNm/x67HUbRxe8XcoB0pO5uxbJePPzZAsof1TlgEogZTmUDx0HZLdQ7Ikrh3DEyIecGescKj15i+HuG4W68FUpMlyDRucdrTJugSVTwcxnykL3kcu7Zugu5/BlDtDc8VnKC/lWkdHolYoPwFoRJu2VW+noo+Uy5qASjU4tQ/GGOdFQX/mdc9i+Q5drcwt/yrofzIIGN8GpPGH+WCuJiCWVIbZx2si5yvK9M51cvAKZnmIpXoQx0tdIb6zmqyTdvZRK30euaZb8tbfFa20A5BZ0hsaSXH8RLhxrqqTNtZn4tSqyFtWlvbHxd9a+QrZyXlyYfwJnE=
