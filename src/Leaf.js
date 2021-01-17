@@ -69,9 +69,6 @@ class Leaf extends Component {
 
     leafUpdateHandler(e)
     {
-        // let newleaf = Object.assign({},this.props.leafdata)
-        // newleaf.description=e.target.value
-        // this.props.edit(newleaf)
         this.textValueBuffer=e.target.value;
         this.edit()
     }
@@ -126,15 +123,6 @@ class Leaf extends Component {
     _getDescriptionStyle()
     {
         return {minWidth: "100px", maxWidth: "200px"};
-
-        // if(this.props.leafdata.codeExists())
-        // {
-        //     return {minWidth: "600px", maxWidth: "600px"}; //seems not working on markdowntextbox
-        // }
-        // else
-        // {
-        //     return {minWidth: "100px", maxWidth: "200px"};
-        // }
     }
 
 
@@ -150,7 +138,7 @@ class Leaf extends Component {
                      onClick={(e)=>{this.props.jump(this.props.leafdata.id)}}
                 >
                     <div className="Leaf-Row">
-                        <div className="Leaf-Colomuns">
+                        <div className="Leaf-Columns">
                             <MarkDownTextBoxWrapper leafdata={this.props.leafdata}
                                              onChange={(e)=>this.leafUpdateHandler(e)}
                                              focus={this._getIsFocused()}
@@ -161,7 +149,7 @@ class Leaf extends Component {
                     </div>
                     <div className="Leaf-Row"><ImgViewer leafdata={this.props.leafdata} ImgStyle={{width:'200px'}}/></div>
                 </div>
-                <div className="Leaf-Colomuns">
+                <div className="Leaf-Columns">
                     <ImageMenu leafdata={this.props.leafdata}
                           edit={(leaf)=>{this.props.edit(leaf);this.stateChange();}}
                           addChild={this.props.addChild}
