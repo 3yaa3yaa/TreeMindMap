@@ -17,34 +17,28 @@ export default class Deserializer
         }
         else
         {
-            if(typeof(givenData)=="string")
+            let parsedData = typeof(givenData)=="string" ? JSON.parse(givenData) : givenData;
+            let root;
+            let property;
+            if("root" in parsedData)
             {
-                let parsedData=JSON.parse(givenData);
-                let root;
-                let property;
-                if("root" in parsedData)
-                {
-                    root=this.convertToLeafData(parsedData.root);
-                }
-                else
-                {
-                    root=new LeafData();
-                }
-                if("property" in parsedData)
-                {
-                    property=this.convertToProperty(parsedData.property);
-                }
-                else
-                {
-                    property=new Property();
-                }
-
-                return {root: root, property: property};
+                root=this.convertToLeafData(parsedData.root);
             }
             else
             {
-                return null
+                root=new LeafData();
             }
+            if("property" in parsedData)
+            {
+                property=this.convertToProperty(parsedData.property);
+            }
+            else
+            {
+                property=new Property();
+            }
+
+            return {root: root, property: property};
+
         }
     }
 

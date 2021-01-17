@@ -1,6 +1,6 @@
 {
   "name": "treemindmap",
-  "version": "1.7.1-beta",
+  "version": "1.8.0-beta",
   "description": "",
   "main": "build/bundle.js",
   "repository": {
