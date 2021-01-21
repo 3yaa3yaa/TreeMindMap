@@ -1,5 +1,7 @@
 import LeafData from "./LeafData";
 import Property from "./Property";
+import sha256 from 'crypto-js/sha256';
+
 
 export default class Deserializer
 {
@@ -36,6 +38,7 @@ export default class Deserializer
             {
                 property=new Property();
             }
+            property.initialTreeHash = sha256(JSON.stringify(root));
 
             return {root: root, property: property};
 
