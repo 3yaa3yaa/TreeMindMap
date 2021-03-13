@@ -31,7 +31,7 @@ describe('A suite', function() {
         expect(data1.getAllChildren()).toEqual([data3]);
         expect(data2.getAllChildren().sort((a,b)=>{return a.id-b.id})).toEqual([data4, data5,data6,data7]);
         expect(data0.getAllChildren().sort((a,b)=>{return a.id-b.id})).toEqual([data1,data2,data3,data4,data5,data6,data7]);
-        expect(data0.getNewId()).toEqual(8);
+        expect(/^.{8}$/.test(data0.getNewId())).toEqual(true);
         expect(data0.getParent(6)).toEqual(data5)
         expect(data0.getSiblings(7)).toEqual([data5,data7])
     })
