@@ -13,10 +13,12 @@ describe('A suite', function() {
         let tested = StateProvider.addRoot({root:null, property:new Property()}, 0, 0)
         tested=StateProvider.addChild(tested,0);
 
-        let expected1=new LeafData(0,"",[]);
-        let expected2=new LeafData(1,"",[]);
-        expected1.children.push(expected2);
-        expect(tested.root).toEqual(expected1);
+        // let expected1=new LeafData(0,"",[]);
+        // let expected2=new LeafData(1,"",[]);
+        // expected1.children.push(expected2);
+        expect(tested.root.id).toEqual(0);
+        expect(tested.root.description).toEqual("");
+        expect(/^.{8}$/.test(tested.root.children[0].id) ).toBe(true);
     })
 
     it('cannot add siblings below the root', function(){

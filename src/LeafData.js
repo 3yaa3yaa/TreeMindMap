@@ -174,9 +174,21 @@ export default class LeafData{
         }
     }
 
+    getRandomId()
+    {
+        let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let str = '';
+        for (let i = 0; i < 8; i++) {
+            str += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return str;
+    }
+
     getNewId()
     {
-        return this.getLatestId()+1;
+        const random = this.getRandomId()
+        return  this.getLeaf(random)===null ? random : this.getNewId()
+        // return this.getLatestId()+1;
     }
 
     getLatestId()
