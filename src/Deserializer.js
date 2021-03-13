@@ -38,7 +38,7 @@ export default class Deserializer
             {
                 property=new Property();
             }
-            property.initialTreeHash = sha256(JSON.stringify(root));
+            property.initialTreeHash = sha256(JSON.stringify(root)).toString();
 
             return {root: root, property: property};
 
