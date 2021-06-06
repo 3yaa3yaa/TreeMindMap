@@ -1,16 +1,13 @@
-
-
-
 .MainWindow {
-    position: relative;
+  position: relative;
 }
 
 .MainWindow-Preview {
-    position: absolute;
-    z-index: 1;
+  position: absolute;
+  z-index: 1;
 }
 
 .MainWindow-Content {
-    position: absolute;
-    z-index: 0;
+  position: absolute;
+  z-index: 0;
 }

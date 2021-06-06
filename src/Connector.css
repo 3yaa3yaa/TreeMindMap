@@ -1,47 +1,45 @@
 .Connector-Table {
   /*position: absolute;*/
-  top:0%;
-  bottom:0%;
-  left:0px;
-  right:0px;
+  top: 0%;
+  bottom: 0%;
+  left: 0px;
+  right: 0px;
   margin-top: 0px;
   margin-bottom: 0px;
-  margin-left:0px;
-  margin-right:0px;
+  margin-left: 0px;
+  margin-right: 0px;
   display: table;
   width: 30px;
-  height:100%;
+  height: 100%;
   table-layout: fixed;
 }
 
 .Connector-Row-top {
-  height:auto;
+  height: auto;
   display: table-row;
 }
 
-
 .Connector-Row-bottom {
-  height:100%;
+  height: 100%;
   display: table-row;
 }
 
 .Connector-Single-TopLeft {
   display: table-cell;
-  border-bottom:solid;
+  border-bottom: solid;
   border-bottom-width: 1px;
-  height:5px;
+  height: 5px;
 }
 
 .Connector-Single-TopRight {
   display: table-cell;
-  border-bottom:solid;
+  border-bottom: solid;
   border-bottom-width: 1px;
-  height:5px;
+  height: 5px;
 }
 
 .Connector-Single-BottomLeft {
   display: table-cell;
-
 }
 
 .Connector-Single-BottomRight {
@@ -49,17 +47,16 @@
   display: table-cell;
 }
 
-
 .Connector-Vertical-TopLeft {
   display: table-cell;
-  height:5px;
+  height: 5px;
 }
 
 .Connector-Vertical-TopRight {
   display: table-cell;
   border-left: solid;
   border-left-width: 1px;
-  height:5px;
+  height: 5px;
 }
 
 .Connector-Vertical-BottomLeft {
@@ -73,90 +70,81 @@
   border-left-width: 1px;
 }
 
-
 .Connector-Top-TopLeft {
   display: table-cell;
-  border-bottom:solid;
+  border-bottom: solid;
   border-bottom-width: 1px;
-  height:5px;
+  height: 5px;
 }
 
 .Connector-Top-TopRight {
   display: table-cell;
-  border-bottom:solid;
+  border-bottom: solid;
   border-bottom-width: 1px;
-  height:5px;
+  height: 5px;
 }
 
 .Connector-Top-BottomLeft {
   display: table-cell;
-  height:100%;
-
+  height: 100%;
 }
 
 .Connector-Top-BottomRight {
   display: table-cell;
   border-left: solid;
   border-left-width: 1px;
-  height:100%;
+  height: 100%;
 }
-
 
 .Connector-Middle-TopLeft {
   display: table-cell;
-  height:5px;
-
+  height: 5px;
 }
 
 .Connector-Middle-TopRight {
   display: table-cell;
-  border-left:solid;
+  border-left: solid;
   border-left-width: 1px;
-  border-bottom:solid;
+  border-bottom: solid;
   border-bottom-width: 1px;
-  height:5px;
+  height: 5px;
 
   /*border-bottom-left-radius: 10px;*/
-
 }
 
 .Connector-Middle-BottomLeft {
-  display:  table-cell;
-  height:100%;
-
+  display: table-cell;
+  height: 100%;
 }
 
 .Connector-Middle-BottomRight {
   list-style: none;
-  display:  table-cell;
-  border-left:solid;
+  display: table-cell;
+  border-left: solid;
   border-left-width: 1px;
-  height:100%;
-
+  height: 100%;
 }
-
-
 
 .Connector-Bottom-TopLeft {
   display: table-cell;
-  height:5px;
+  height: 5px;
 }
 
 .Connector-Bottom-TopRight {
   display: table-cell;
-  border-left:solid;
+  border-left: solid;
   border-left-width: 1px;
-  border-bottom:solid;
+  border-bottom: solid;
   border-bottom-width: 1px;
-  height:5px;
+  height: 5px;
 }
 
 .Connector-Bottom-BottomLeft {
   display: table-cell;
-  height:100%;
+  height: 100%;
 }
 
 .Connector-Bottom-BottomRight {
   display: table-cell;
-  height:100%;
+  height: 100%;
 }

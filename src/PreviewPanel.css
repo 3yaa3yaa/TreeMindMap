@@ -1,29 +1,27 @@
-
-
 .PreviewPanel {
-    display:table-row;
-    width:100%;
-    min-width: 500px;
-    height:auto;
-    min-width: 400px;
-    border-radius:10px;
-    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.6));
-    overflow: auto;
+  display: table-row;
+  width: 100%;
+  min-width: 500px;
+  height: auto;
+  min-width: 400px;
+  border-radius: 10px;
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.6));
+  overflow: auto;
 }
 
 .PreviewPanel-Menu {
-    display: table-cell;
-    margin-top: 5px;
-    width: 175px;
-    min-width: 175px;
-    vertical-align: top;
-    /*position: fixed;*/
-    margin-right: 0px;
+  display: table-cell;
+  margin-top: 5px;
+  width: 175px;
+  min-width: 175px;
+  vertical-align: top;
+  /*position: fixed;*/
+  margin-right: 0px;
 }
 .PreviewPanel-Main {
-    display:table-cell;
-    width: fit-content;
-    margin-top: 4px;
-    vertical-align: top;
-    margin-left: 5px;
+  display: table-cell;
+  width: fit-content;
+  margin-top: 4px;
+  vertical-align: top;
+  margin-left: 5px;
 }

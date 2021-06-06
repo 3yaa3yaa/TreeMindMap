@@ -1,41 +1,39 @@
-
-
 .MenuModal {
-    position: absolute;
-    width:auto;
-    min-width: 120px;
-    height:auto;
-    background-color: whitesmoke;
-    z-index: 1;
-    border-radius:10px;
-    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.6));
+  position: absolute;
+  width: auto;
+  min-width: 120px;
+  height: auto;
+  background-color: whitesmoke;
+  z-index: 1;
+  border-radius: 10px;
+  filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.6));
 }
 
 .MenuModal-Command {
-    display:block;
-    margin-left: 20px;
+  display: block;
+  margin-left: 20px;
 }
-.MenuModal-Command-Label{
-    margin:10px;
-    padding:0px;
-    font-size: small;
-    color: darkgray;
-    border:none;
-    border-color: beige;
-    border-width:1px;
-}
-
-.MenuModal-canvas{
-    display: none;
+.MenuModal-Command-Label {
+  margin: 10px;
+  padding: 0px;
+  font-size: small;
+  color: darkgray;
+  border: none;
+  border-color: beige;
+  border-width: 1px;
 }
 
-.MenuModal-Command-Burger{
-    float: left;
-    margin:0px;
-    padding:0px;
-    font-size: small;
-    color: darkgray;
-    border:none;
-    border-color: beige;
-    border-width:1px;
+.MenuModal-canvas {
+  display: none;
+}
+
+.MenuModal-Command-Burger {
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  font-size: small;
+  color: darkgray;
+  border: none;
+  border-color: beige;
+  border-width: 1px;
 }

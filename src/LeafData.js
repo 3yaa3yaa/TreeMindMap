@@ -1,308 +1,279 @@
-export default class LeafData{
-    constructor(id=0, description="", children=[], imgs=[],color="silver")
-    {
-        this.id=id;
-        this.description=description;
-        this.children=children;
-        this.imgs=imgs;
-        this.color=color;
+export default class LeafData {
+  constructor(
+    id = 0,
+    description = "",
+    children = [],
+    imgs = [],
+    color = "silver"
+  ) {
+    this.id = id;
+    this.description = description;
+    this.children = children;
+    this.imgs = imgs;
+    this.color = color;
+  }
+
+  static getNewObject(rawdata) {
+    try {
+      return new LeafData(
+        rawdata.id,
+        rawdata.description,
+        rawdata.children,
+        rawdata.imgs,
+        rawdata.color
+      );
+    } catch (e) {
+      console.error("failed to generate new leaf object :" + e.message);
     }
+  }
 
-    static getNewObject(rawdata)
-    {
-        try{
-            return new LeafData(rawdata.id, rawdata.description, rawdata.children, rawdata.imgs, rawdata.color)
-        }catch(e)
-        {
-            console.error("failed to generate new leaf object :" + e.message)
+  isLeafDataClass() {
+    return true;
+  }
 
+  getLeaf(id) {
+    if (this.id === id) {
+      return this;
+    } else {
+      for (let leaf of this.children) {
+        let child = leaf.getLeaf(id);
+        if (child != null) {
+          return child;
         }
+      }
     }
+    return null;
+  }
 
-    isLeafDataClass()
-    {
-        return true;
+  isNullObject() {
+    if (
+      this.children.length === 0 &&
+      this.description === "" &&
+      this.imgs.length === 0
+    ) {
+      return true;
+    } else {
+      return false;
     }
-    
-    getLeaf(id)
-    {
-        if(this.id===id)
-        {
-            return this;
+  }
+
+  getParent(id) {
+    if (this.children.find((l) => l.id === id) != undefined) {
+      return this;
+    } else {
+      for (let l of this.children) {
+        let parent = l.getParent(id);
+        if (parent != null) {
+          return parent;
         }
-        else
-        {
-            for(let leaf of this.children)
-            {
-                let child=leaf.getLeaf(id)
-                if(child!=null)
-                {
-                    return child;
-                }
-            }
-        }
-        return null;
+      }
     }
+    return null;
+  }
 
-    isNullObject()
-    {
-        if(this.children.length===0 && this.description==="" && this.imgs.length===0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+  getSiblings(id) {
+    return this.getParent(id).children;
+  }
+
+  getElderBrother(id) {
+    let brothers = this.getSiblings(id);
+    let elderbrother = null;
+    for (let brother of brothers) {
+      if (brother.id === id) {
+        return elderbrother;
+      }
+      elderbrother = brother;
     }
+    return null;
+  }
 
-    getParent(id)
-    {
-        if(this.children.find(l => l.id===id) != undefined)
-        {
-            return this;
-        }
-        else
-        {
-            for(let l of this.children)
-            {
-                let parent=l.getParent(id);
-                if(parent!=null)
-                {
-                    return parent;
-                }
-            }
-        }
-        return null;
+  isLastRecord(id) {
+    if (this.getYoungerBrother(id) === null) {
+      return true;
+    } else {
+      return false;
     }
+  }
 
-
-    getSiblings(id)
-    {
-        return this.getParent(id).children;
+  getYoungerBrother(id) {
+    let brothers = this.getSiblings(id);
+    let wasMe = false;
+    for (let brother of brothers) {
+      if (wasMe) {
+        return brother;
+      }
+      if (brother.id === id) {
+        wasMe = true;
+      }
     }
+    return null;
+  }
 
-    getElderBrother(id)
-    {
-        let brothers=this.getSiblings(id);
-        let elderbrother=null;
-        for(let brother of brothers)
-        {
-            if(brother.id===id){return elderbrother}
-            elderbrother=brother;
-        }
-        return null;
+  getChildren(id) {
+    let l = this.getLeaf(id);
+    if (l === null) {
+      return [];
+    } else {
+      return l.children;
     }
+  }
 
-    isLastRecord(id)
-    {
-        if(this.getYoungerBrother(id)===null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+  getAllFamilyMembers() {
+    let out = [this];
+    out = out.concat(this.getAllChildren());
+    return out;
+  }
+
+  getAllChildren() {
+    let out = [];
+    this._setChildrenInArray(this.id, out);
+    return out;
+  }
+
+  _setChildrenInArray(id, out) {
+    let current = this.getLeaf(id);
+    if (id != this.id) {
+      out.push(current);
     }
+    current.children.forEach((child) => {
+      this._setChildrenInArray(child.id, out);
+    });
+  }
 
-    getYoungerBrother(id)
-    {
-        let brothers=this.getSiblings(id);
-        let wasMe=false;
-        for(let brother of brothers)
-        {
-            if(wasMe){return brother}
-            if(brother.id===id){wasMe=true}
-        }
-        return null;
+  filterAndSortLeafs(leafs, parentid) {
+    let out = [];
+    if (Array.isArray(leafs) && leafs.length > 0) {
+      let bigbrother = leafs.filter((leaf) => {
+        return leaf.parentid == parentid && leaf.elderbrotherid == 0;
+      })[0];
+      StateProvider.recursivelyGetSiblings(leafs, bigbrother, out);
+      return out;
+    } else {
+      return null;
     }
+  }
 
-
-
-    getChildren( id)
-    {
-        let l = this.getLeaf(id);
-        if(l===null)
-        {
-            return [];
-        }
-        else
-        {
-            return l.children;
-        }
+  getRandomId() {
+    let chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let str = "";
+    for (let i = 0; i < 8; i++) {
+      str += chars.charAt(Math.floor(Math.random() * chars.length));
     }
+    return str;
+  }
 
-    getAllFamilyMembers()
-    {
-        let out=[this];
-        out=out.concat(this.getAllChildren());
-        return out;
+  getNewId() {
+    const random = this.getRandomId();
+    return this.getLeaf(random) === null ? random : this.getNewId();
+    // return this.getLatestId()+1;
+  }
+
+  getLatestId() {
+    let children = this.getAllChildren();
+    if (children.length > 0) {
+      return children.sort((a, b) => {
+        return b.id - a.id;
+      })[0].id;
+    } else {
+      return 0;
     }
+  }
 
-
-    getAllChildren()
-    {
-        let out=[];
-        this._setChildrenInArray(this.id, out)
-        return out;
+  labelExists(label) {
+    let regexp = new RegExp("#" + label + "(:|\r\n|\n|\r| |$)", "g");
+    if (regexp.test(this.description)) {
+      return true;
+    } else {
+      return false;
     }
+  }
 
-
-    _setChildrenInArray(id, out)
-    {
-        let current = this.getLeaf(id);
-        if(id!=this.id)
-        {
-            out.push(current);
-        }
-        current.children.forEach((child)=>{this._setChildrenInArray(child.id, out)});
+  codeExists() {
+    let regexp = /```([\n\r]|.)*```/;
+    if (regexp.test(this.description)) {
+      return true;
+    } else {
+      return false;
     }
+  }
 
-    filterAndSortLeafs(leafs, parentid)
-    {
-        let out=[];
-        if(Array.isArray(leafs) && leafs.length>0)
-        {
-            let bigbrother = leafs.filter((leaf)=>{return (leaf.parentid==parentid && leaf.elderbrotherid==0)})[0];
-            StateProvider.recursivelyGetSiblings(leafs, bigbrother, out);
-            return out;
-        }
-        else
-        {
-            return null;
-        }
+  escape(label) {
+    return label.replace(/([^a-zA-Z ])/g, "\\$1");
+  }
+
+  getLabelValues(label) {
+    label = this.escape(label);
+    let regexp;
+    if (label === "") {
+      regexp = new RegExp("#([^ ]+?)(\r\n|\n|\r| |$)", "g");
+    } else {
+      regexp = new RegExp("#" + label + ":([^ ]+?)(\r\n|\n|\r| |$)", "g");
     }
+    return [...this.description.matchAll(regexp)].map((el) => {
+      return el[1];
+    });
+  }
 
-    getRandomId()
-    {
-        let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let str = '';
-        for (let i = 0; i < 8; i++) {
-            str += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return str;
+  getLabelFieldsOfChildren() {
+    let items = [this];
+    items = items.concat(this.getAllChildren());
+    let array = [];
+    if (items === null) {
+      return array;
     }
-
-    getNewId()
-    {
-        const random = this.getRandomId()
-        return  this.getLeaf(random)===null ? random : this.getNewId()
-        // return this.getLatestId()+1;
+    for (let item of items) {
+      let regexp = new RegExp("#([^ ]+?)(\r\n|\n|\r| |$)", "g");
+      array = array.concat(
+        [...item.description.matchAll(regexp)].map((el) => {
+          return el[1];
+        })
+      );
     }
+    array = array.map((el) => {
+      return el.replace(/:.*/, "");
+    }); //Remove Value
+    array = array.filter((el) => !isFinite(el)); //Remove Numbers
+    array = array.filter((x, i, self) => self.indexOf(x) === i); //Remove Duplicates
+    return array;
+  }
 
-    getLatestId()
-    {
-        let children=this.getAllChildren()
-        if(children.length>0)
-        {
-            return children.sort((a,b)=>{return b.id-a.id})[0].id;
-        }
-        else
-        {
-            return 0;
-        }
+  getNumericValuesOfChildren(label = "") {
+    return this.getChildrenValues(label).filter((el) => isFinite(el));
+  }
+
+  getChildrenValues(label = "") {
+    let items = [this];
+    items = items.concat(this.getAllChildren());
+    let array = [];
+    if (items === null) {
+      return array;
     }
-
-    labelExists(label)
-    {
-        let regexp= new RegExp('#' + label+ '(:|\r\n|\n|\r| |$)','g');
-        if(regexp.test(this.description))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+    for (let item of items) {
+      array = array.concat(item.getLabelValues(label));
     }
+    return array;
+  }
 
-    codeExists()
-    {
-        let regexp=/```([\n\r]|.)*```/;
-        if(regexp.test(this.description))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+  sumLabelsOfChildren(label) {
+    let array = this.getNumericValuesOfChildren(label);
+    let reducer = (acc, cur) => {
+      return acc + parseFloat(cur);
+    };
+    return array.reduce(reducer, 0);
+  }
 
-    escape(label) {
-        return label.replace(/([^a-zA-Z ])/g, "\\$1" )
-    }
+  countLabelsOfChildren(label) {
+    let array = this.getNumericValuesOfChildren(label);
+    return array.length;
+  }
 
-    getLabelValues(label) {
-        label=this.escape(label);
-        let regexp;
-        if(label==="")
-        {
-            regexp= new RegExp('#([^ ]+?)(\r\n|\n|\r| |$)','g')
-        }
-        else
-        {
-            regexp= new RegExp('#' + label+ ':([^ ]+?)(\r\n|\n|\r| |$)','g')
-        }
-        return [...this.description.matchAll(regexp)].map(el=>{return el[1]});
-    }
-
-    getLabelFieldsOfChildren()
-    {
-        let items=[this];
-        items=items.concat(this.getAllChildren());
-        let array=[];
-        if(items===null){return array}
-        for(let item of items)
-        {
-            let regexp = new RegExp('#([^ ]+?)(\r\n|\n|\r| |$)','g');
-            array=array.concat([...item.description.matchAll(regexp)].map(el=>{return el[1]}));
-        }
-        array=array.map(el=>{return el.replace(/:.*/,'')}); //Remove Value
-        array=array.filter(el=>!isFinite(el))   //Remove Numbers
-        array=array.filter((x, i, self) => self.indexOf(x) === i); //Remove Duplicates
-        return array;
-    }
-
-    getNumericValuesOfChildren(label="")
-    {
-        return this.getChildrenValues(label).filter(el=>isFinite(el));
-    }
-
-    getChildrenValues(label="")
-    {
-        let items=[this];
-        items=items.concat(this.getAllChildren());
-        let array=[];
-        if(items===null){return array}
-        for(let item of items)
-        {
-            array=array.concat(item.getLabelValues(label));
-        }
-        return array;
-    }
-
-
-
-    sumLabelsOfChildren(label)
-    {
-        let array=this.getNumericValuesOfChildren(label);
-        let reducer=(acc, cur)=>{
-            return acc+parseFloat(cur);
-        };
-        return array.reduce(reducer,0);
-    }
-
-     countLabelsOfChildren(label)
-    {
-        let array=this.getNumericValuesOfChildren(label);
-        return array.length;
-    }
-
-    meanLabelsOfChildren(label)
-    {
-        return Math.round((this.sumLabelsOfChildren(label)/this.countLabelsOfChildren(label)) * 10) / 10 // 出力：123.5
-    }
-
+  meanLabelsOfChildren(label) {
+    return (
+      Math.round(
+        (this.sumLabelsOfChildren(label) / this.countLabelsOfChildren(label)) *
+          10
+      ) / 10
+    ); // 出力：123.5
+  }
 }

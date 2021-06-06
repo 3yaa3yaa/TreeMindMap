@@ -1,45 +1,45 @@
-
 .PreviewMenu {
-    margin-left: 10px;
-    margin-top: 0px;
-    margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 0px;
+  margin-right: 10px;
 }
 
 .PreviewMenu-Item {
-    visibility: hidden;
-    height: 3px;
-    margin: 0px;
+  visibility: hidden;
+  height: 3px;
+  margin: 0px;
 }
 
-.PreviewMenu-buttons{
-    list-style: none;
+.PreviewMenu-buttons {
+  list-style: none;
 }
 
-
-.PreviewMenu-button{
-    vertical-align: top;
-    height:40px;
-    list-style: none;
+.PreviewMenu-button {
+  vertical-align: top;
+  height: 40px;
+  list-style: none;
 }
 
-.html2canvas-container { width: 3000px !important; height: 3000px !important; }
-
+.html2canvas-container {
+  width: 3000px !important;
+  height: 3000px !important;
+}
 
 .PreviewMenu-Img {
-    display: inline-block;
-    width:30px;
-    height: 30px;
-    border-radius: 5px;
-    /*border-style: solid;*/
-    background-color: lightgray;
-    /*border-color: silver;*/
-    vertical-align: top;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  /*border-style: solid;*/
+  background-color: lightgray;
+  /*border-color: silver;*/
+  vertical-align: top;
 }
 
 .PreviewMenu-ButtonLabel {
-    display: inline-block;
-    color: gray;
-    padding-top: 3px;
-    padding-left: 5px;
-    vertical-align: center;
+  display: inline-block;
+  color: gray;
+  padding-top: 3px;
+  padding-left: 5px;
+  vertical-align: center;
 }

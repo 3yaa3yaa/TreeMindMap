@@ -1,127 +1,177 @@
-import React, { Component } from 'react';
-import './ImageMenu.css';
-import previewimg from './images/gopreviewwhite.png';
-import downimg from './images/down.png';
-import rightimg from './images/right.png';
-import cameraimg from './images/camera.png';
-import paletteimg from './images/palette.png';
+import React, { Component } from "react";
+import "./ImageMenu.css";
+import previewimg from "./images/gopreviewwhite.png";
+import downimg from "./images/down.png";
+import rightimg from "./images/right.png";
+import cameraimg from "./images/camera.png";
+import paletteimg from "./images/palette.png";
 import ImgCanvas from "./ImgCanvas";
 import Property from "./Property";
 import PropTypes from "prop-types";
 
 export default class ImageMenu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      imgcanvas: "",
+    };
+  }
 
-    constructor(props) {
-        super(props);
-        this.state={
-            imgcanvas:""}
+  colorPickHandler(e) {
+    //e.preventDefault()
+    let color = e.target.value;
+    let newleaf = this.props.leafdata;
+    newleaf.color = color;
+    this.props.edit(newleaf);
+  }
+
+  fileChangeHandler(e) {
+    //e.preventDefault()
+    let file = e.target.files[0];
+    if (file != undefined) {
+      let reader = new FileReader();
+      reader.onloadend = () => {
+        let img = new Image();
+        img.onload = () => {
+          let w = 1024;
+          let ratio = w / img.width;
+          let h = img.height * ratio;
+          this.setState({
+            imgcanvas: (
+              <ImgCanvas
+                className="ImageMenu-Canvas"
+                width={w}
+                height={h}
+                setImage={(ctx, canvas) => {
+                  ctx.drawImage(img, 0, 0, w, h);
+                  let newleaf = this.props.leafdata;
+                  let imagedata = canvas.toDataURL("image/jpeg");
+                  if (newleaf.imgs == null) {
+                    newleaf.imgs = [imagedata];
+                  } else {
+                    newleaf.imgs.push([imagedata]);
+                  }
+                  this.props.edit(newleaf);
+                }}
+              ></ImgCanvas>
+            ),
+          });
+          this.setState({ imgcanvas: "" });
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
     }
+  }
 
-
-    colorPickHandler(e)
-    {
-        //e.preventDefault()
-        let color=e.target.value
-        let newleaf=this.props.leafdata
-        newleaf.color=color
-        this.props.edit(newleaf)
+  downButtonStyle() {
+    if (this.props.leafdata.id === 0) {
+      return { display: "none" };
+    } else {
+      return {};
     }
+  }
 
-    fileChangeHandler(e)
-    {
-        //e.preventDefault()
-        let file = e.target.files[0]
-        if(file!=undefined){
-            let reader = new FileReader()
-            reader.onloadend = () => {
-                let img=new Image()
-                img.onload=()=>{
-                    let w= 1024
-                    let ratio= w /img.width
-                    let h=img.height*ratio
-                    this.setState( {imgcanvas:
-                            <ImgCanvas className="ImageMenu-Canvas"
-                                       width={w}
-                                       height={h}
-                                       setImage={(ctx,canvas)=>{
-                                           ctx.drawImage(img,0,0,w,h);
-                                           let newleaf=this.props.leafdata
-                                           let imagedata=canvas.toDataURL("image/jpeg")
-                                           if (newleaf.imgs==null)
-                                           {newleaf.imgs = [imagedata]}
-                                           else
-                                           {newleaf.imgs.push([imagedata])}
-                                           this.props.edit(newleaf)
-                                       }
-                                       }
-                            >
-                            </ImgCanvas>})
-                    this.setState({imgcanvas:""})
-                }
-                img.src=reader.result
+  render() {
+    return (
+      <div className="ImageMenu" style={this.props.style}>
+        <label
+          className="ImageMenu-label"
+          htmlFor={this.props.leafdata.id + "-menu-preview"}
+          className="ImageMenu-Label"
+        >
+          <img className="ImageMenu-Img" src={previewimg} alt="Go Preview" />
+        </label>
+        <input
+          type="button"
+          id={this.props.leafdata.id + "-menu-preview"}
+          className="ImageMenu-Item"
+          value="preview"
+          onClick={(e) => {
+            this.props.changePreviewMode(Property.previewMode().Tree);
+          }}
+        />
 
-            }
-            reader.readAsDataURL(file)
-        }
-    }
+        <label
+          className="ImageMenu-label"
+          htmlFor={this.props.leafdata.id + "-menu-camera"}
+          className="ImageMenu-Label"
+        >
+          <img className="ImageMenu-Img" src={cameraimg} alt="Add pictures" />
+        </label>
+        <input
+          type="file"
+          id={this.props.leafdata.id + "-menu-camera"}
+          className="ImageMenu-Item"
+          onChange={(e) => {
+            this.fileChangeHandler(e);
+          }}
+        />
+        {this.state.imgcanvas}
 
-    downButtonStyle() {
-        if(this.props.leafdata.id===0)
-        {
-            return {display:"none"}
-        }
-        else
-        {
-            return {}
-        }
-    }
+        <label
+          className="ImageMenu-label"
+          htmlFor={this.props.leafdata.id + "-menu-palette"}
+          className="ImageMenu-Label"
+        >
+          <img className="ImageMenu-Img" src={paletteimg} alt="Choose color" />
+        </label>
+        <input
+          type="color"
+          id={this.props.leafdata.id + "-menu-palette"}
+          className="ImageMenu-Item"
+          onChange={(e) => {
+            this.colorPickHandler(e);
+          }}
+        />
 
-    render() {
-        return <div className="ImageMenu" style={this.props.style}>
-            <label  className="ImageMenu-label" htmlFor={this.props.leafdata.id+"-menu-preview"}  className="ImageMenu-Label">
-                <img className="ImageMenu-Img" src={previewimg} alt="Go Preview" />
-            </label>
-            <input type='button' id={this.props.leafdata.id+"-menu-preview"} className="ImageMenu-Item"  value="preview"
-                   onClick={(e) => {this.props.changePreviewMode(Property.previewMode().Tree)}} />
+        <label
+          className="ImageMenu-label"
+          htmlFor={this.props.leafdata.id + "-menu-right"}
+          className="ImageMenu-Label"
+        >
+          <img className="ImageMenu-Img" src={rightimg} alt="Add child" />
+        </label>
+        <input
+          type="button"
+          id={this.props.leafdata.id + "-menu-right"}
+          className="ImageMenu-Item"
+          value="Add"
+          onClick={(e) => {
+            this.props.addChild(this.props.leafdata.id);
+          }}
+        />
 
-
-            <label  className="ImageMenu-label" htmlFor={this.props.leafdata.id + "-menu-camera"} className="ImageMenu-Label">
-                <img className="ImageMenu-Img" src={cameraimg} alt="Add pictures" />
-            </label>
-            <input type='file' id={this.props.leafdata.id+"-menu-camera"} className="ImageMenu-Item"
-                   onChange={(e) => {this.fileChangeHandler(e)}} />
-            {this.state.imgcanvas}
-
-            <label  className="ImageMenu-label" htmlFor={this.props.leafdata.id + "-menu-palette"} className="ImageMenu-Label">
-                <img className="ImageMenu-Img" src={paletteimg} alt="Choose color" />
-            </label>
-            <input type='color' id={this.props.leafdata.id+"-menu-palette"} className="ImageMenu-Item"
-                   onChange={(e) => {this.colorPickHandler(e)}} />
-
-            <label  className="ImageMenu-label" htmlFor={this.props.leafdata.id+"-menu-right"} className="ImageMenu-Label">
-                <img className="ImageMenu-Img" src={rightimg} alt="Add child" />
-            </label>
-            <input type='button' id={this.props.leafdata.id+"-menu-right"} className="ImageMenu-Item" value="Add"
-                   onClick={(e) => {this.props.addChild(this.props.leafdata.id)}} />
-
-            <label  className="ImageMenu-label"  htmlFor={this.props.leafdata.id+"-menu-down"}  className="ImageMenu-Label" style={this.downButtonStyle()}>
-                <img className="ImageMenu-Img" src={downimg} alt="Add" />
-            </label>
-            <input type='button' id={this.props.leafdata.id+"-menu-down"} className="ImageMenu-Item"  value="Add"
-                   onClick={(e) => {this.props.addSibling(this.props.leafdata.id)}} />
-
-        </div>
-    }
+        <label
+          className="ImageMenu-label"
+          htmlFor={this.props.leafdata.id + "-menu-down"}
+          className="ImageMenu-Label"
+          style={this.downButtonStyle()}
+        >
+          <img className="ImageMenu-Img" src={downimg} alt="Add" />
+        </label>
+        <input
+          type="button"
+          id={this.props.leafdata.id + "-menu-down"}
+          className="ImageMenu-Item"
+          value="Add"
+          onClick={(e) => {
+            this.props.addSibling(this.props.leafdata.id);
+          }}
+        />
+      </div>
+    );
+  }
 }
 
-ImageMenu.propTypes={
-    leafdata: PropTypes.object,
-    style: PropTypes.object,
-    edit:PropTypes.func,
-    addChild: PropTypes.func,
-    addSibling:PropTypes.func,
-    changePreviewMode:PropTypes.func,
-    walk:PropTypes.func,
-    delete:PropTypes.func,
-    jump:PropTypes.func
-}
+ImageMenu.propTypes = {
+  leafdata: PropTypes.object,
+  style: PropTypes.object,
+  edit: PropTypes.func,
+  addChild: PropTypes.func,
+  addSibling: PropTypes.func,
+  changePreviewMode: PropTypes.func,
+  walk: PropTypes.func,
+  delete: PropTypes.func,
+  jump: PropTypes.func,
+};

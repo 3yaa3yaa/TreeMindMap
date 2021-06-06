@@ -1,37 +1,34 @@
-
 .ImageMenu {
-    display: block;
-    width: 30px;
+  display: block;
+  width: 30px;
 }
 
-.ImageMenu-Label{
-    vertical-align: top;
+.ImageMenu-Label {
+  vertical-align: top;
 }
 
 .ImageMenu-Item {
-    vertical-align: top;
-    height: 1px;
-    visibility: hidden;
+  vertical-align: top;
+  height: 1px;
+  visibility: hidden;
 }
 
-
-.ImageMenu-Canvas{
-    display: none;
+.ImageMenu-Canvas {
+  display: none;
 }
-
 
 .ImageMenu-Label {
-    display: block;
+  display: block;
 }
 .ImageMenu-Img {
-    display: inline-block;
-    width:30px;
+  display: inline-block;
+  width: 30px;
 }
 
 .ImageMenu-ButtonLabel {
-    display: inline-block;
-    color: whitesmoke;
-    padding-top: 0px;
-    padding-left: 3px;
-    vertical-align: top;
+  display: inline-block;
+  color: whitesmoke;
+  padding-top: 0px;
+  padding-left: 3px;
+  vertical-align: top;
 }

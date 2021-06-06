@@ -1,17 +1,13 @@
-
-
 .ImgViewer {
-  width:auto;
+  width: auto;
 }
-
 
 .ImgViewer-div {
   width: auto;
-  margin:5px;
-
+  margin: 5px;
 }
 
 .ImgViewer-img {
   width: 180px;
-  margin:5px;
+  margin: 5px;
 }

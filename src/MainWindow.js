@@ -1,86 +1,89 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import Tree from "./Tree";
 import PreviewPanel from "./PreviewPanel";
 import Property from "./Property";
-import  './MainWindow.css'
+import "./MainWindow.css";
 import PropTypes from "prop-types";
 
 class MainWindow extends Component {
+  constructor(props) {
+    super(props);
+    this.mainRef = React.createRef();
+    this.mainContentRef = React.createRef();
+    this.height = "0px";
+  }
 
-    constructor(props) {
-        super(props);
-        this.mainRef = React.createRef();
-        this.mainContentRef = React.createRef();
-        this.height='0px';
+  _getPreviewScreen() {
+    if (this.props.property.previewMode != Property.previewMode().none) {
+      return (
+        <PreviewPanel
+          leafdata={this.props.root.getLeaf(this.props.property.focusId)}
+          previewMode={this.props.property.previewMode}
+          changePreviewMode={this.props.changePreviewMode}
+        />
+      );
     }
+  }
 
-    _getPreviewScreen()
-    {
-        if(this.props.property.previewMode!=Property.previewMode().none)
-        {
-            return <PreviewPanel leafdata={this.props.root.getLeaf(this.props.property.focusId)}
-                                 previewMode={this.props.property.previewMode}
-                                 changePreviewMode={this.props.changePreviewMode}
-            />
-        }
+  _getTreeStyle() {
+    if (this.props.property.previewMode != Property.previewMode().none) {
+      return {
+        filter: "blur(10px)",
+        opacity: "0.7",
+        position: "fixed",
+        overflow: "hidden",
+      };
     }
+  }
 
-    _getTreeStyle() {
-        if (this.props.property.previewMode != Property.previewMode().none) {
-            return {filter: "blur(10px)",
-                    opacity: "0.7",
-                    position: "fixed",
-                    overflow:"hidden"}
-        }
-    }
+  _getMainStyle() {
+    return { height: this.height };
+  }
 
-    _getMainStyle()
-    {
-        return {height: this.height};
-    }
-
-
-    render() {
-        return <div className="MainWindow" style={this._getMainStyle()}>
-                    <div className="MainWindow-Preview">
-                        {this._getPreviewScreen()}
-                    </div>
-                    <div className="MainWindow-Content"
-                         ref={(e)=>{this.mainContentRef=e}}
-                         style={this._getTreeStyle()}>
-                        <Tree
-                            root={this.props.root}
-                            property={this.props.property}
-                            delete={this.props.delete}
-                            addRoot={this.props.addRoot}
-                            addSibling={this.props.addSibling}
-                            addChild={this.props.addChild}
-                            edit={this.props.edit}
-                            move={this.props.move}
-                            walk={this.props.walk}
-                            jump={this.props.jump}
-                            changeMode={this.props.changeMode}
-                            changePreviewMode={this.props.changePreviewMode}
-                        />
-                    </div>
-                </div>
-    }
+  render() {
+    return (
+      <div className="MainWindow" style={this._getMainStyle()}>
+        <div className="MainWindow-Preview">{this._getPreviewScreen()}</div>
+        <div
+          className="MainWindow-Content"
+          ref={(e) => {
+            this.mainContentRef = e;
+          }}
+          style={this._getTreeStyle()}
+        >
+          <Tree
+            root={this.props.root}
+            property={this.props.property}
+            delete={this.props.delete}
+            addRoot={this.props.addRoot}
+            addSibling={this.props.addSibling}
+            addChild={this.props.addChild}
+            edit={this.props.edit}
+            move={this.props.move}
+            walk={this.props.walk}
+            jump={this.props.jump}
+            changeMode={this.props.changeMode}
+            changePreviewMode={this.props.changePreviewMode}
+          />
+        </div>
+      </div>
+    );
+  }
 }
 
-
-MainWindow.propTypes={
-    root: PropTypes.object,
-    property: PropTypes.object,
-    edit:PropTypes.func,
-    addChild: PropTypes.func,
-    addRoot: PropTypes.func,
-    addSibling:PropTypes.func,
-    changePreviewMode:PropTypes.func,
-    walk:PropTypes.func,
-    move:PropTypes.func,
-    changeMode:PropTypes.func,
-    delete:PropTypes.func,
-    jump:PropTypes.func
-}
+MainWindow.propTypes = {
+  root: PropTypes.object,
+  property: PropTypes.object,
+  edit: PropTypes.func,
+  addChild: PropTypes.func,
+  addRoot: PropTypes.func,
+  addSibling: PropTypes.func,
+  changePreviewMode: PropTypes.func,
+  walk: PropTypes.func,
+  move: PropTypes.func,
+  changeMode: PropTypes.func,
+  delete: PropTypes.func,
+  jump: PropTypes.func,
+};
 
 export default MainWindow;
