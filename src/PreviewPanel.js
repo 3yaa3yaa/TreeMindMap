@@ -8,6 +8,7 @@ import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
 import PreviewSentence from "./PreviewSentence";
 import PreviewList from "./PreviewList";
+import PropTypes from "prop-types";
 
 class PreviewPanel extends Component {
 
@@ -80,6 +81,20 @@ class PreviewPanel extends Component {
                     </div>
                 </div>
     }
+}
+
+
+PreviewPanel.propTypes={
+    leafdata: PropTypes.object,
+    focusId: PropTypes.object,
+    edit:PropTypes.func,
+    addChild: PropTypes.func,
+    addSibling:PropTypes.func,
+    changePreviewMode:PropTypes.func,
+    previewMode:PropTypes.object,
+    walk:PropTypes.func,
+    delete:PropTypes.func,
+    jump:PropTypes.func
 }
 
 export default PreviewPanel;

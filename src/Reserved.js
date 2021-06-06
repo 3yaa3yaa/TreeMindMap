@@ -17,19 +17,19 @@ export default class ReservedList
     }
 
     getMeanJSX(text, key){
-        if(text===null || text===undefined){text=""};
+        if(text===null || text===undefined){text=""}
         return <div key={key} style={this.getBoldTagStyle()}>{this.callback_sum(text)/this.callback_count(text)}</div>;
     }
 
     getSumJSX(text, key)
     {
-        if(text===null || text===undefined){text=""};
+        if(text===null || text===undefined){text=""}
         return <div key={key} style={this.getBoldTagStyle()}>{this.callback_sum(text)}</div>;
     }
 
     getCountJSX(text, key)
     {
-        if(text===null || text===undefined){text=""};
+        if(text===null || text===undefined){text=""}
         return <div key={key} style={this.getBoldTagStyle()}>{this.callback_count(text)}</div>;
     }
 

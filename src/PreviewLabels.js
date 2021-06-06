@@ -3,6 +3,8 @@ import './PreviewLabels.css'
 import ReadOnlyLeaf from "./ReadOnlyLeaf";
 import InstructionMessage from "./InstructionMessage";
 import Property from "./Property";
+import PropTypes from "prop-types";
+import MenuModal from "./MenuModal";
 
 export default class PreviewLabels extends Component {
 
@@ -64,5 +66,10 @@ export default class PreviewLabels extends Component {
     render() {
         return <div>{this.getContent()}</div>
     }
+}
+
+
+PreviewLabels.propTypes={
+    leafdata: PropTypes.object
 }
 

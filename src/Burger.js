@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Burger.css';
+import PropTypes from "prop-types";
 
 class Burger extends Component {
 
@@ -16,6 +17,11 @@ class Burger extends Component {
         </div>
     );
     }
+}
+
+
+Burger.propTypes={
+    style: PropTypes.object,
 }
 
 export default Burger;

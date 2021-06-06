@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import "./Connector.css"
-
-
-// const canvasWidth = 30
-// const canvasHeight = 30
+import PropTypes from "prop-types";
 
 class Connector extends Component {
 
@@ -28,8 +25,7 @@ class Connector extends Component {
         }
     }
 
-    _getSingleConnector()
-    {
+    _getSingleConnector() {
         return (
             <div key={this.props.leafid} className="Connector-Table" style={this._getTableStyle()}>
                 <div className="Connector-Row-top">
@@ -44,8 +40,7 @@ class Connector extends Component {
         )
     }
 
-    _getVerticalConnector()
-    {
+    _getVerticalConnector() {
         return (
             <div key={this.props.leafid} className="Connector-Table" style={this._getTableStyle()}>
                 <div className="Connector-Row-top">
@@ -126,4 +121,11 @@ class Connector extends Component {
         }
     }
 }
+
+
+Connector.propTypes={
+    leafid: PropTypes.object,
+    mode: PropTypes.object,
+}
+
 export default Connector;

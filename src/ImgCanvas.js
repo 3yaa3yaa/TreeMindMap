@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './ImgCanvas.css'
+import PropTypes from "prop-types";
 
 class ImgCanvas extends Component {
 
@@ -20,5 +21,13 @@ class ImgCanvas extends Component {
     }
 }
 
+
+ImgCanvas.propTypes={
+    leafdata: PropTypes.object,
+    focusId: PropTypes.object,
+    width: PropTypes.object,
+    height: PropTypes.object,
+    setImage:PropTypes.func,
+}
 
 export default ImgCanvas;

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Leaf.css';
 import ImgViewer from './ImgViewer'
 import ImageMenu from "./ImageMenu";
 import MarkDownTextBoxWrapper from "./MarkDownTextBoxWrapper";
 import StateProvider from './StateProvider';
 import LeafData from "./LeafData";
+
 
 class Leaf extends Component {
 
@@ -81,7 +83,7 @@ class Leaf extends Component {
     _getLeafStyle()
     {
         let color=this.props.leafdata.color;
-        if(color==undefined){color="silver"};
+        if(color==undefined){color="silver"}
 
         return {
             textAlign: "left",
@@ -168,6 +170,17 @@ class Leaf extends Component {
                  this._getDOM()
         );
     }
+}
+Leaf.propTypes={
+    leafdata: PropTypes.object,
+    focusId: PropTypes.object,
+    edit:PropTypes.func,
+    addChild: PropTypes.func,
+    addSibling:PropTypes.func,
+    changePreviewMode:PropTypes.func,
+    walk:PropTypes.func,
+    delete:PropTypes.func,
+    jump:PropTypes.func
 }
 
 export default Leaf ;

@@ -4,6 +4,8 @@ import MarkDownTextBoxWrapper from "./MarkDownTextBoxWrapper";
 import ImgViewer from "./ImgViewer";
 import InstructionMessage from "./InstructionMessage";
 import LeafData from "./LeafData";
+import PropTypes from "prop-types";
+import Leaf from "./Leaf";
 
 export default class PreviewSentence extends Component {
 
@@ -73,3 +75,6 @@ export default class PreviewSentence extends Component {
     }
 }
 
+PreviewSentence.propTypes={
+    leafdata: PropTypes.object
+}

@@ -254,4 +254,13 @@ describe('A suite', function() {
 
 
 
+    it('should returns proper fields', function(){
+        let data= new LeafData(0,"",[]);
+        expect(data.escape("^this$is(a'test)")).toEqual("\\^this\\$is\\(a\\'test\\)");
+    })
+
+
+
+
+
 });

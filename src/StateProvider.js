@@ -69,14 +69,14 @@ class StateProvider
                         if(youngerbrothers===null)
                         {result= StateProvider.addSibling(state ,action.id)}
                         else
-                        {result = StateProvider.walk(state, state.property.focusId, StateProvider.whereToMove().DOWN)};
+                        {result = StateProvider.walk(state, state.property.focusId, StateProvider.whereToMove().DOWN)}
                         break;
                     case 'addChild':
                         let children = state.root.getChildren(state.property.focusId);
                         if(children.length===0)
                         {result = StateProvider.addChild(state ,action.id)}
                         else
-                        {result = StateProvider.walk(state, state.property.focusId, StateProvider.whereToMove().LEVELDOWN)};
+                        {result = StateProvider.walk(state, state.property.focusId, StateProvider.whereToMove().LEVELDOWN)}
                         break;
                     case 'edit':
                         result= StateProvider.edit(state ,action.leaf,state.property.focusId);
@@ -116,8 +116,7 @@ class StateProvider
     }
 
     //Reducer implementation
-    static addRoot(state,id,focusId)
-    {
+    static addRoot(state) {
         if (state.root!=null)
         {
             return {root:state.root, property: state.property}
@@ -161,7 +160,7 @@ class StateProvider
         }
     }
 
-    static edit(state, newleaf, focusId)
+    static edit(state, newleaf)
     {
         let leaf = state.root.getLeaf(newleaf.id);
         leaf.description=newleaf.description;
@@ -170,7 +169,7 @@ class StateProvider
         return { root: state.root , property:state.property}
     }
 
-    static move(state, from, to, focusId)
+    static move(state, from, to)
     {
         let current=state.root.getLeaf(from);
         let currentParent = state.root.getParent(from);
@@ -188,7 +187,7 @@ class StateProvider
     }
 
 
-    static delete(state, id, focusId)
+    static delete(state, id)
     {
         if(state.root!=null && state.root.id!=id)
         {
@@ -226,17 +225,17 @@ class StateProvider
             case destination.UP:
                 let elderBrother=state.root.getElderBrother(focusId);
                 if(elderBrother!=null){moveTo=elderBrother.id}
-                else{moveTo=focusId};
+                else{moveTo=focusId}
                 break;
             case destination.DOWN:
                 let youngerBrother=state.root.getYoungerBrother(focusId);
                 if(youngerBrother!=null){moveTo=youngerBrother.id}
-                else{moveTo=focusId};
+                else{moveTo=focusId}
                 break;
             case destination.LEVELUP:
                 let parent=state.root.getParent(focusId);
                 if(parent!=null){moveTo=parent.id}
-                else {moveTo=focusId};
+                else {moveTo=focusId}
                 break;
             case destination.LEVELDOWN:
                 let children = state.root.getChildren(focusId);

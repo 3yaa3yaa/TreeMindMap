@@ -3,6 +3,7 @@ import Tree from "./Tree";
 import PreviewPanel from "./PreviewPanel";
 import Property from "./Property";
 import  './MainWindow.css'
+import PropTypes from "prop-types";
 
 class MainWindow extends Component {
 
@@ -64,6 +65,22 @@ class MainWindow extends Component {
                     </div>
                 </div>
     }
+}
+
+
+MainWindow.propTypes={
+    root: PropTypes.object,
+    property: PropTypes.object,
+    edit:PropTypes.func,
+    addChild: PropTypes.func,
+    addRoot: PropTypes.func,
+    addSibling:PropTypes.func,
+    changePreviewMode:PropTypes.func,
+    walk:PropTypes.func,
+    move:PropTypes.func,
+    changeMode:PropTypes.func,
+    delete:PropTypes.func,
+    jump:PropTypes.func
 }
 
 export default MainWindow;

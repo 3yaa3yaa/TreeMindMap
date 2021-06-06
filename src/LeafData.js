@@ -88,7 +88,7 @@ export default class LeafData{
         let elderbrother=null;
         for(let brother of brothers)
         {
-            if(brother.id===id){return elderbrother};
+            if(brother.id===id){return elderbrother}
             elderbrother=brother;
         }
         return null;
@@ -112,8 +112,8 @@ export default class LeafData{
         let wasMe=false;
         for(let brother of brothers)
         {
-            if(wasMe){return brother};
-            if(brother.id===id){wasMe=true};
+            if(wasMe){return brother}
+            if(brother.id===id){wasMe=true}
         }
         return null;
     }
@@ -230,9 +230,12 @@ export default class LeafData{
         }
     }
 
+    escape(label) {
+        return label.replace(/([^a-zA-Z ])/g, "\\$1" )
+    }
 
-    getLabelValues(label)
-    {
+    getLabelValues(label) {
+        label=this.escape(label);
         let regexp;
         if(label==="")
         {
@@ -241,7 +244,7 @@ export default class LeafData{
         else
         {
             regexp= new RegExp('#' + label+ ':([^ ]+?)(\r\n|\n|\r| |$)','g')
-        };
+        }
         return [...this.description.matchAll(regexp)].map(el=>{return el[1]});
     }
 
@@ -250,7 +253,7 @@ export default class LeafData{
         let items=[this];
         items=items.concat(this.getAllChildren());
         let array=[];
-        if(items===null){return array};
+        if(items===null){return array}
         for(let item of items)
         {
             let regexp = new RegExp('#([^ ]+?)(\r\n|\n|\r| |$)','g');
@@ -272,7 +275,7 @@ export default class LeafData{
         let items=[this];
         items=items.concat(this.getAllChildren());
         let array=[];
-        if(items===null){return array};
+        if(items===null){return array}
         for(let item of items)
         {
             array=array.concat(item.getLabelValues(label));

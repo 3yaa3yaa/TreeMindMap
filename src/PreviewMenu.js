@@ -7,6 +7,8 @@ import exportImg from './images/export.png'
 import tableImg from './images/gotable.png'
 import documentImg from './images/document.png'
 import labelimg from "./images/label.png"
+import PropTypes from "prop-types";
+import PreviewLabels from "./PreviewLabels";
 
 export default class PreviewMenu extends Component {
 
@@ -60,4 +62,10 @@ export default class PreviewMenu extends Component {
             {this.getButtons()}
         </div>
     }
+}
+
+PreviewMenu.propTypes={
+    export: PropTypes.func,
+    previewMode: PropTypes.object,
+    changePreviewMode: PropTypes.func,
 }

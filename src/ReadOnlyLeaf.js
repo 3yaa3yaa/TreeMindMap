@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Leaf from "./Leaf";
+import PropTypes from "prop-types";
+import PreviewPanel from "./PreviewPanel";
 
 export default class ReadOnlyLeaf extends Component {
 
@@ -24,4 +26,9 @@ export default class ReadOnlyLeaf extends Component {
                  </div>
         );
     }
+}
+
+
+ReadOnlyLeaf.propTypes={
+    leafdata: PropTypes.object
 }

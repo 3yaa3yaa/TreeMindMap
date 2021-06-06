@@ -7,6 +7,7 @@ import cameraimg from './images/camera.png';
 import paletteimg from './images/palette.png';
 import ImgCanvas from "./ImgCanvas";
 import Property from "./Property";
+import PropTypes from "prop-types";
 
 export default class ImageMenu extends Component {
 
@@ -111,4 +112,16 @@ export default class ImageMenu extends Component {
 
         </div>
     }
+}
+
+ImageMenu.propTypes={
+    leafdata: PropTypes.object,
+    style: PropTypes.object,
+    edit:PropTypes.func,
+    addChild: PropTypes.func,
+    addSibling:PropTypes.func,
+    changePreviewMode:PropTypes.func,
+    walk:PropTypes.func,
+    delete:PropTypes.func,
+    jump:PropTypes.func
 }

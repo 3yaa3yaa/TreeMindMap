@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './ImgViewer.css';
+import PropTypes from "prop-types";
 
 class ImgViewer extends Component {
 
@@ -35,6 +36,12 @@ class ImgViewer extends Component {
         this._getDOM()
     );
     }
+}
+
+
+ImgViewer.propTypes={
+    leafdata: PropTypes.object,
+    ImgStyle: PropTypes.object
 }
 
 export default ImgViewer;

@@ -3,6 +3,8 @@ import Property from "./Property";
 import { MarkdownTextBox } from '@3yaa3yaa/markdowntextbox';
 import ImgViewer from "./ImgViewer";
 import InstructionMessage from "./InstructionMessage";
+import PropTypes from "prop-types";
+import PreviewLabels from "./PreviewLabels";
 
 export default class PreviewList extends Component {
 
@@ -118,3 +120,6 @@ export default class PreviewList extends Component {
     }
 }
 
+PreviewList.propTypes={
+    leafdata: PropTypes.object
+}

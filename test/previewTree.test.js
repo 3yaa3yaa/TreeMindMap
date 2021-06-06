@@ -36,6 +36,31 @@ describe('A suite', function() {
         }
     });
 
+
+    it('should handle irregular strings', function(){
+        let data0= new LeafData(0,"first level:\n=sum(()",[]);
+        let data1= new LeafData(1,"second level:\n=count()",[]);
+        let data2= new LeafData(2,"third level:\n#10.5",[]);
+        let data3= new LeafData(3,"fourth level:\n#20.5",[]);
+        let data4= new LeafData(4,"fifth level:\n#30.5",[]);
+
+        data0.children.push(data1);
+        data1.children.push(data2);
+        data2.children.push(data3);
+        data3.children.push(data4);
+
+        let prop=new Property();
+        const wrapper=mount(<Tree root={data0} property={prop}/>);
+
+        expect(wrapper.find('.description').at(0).text()).toEqual(expect.stringContaining(""));
+        expect(wrapper.find('.description').at(1).text()).toEqual(expect.stringContaining("3"));
+        expect(wrapper.find('.description').at(2).text()).toEqual(expect.stringContaining("10.5"));
+        expect(wrapper.find('.description').at(3).text()).toEqual(expect.stringContaining("20.5"));
+        expect(wrapper.find('.description').at(4).text()).toEqual(expect.stringContaining("30.5"));
+
+    });
+
+
  });
 
 

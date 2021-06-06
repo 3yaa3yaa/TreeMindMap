@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Property from "./Property";
+import PropTypes from "prop-types";
 
 
 export default class InstructionMessage extends Component {
@@ -41,3 +42,7 @@ export default class InstructionMessage extends Component {
     }
 }
 
+
+InstructionMessage.propTypes={
+    previewMode: PropTypes.object
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './MenuModal.css';
 import ImgCanvas from './ImgCanvas'
+import PropTypes from "prop-types";
 
 class MenuModal extends Component {
 
@@ -81,6 +82,21 @@ class MenuModal extends Component {
         //return this._getModal()
         return <div>{this._getModal()}{this.state.imgcanvas}</div>
     }
+}
+
+
+MenuModal.propTypes={
+    leafdata: PropTypes.object,
+    focusId: PropTypes.object,
+    position: PropTypes.object,
+    edit:PropTypes.func,
+    addChild: PropTypes.func,
+    closeModal: PropTypes.func,
+    addSibling:PropTypes.func,
+    changePreviewMode:PropTypes.func,
+    walk:PropTypes.func,
+    delete:PropTypes.func,
+    jump:PropTypes.func
 }
 
 export default MenuModal;
