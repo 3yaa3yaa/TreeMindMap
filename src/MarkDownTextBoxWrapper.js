@@ -39,5 +39,5 @@ MarkDownTextBoxWrapper.propTypes = {
   textAreaStyle: PropTypes.object,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
-  focus: PropTypes.func,
+  focus: PropTypes.bool,
 };

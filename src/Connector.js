@@ -131,8 +131,8 @@ class Connector extends Component {
 }
 
 Connector.propTypes = {
-  leafid: PropTypes.object,
-  mode: PropTypes.object,
+  leafid: PropTypes.any,
+  mode: PropTypes.string,
 };
 
 export default Connector;

@@ -54,5 +54,5 @@ export default class InstructionMessage extends Component {
 }
 
 InstructionMessage.propTypes = {
-  previewMode: PropTypes.object,
+  previewMode: PropTypes.number,
 };

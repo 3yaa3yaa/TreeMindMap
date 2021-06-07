@@ -3,7 +3,7 @@ import { DragSource, DropTarget } from "react-dnd";
 import Leaf from "./Leaf";
 import PropTypes from "prop-types";
 
-export default class DnDLeaf extends Component {
+class DnDLeaf extends Component {
   constructor(props) {
     super(props);
   }
@@ -30,6 +30,20 @@ export default class DnDLeaf extends Component {
     );
   }
 }
+
+DnDLeaf.propTypes = {
+  leafdata: PropTypes.object,
+  focusId: PropTypes.any,
+  edit: PropTypes.func,
+  addChild: PropTypes.func,
+  addSibling: PropTypes.func,
+  changePreviewMode: PropTypes.func,
+  walk: PropTypes.func,
+  delete: PropTypes.func,
+  jump: PropTypes.func,
+  connectDragSource: PropTypes.func,
+  connectDropTarget: PropTypes.func
+};
 
 const dragSpec = {
   beginDrag: (props) => {
@@ -69,14 +83,4 @@ function collectDrop(connect, monitor) {
 DnDLeaf = DropTarget("leaf", dropSpec, collectDrop)(DnDLeaf);
 DnDLeaf = DragSource("leaf", dragSpec, collectDrag)(DnDLeaf);
 
-DndLeaf.propTypes = {
-  leafdata: PropTypes.object,
-  focusId: PropTypes.object,
-  edit: PropTypes.func,
-  addChild: PropTypes.func,
-  addSibling: PropTypes.func,
-  changePreviewMode: PropTypes.func,
-  walk: PropTypes.func,
-  delete: PropTypes.func,
-  jump: PropTypes.func,
-};
+export default DnDLeaf

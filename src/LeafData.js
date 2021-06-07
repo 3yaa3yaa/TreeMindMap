@@ -199,7 +199,7 @@ export default class LeafData {
   }
 
   escape(label) {
-    return label.replace(/([^a-zA-Z ])/g, "\\$1");
+    return label.replace(/([^a-zA-Z0-9 ])/g, "\\$1");
   }
 
   getLabelValues(label) {

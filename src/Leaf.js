@@ -169,7 +169,7 @@ class Leaf extends Component {
 }
 Leaf.propTypes = {
   leafdata: PropTypes.object,
-  focusId: PropTypes.object,
+  focusId: PropTypes.any,
   edit: PropTypes.func,
   addChild: PropTypes.func,
   addSibling: PropTypes.func,

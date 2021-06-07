@@ -248,10 +248,13 @@ describe("A suite", function () {
     expect(data5.codeExists()).toEqual(true);
   });
 
-  it("should returns proper fields", function () {
+  it("escape should work properly", function () {
     let data = new LeafData(0, "", []);
     expect(data.escape("^this$is(a'test)")).toEqual(
       "\\^this\\$is\\(a\\'test\\)"
+    );
+    expect(data.escape("test123^")).toEqual(
+        "test123\\^"
     );
   });
 });
